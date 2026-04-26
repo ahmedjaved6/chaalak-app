@@ -284,8 +284,9 @@ export default function PassengerHomePage() {
     // Register passenger for push so they receive the 'puller accepted' notification.
     // Dynamic import keeps server-side webpush code out of the client bundle.
     import('@/lib/push').then(({ registerPushSubscription }) => {
-      registerPushSubscription().catch(() => { /* non-critical */ })
+      registerPushSubscription(passengerId).catch(() => { /* non-critical */ })
     })
+
 
     router.push('/ride')
   }

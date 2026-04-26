@@ -1,9 +1,6 @@
-import webpush from 'web-push';
-import { adminSupabase } from '@/lib/supabase/admin';
-
 // ── Client-side ──────────────────────────────────────────────────────────────
 
-export async function registerPushSubscription(): Promise<void> {
+export async function registerPushSubscription(user_id: string): Promise<void> {
   if (!('Notification' in window) || !('serviceWorker' in navigator)) return;
 
   const permission = await Notification.requestPermission();
@@ -21,34 +18,8 @@ export async function registerPushSubscription(): Promise<void> {
   await fetch('/api/push/subscribe', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(subscription),
+    body: JSON.stringify({ subscription, user_id }),
   });
 }
 
-// ── Server-side ───────────────────────────────────────────────────────────────
 
-webpush.setVapidDetails(
-  process.env.VAPID_EMAIL!,
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  process.env.VAPID_PRIVATE_KEY!,
-);
-
-export async function sendPushToUser(
-  user_id: string,
-  title: string,
-  body: string,
-  url: string = '/',
-): Promise<void> {
-  const { data: tokens, error } = await adminSupabase
-    .from('push_tokens')
-    .select('token')
-    .eq('user_id', user_id);
-
-  if (error || !tokens?.length) return;
-
-  await Promise.allSettled(
-    tokens.map(({ token }) =>
-      webpush.sendNotification(JSON.parse(token), JSON.stringify({ title, body, url }))
-    )
-  );
-}

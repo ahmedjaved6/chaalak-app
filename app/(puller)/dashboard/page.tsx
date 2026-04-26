@@ -354,12 +354,15 @@ export default function PullerDashboardPage() {
           ;(async () => {
             try {
               // 1. Register this puller's device for push
-              const { registerPushSubscription } = await import('@/lib/push')
-              await registerPushSubscription()
+              const currentData = dataRef.current
+              if (currentData?.puller?.user_id) {
+                const { registerPushSubscription } = await import('@/lib/push')
+                await registerPushSubscription(currentData.puller.user_id)
+              }
 
               // 2. Notify all online pullers in same zone about waiting rides
-              const currentData = dataRef.current
               if (currentData?.puller?.zone_id) {
+
                 const { data: onlinePullers } = await sbRef.current
                   .from('pullers')
                   .select('user_id')
