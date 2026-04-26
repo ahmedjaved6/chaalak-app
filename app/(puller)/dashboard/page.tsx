@@ -556,7 +556,7 @@ function PullerDashboardPage() {
   const { puller, user, zone, subscription, todayRides, monthRides, zoneRank } = data
 
   return (
-    <div
+    <main
       className="min-h-screen pb-24"
       style={{ backgroundColor: '#1A1A1E' }}
     >
@@ -773,7 +773,7 @@ function PullerDashboardPage() {
 
       {/* ── Bottom tab bar ────────────────────────────────────────────────── */}
       <TabBar active="home" />
-    </div>
+    </main>
   )
 }
 export default function PullerDashboardSuspense() {

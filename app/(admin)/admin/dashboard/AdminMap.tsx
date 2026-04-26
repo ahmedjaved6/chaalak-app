@@ -59,6 +59,9 @@ export default function AdminMap({ pullers, passengers }: AdminMapProps) {
           key={`p-${p.id}`}
           position={[p.lat, p.lng]}
           icon={pullerDotIcon(p.zoneNumber)}
+          alt={`Puller ${p.id}`}
+          keyboard={true}
+          ref={(m) => m?.getElement()?.setAttribute('aria-label', `Puller ${p.id}`)}
         />
       ))}
 
@@ -68,6 +71,9 @@ export default function AdminMap({ pullers, passengers }: AdminMapProps) {
           key={`r-${r.id}`}
           position={[r.lat, r.lng]}
           icon={passengerDotIcon}
+          alt={`Passenger ${r.id}`}
+          keyboard={true}
+          ref={(m) => m?.getElement()?.setAttribute('aria-label', `Passenger ${r.id}`)}
         />
       ))}
     </MapContainer>

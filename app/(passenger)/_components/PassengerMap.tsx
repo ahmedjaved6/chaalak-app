@@ -85,14 +85,27 @@ export default function PassengerMap({ passengerPos, pullers }: PassengerMapProp
       {passengerPos && (
         <>
           <Recenter lat={passengerPos[0]} lng={passengerPos[1]} />
-          <Marker position={passengerPos} icon={passengerIcon} />
+          <Marker 
+            position={passengerPos} 
+            icon={passengerIcon} 
+            alt="Your location"
+            keyboard={true}
+            ref={(m) => m?.getElement()?.setAttribute('aria-label', 'Your location')}
+          />
         </>
       )}
 
       {/* Online puller markers */}
       {pullers.map((p) =>
         p.lat != null && p.lng != null ? (
-          <Marker key={p.id} position={[p.lat, p.lng]} icon={pullerIcon} />
+          <Marker 
+            key={p.id} 
+            position={[p.lat, p.lng]} 
+            icon={pullerIcon} 
+            alt={`Puller ${p.id}`}
+            keyboard={true}
+            ref={(m) => m?.getElement()?.setAttribute('aria-label', `Puller ${p.id}`)}
+          />
         ) : null
       )}
     </MapContainer>

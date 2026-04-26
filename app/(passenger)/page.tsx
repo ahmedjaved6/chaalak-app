@@ -227,6 +227,12 @@ function PassengerHomePage() {
   const [recentRides, setRecentRides]       = useState<RecentRide[]>([])
   const [cooldownUntil, setCooldownUntil]   = useState<string | null>(null)
   const [weeklyCancellations, setWeeklyCancellations] = useState(0)
+  const [showMap, setShowMap] = useState(false)
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowMap(true), 800)
+    return () => clearTimeout(t)
+  }, [])
 
   const tr = useT()
 
@@ -432,7 +438,7 @@ function PassengerHomePage() {
   }
 
   return (
-    <div
+    <main
       className="flex h-[100dvh] flex-col overflow-hidden"
       style={{ backgroundColor: '#1A1A1E' }}
     >
@@ -467,10 +473,16 @@ function PassengerHomePage() {
 
       {/* ── TOP HALF: Map ─────────────────────────────────────────────────── */}
       <div className="relative shrink-0" style={{ height: '35dvh', minHeight: 180 }}>
-        <PassengerMap
-          passengerPos={passengerPos}
-          pullers={onlinePullers}
-        />
+        {showMap ? (
+          <PassengerMap
+            passengerPos={passengerPos}
+            pullers={onlinePullers}
+          />
+        ) : (
+          <div style={{height:'100%', background:'#E8EFF5', borderRadius:'0', display:'flex', alignItems:'center', justifyContent:'center'}}>
+            <span style={{color:'#8A9AAA', fontSize:12, fontFamily:'Nunito', fontWeight:600}}>🗺 Loading map...</span>
+          </div>
+        )}
 
         {/* Zone label overlay — top left */}
         <ZoneLabelOverlay zone={selectedZone} />
@@ -586,7 +598,7 @@ function PassengerHomePage() {
           )}
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 export default function PassengerHomeSuspense() {

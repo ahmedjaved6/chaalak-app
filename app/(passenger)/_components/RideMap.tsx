@@ -84,8 +84,24 @@ export default function RideMap({ passengerPos, pullerPos }: RideMapProps) {
         />
       )}
 
-      {passengerPos && <Marker position={passengerPos} icon={passengerIcon} />}
-      {pullerPos && <Marker position={pullerPos} icon={pullerIcon} />}
+      {passengerPos && (
+        <Marker 
+          position={passengerPos} 
+          icon={passengerIcon}
+          alt="Your location"
+          keyboard={true}
+          ref={(m) => m?.getElement()?.setAttribute('aria-label', 'Your location')}
+        />
+      )}
+      {pullerPos && (
+        <Marker 
+          position={pullerPos} 
+          icon={pullerIcon}
+          alt="Puller location"
+          keyboard={true}
+          ref={(m) => m?.getElement()?.setAttribute('aria-label', 'Puller location')}
+        />
+      )}
     </MapContainer>
   )
 }

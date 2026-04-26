@@ -234,7 +234,7 @@ function AdminDashboardPage() {
   // ── States ────────────────────────────────────────────────────────────────────
 
   if (loading) return (
-    <div className="min-h-screen" style={{ backgroundColor: '#111113' }}>
+    <main className="min-h-screen" style={{ backgroundColor: '#111113' }}>
       {topbar}
       <div className="mx-auto max-w-lg px-4 pt-8">
         <SkeletonBox h="200px" rounded="24px" />
@@ -247,11 +247,11 @@ function AdminDashboardPage() {
           <SkeletonBox h="148px" rounded="20px" />
         </div>
       </div>
-    </div>
+    </main>
   )
 
   if (error) return (
-    <div className="min-h-screen" style={{ backgroundColor: '#111113' }}>
+    <main className="min-h-screen" style={{ backgroundColor: '#111113' }}>
       {topbar}
       <div className="flex flex-col items-center pt-24 text-center">
         <p className="text-sm font-bold" style={{ color: '#EF4444' }}>{error}</p>
@@ -259,13 +259,13 @@ function AdminDashboardPage() {
           Retry
         </button>
       </div>
-    </div>
+    </main>
   )
 
   // ── Main ──────────────────────────────────────────────────────────────────────
 
   return (
-    <div
+    <main
       className="min-h-screen"
       style={{ backgroundColor: '#111113' }}
     >
@@ -343,7 +343,7 @@ function AdminDashboardPage() {
           Auto-refreshes every 30 s
         </p>
       </div>
-    </div>
+    </main>
   )
 }
 export default function AdminDashboardSuspense() {
