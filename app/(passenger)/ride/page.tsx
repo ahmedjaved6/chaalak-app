@@ -11,6 +11,9 @@ import { cancelRideRequest } from '@/lib/ride'
 import { ZONE_COLORS } from '@/lib/constants'
 import type { RideStatus } from '@/lib/types'
 import type { RideMapProps } from '../_components/RideMap'
+import { useT } from '@/lib/i18n'
+
+
 
 const RideMap = dynamic<RideMapProps>(
   () => import('../_components/RideMap'),
@@ -39,12 +42,14 @@ interface PullerInfo {
 
 // ─── Status label helper ──────────────────────────────────────────────────────
 
-function statusLabel(s: RideStatus): string {
-  if (s === 'requested') return '🔍 ৰিক্সা বিচাৰি আছে…'
-  if (s === 'accepted')  return '🛺 ৰিক্সাৱালা আহি আছে'
+function statusLabel(s: RideStatus, tr: ReturnType<typeof useT>): string {
+
+  if (s === 'requested') return tr.searching
+  if (s === 'accepted')  return tr.puller_found
   if (s === 'active')    return '🚀 যাত্ৰা আৰম্ভ হ\'ল'
   return ''
 }
+
 
 function ReportOption({ label, icon, onClick, variant = 'default' }: { label: string; icon: React.ReactNode; onClick: () => void, variant?: 'default' | 'danger' }) {
 
@@ -81,6 +86,9 @@ export default function PassengerRidePage() {
   const [loading,      setLoading]      = useState(true)
   const [cancelling,   setCancelling]   = useState(false)
   const [showReport,   setShowReport]   = useState(false)
+
+  const tr = useT()
+
 
 
 
@@ -315,8 +323,9 @@ export default function PassengerRidePage() {
           className="absolute left-3 top-3 z-[1000] rounded-xl px-3 py-1.5 text-sm font-bold text-white"
           style={{ background: 'rgba(0,0,0,0.68)', backdropFilter: 'blur(8px)' }}
         >
-          {statusLabel(rideStatus)}
+          {statusLabel(rideStatus, tr)}
         </div>
+
       </div>
 
       {/* ── Bottom sheet ─────────────────────────────────────────────────────── */}
@@ -396,9 +405,11 @@ export default function PassengerRidePage() {
                     style={{ background: '#10B981' }}
                   >
                     <Phone size={20} color="#fff" strokeWidth={2.5} />
-                    <span className="mt-0.5 text-[8px] font-black text-white">CALL</span>
+                    <span className="mt-0.5 text-[8px] font-black text-white">{tr.call_puller.split(' ')[2] || 'CALL'}</span>
                   </a>
                 )}
+
+
               </div>
             </motion.div>
           ) : (
@@ -415,8 +426,9 @@ export default function PassengerRidePage() {
             >
               <div className="h-5 w-5 animate-spin rounded-full border-2 border-amber-400 border-t-transparent" />
               <p className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.45)' }}>
-                ৰিক্সাৱালা বিচাৰি আছে…
+                {tr.searching}
               </p>
+
             </motion.div>
           )}
         </AnimatePresence>
@@ -433,8 +445,9 @@ export default function PassengerRidePage() {
             }}
           >
             <ShieldAlert size={20} strokeWidth={2.5} />
-            SOS — Emergency
+            {tr.sos}
           </button>
+
 
           <div className="flex gap-3">
             <button
@@ -446,8 +459,9 @@ export default function PassengerRidePage() {
               }}
             >
               <Bell size={17} strokeWidth={2.5} />
-              Report Issue
+              {tr.report_issue}
             </button>
+
 
             <button
               type="button"
@@ -461,8 +475,9 @@ export default function PassengerRidePage() {
               }}
             >
               <X size={17} />
-              {cancelling ? '…' : 'Cancel'}
+              {cancelling ? '…' : tr.cancel}
             </button>
+
           </div>
         </div>
 
@@ -484,8 +499,9 @@ export default function PassengerRidePage() {
                 className="fixed bottom-0 left-0 right-0 z-[2001] rounded-t-[32px] bg-[#1A1A1E] px-6 pb-10 pt-8 shadow-2xl"
               >
                 <div className="mb-6 flex items-center justify-between">
-                  <h3 className="text-xl font-black text-white font-nunito">Report Issue</h3>
+                  <h3 className="text-xl font-black text-white font-nunito">{tr.report_issue}</h3>
                   <button onClick={() => setShowReport(false)} className="rounded-full bg-white/5 p-2">
+
                     <X size={20} className="text-white/40" />
                   </button>
                 </div>

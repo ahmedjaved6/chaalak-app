@@ -8,6 +8,9 @@ import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
 import { acceptRide } from '@/lib/ride'
 import type { Zone, SubZone, Puller } from '@/lib/types'
+import { useT } from '@/lib/i18n'
+
+
 
 
 
@@ -155,6 +158,9 @@ function RideOverlay({
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
   }, [onSkip])
 
+  const tr = useT()
+
+
   async function handleAccept() {
     if (accepting) return
     clearInterval(timerRef.current!)
@@ -184,7 +190,6 @@ function RideOverlay({
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.08 }}
-          className="rounded-full px-4 py-1 text-[11px] font-black uppercase tracking-widest"
           style={{
             background: `${zoneColor.hex}1A`,
             border: `1.5px solid ${zoneColor.hex}50`,
@@ -193,6 +198,7 @@ function RideOverlay({
         >
           নতুন যাত্ৰা · New Ride
         </motion.div>
+
 
         {/* Zone name — large, zone-colored */}
         <motion.h1
@@ -304,19 +310,21 @@ function RideOverlay({
               <span>গ্ৰহণ কৰা হৈছে…</span>
             </span>
           ) : (
-            '✓ গ্ৰহণ কৰক · ACCEPT'
+            '✓ ' + tr.puller_found.split('!')[0] || '✓ ACCEPT'
           )}
         </motion.button>
 
-        {/* Skip */}
+
         <button
           type="button"
           onClick={() => { clearInterval(timerRef.current!); onSkip() }}
           className="py-2 text-sm font-semibold transition-colors"
           style={{ color: 'rgba(255,255,255,0.28)' }}
         >
-          এৰি দিয়ক · Skip
+          {tr.cancel}
         </button>
+
+
       </div>
     </motion.div>
   )
@@ -324,7 +332,9 @@ function RideOverlay({
 
 // ─── Idle background state ────────────────────────────────────────────────────
 
-function WaitingState({ zone }: { zone: Zone | null }) {
+function WaitingState({ zone, tr }: { zone: Zone | null, tr: ReturnType<typeof useT> }) {
+
+
   const zoneNum   = zone?.zone_number ?? 1
   const zoneColor = ZONE_COLORS[zoneNum] ?? ZONE_COLORS[1]
 
@@ -355,8 +365,9 @@ function WaitingState({ zone }: { zone: Zone | null }) {
           className="text-[17px] font-black text-white"
           style={{ letterSpacing: '-0.01em' }}
         >
-          যাত্ৰাৰ বাবে অপেক্ষাৰত…
+          {tr.searching}
         </p>
+
         <p
           className="mt-1.5 text-sm font-semibold"
           style={{ color: 'rgba(255,255,255,0.38)' }}
@@ -382,6 +393,9 @@ export default function IncomingRidesPage() {
   const [overlay,     setOverlay]     = useState<EnrichedRide | null>(null)
   const [loadingPage, setLoadingPage] = useState(true)
   const [toast,       setToast]       = useState<{ msg: string; type: ToastType } | null>(null)
+
+  const tr = useT()
+
 
   const sbRef        = useRef(createClient())
   // Keep puller in a ref so realtime closures always see the latest value
@@ -608,12 +622,14 @@ export default function IncomingRidesPage() {
             >
               Incoming Rides
             </p>
+
             <h1
               className="mt-0.5 text-xl font-black text-white"
               style={{ letterSpacing: '-0.01em' }}
             >
-              আহি থকা যাত্ৰা
+              {tr.recent_rides.split(' · ')[0]}
             </h1>
+
           </div>
 
           {/* Zone chip */}
@@ -637,7 +653,8 @@ export default function IncomingRidesPage() {
       </div>
 
       {/* ── Waiting state ──────────────────────────────────────────────────── */}
-      <WaitingState zone={zone} />
+      <WaitingState zone={zone} tr={tr} />
+
 
       {/* ── Incoming ride overlay ──────────────────────────────────────────── */}
       <AnimatePresence>

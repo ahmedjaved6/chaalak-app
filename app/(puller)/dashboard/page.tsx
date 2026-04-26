@@ -8,6 +8,9 @@ import { createClient } from '@/lib/supabase/client'
 import { HEARTBEAT_INTERVAL_MS, ZONE_COLORS } from '@/lib/constants'
 import type { Zone, Puller, Subscription } from '@/lib/types'
 import LogoutButton from '@/components/LogoutButton'
+import { useT } from '@/lib/i18n'
+
+
 
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -41,6 +44,7 @@ function getSubState(sub: Subscription | null): {
   color: string; bg: string; label: string; daysLeft: number
 } {
   if (!sub) return { color: '#6B7280', bg: 'rgba(107,114,128,0.15)', label: 'No subscription', daysLeft: 0 }
+
 
   const now      = Date.now()
   const till     = new Date(sub.valid_till).getTime()
@@ -191,6 +195,10 @@ export default function PullerDashboardPage() {
   const [recentRides, setRecentRides] = useState<RecentRidePuller[]>([])
 
 
+  const tr = useT()
+
+
+
   // Stable refs — persist across renders, safe in closures
   const sbRef       = useRef(createClient())
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -296,11 +304,14 @@ export default function PullerDashboardPage() {
 
         supabase
           .from('subscriptions')
-          .select('*')
+          .select('status, valid_till, valid_from, amount')
           .eq('puller_id', puller.id)
-          .order('created_at', { ascending: false })
+          .eq('status', 'active')
+          .gte('valid_till', new Date().toISOString().split('T')[0])
+          .order('valid_till', { ascending: false })
           .limit(1)
           .maybeSingle(),
+
 
         supabase
           .from('ride_requests')
@@ -316,10 +327,12 @@ export default function PullerDashboardPage() {
 
         supabase
           .from('pullers')
-          .select('*', { count: 'exact', head: true })
+          .select('id')
           .eq('zone_id', puller.zone_id)
           .eq('status', 'active')
-          .gt('total_rides', puller.total_rides),
+          .eq('is_online', true)
+          .order('thumbs_up', { ascending: false }),
+
 
         // Total requests in zone (for acceptance rate)
         supabase
@@ -336,46 +349,61 @@ export default function PullerDashboardPage() {
         subscription: subRes.data as Subscription | null,
         todayRides:   todayRes.count ?? 0,
         monthRides:   monthRes.count ?? 0,
-        zoneRank:     (rankRes.count ?? 0) + 1,
+        zoneRank:     1,
         totalRequests: Math.max(monthRes.count ?? 0, zoneReqRes?.count ?? 15),
+      }
+
+      // Zone Rank calculation with try/catch
+      try {
+        const pullers = rankRes.data || []
+        const rank = pullers.findIndex((p: { id: string }) => p.id === puller.id) + 1
+        nextData.zoneRank = rank || 1
+      } catch {
+        nextData.zoneRank = 1
       }
 
       dataRef.current = nextData
       setData(nextData)
 
-      // Recent Rides
-      const { data: rides } = await supabase
-        .from('ride_requests')
-        .select(`
-          id, completed_at, thumbs_up, started_at,
-          passengers (users (phone)),
-          zones (name_as, zone_number)
-        `)
-        .eq('accepted_by', puller.id)
-        .eq('status', 'completed')
-        .order('completed_at', { ascending: false })
-        .limit(3)
+      // Recent Rides with try/catch
+      try {
+        const { data: rides } = await supabase
+          .from('ride_requests')
+          .select(`
+            id, completed_at, thumbs_up, started_at,
+            passengers (users (phone)),
+            zones (name_as, zone_number)
+          `)
+          .eq('accepted_by', puller.id)
+          .eq('status', 'completed')
+          .order('completed_at', { ascending: false })
+          .limit(3)
 
-      if (rides) {
-        setRecentRides(rides.map(r => {
-          const start = r.started_at ? new Date(r.started_at).getTime() : 0
-          const end   = r.completed_at ? new Date(r.completed_at).getTime() : 0
-          const diff  = Math.max(1, Math.round((end - start) / 60000))
-          
-          const passData = r.passengers as unknown as { users: { phone: string } } | null
-          const rawPhone = passData?.users?.phone || '**********'
-          const masked = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '****' + rawPhone.slice(-3) : '**********'
+        if (rides) {
+          setRecentRides(rides.map(r => {
+            const start = r.started_at ? new Date(r.started_at).getTime() : 0
+            const end   = r.completed_at ? new Date(r.completed_at).getTime() : 0
+            const diff  = Math.max(1, Math.round((end - start) / 60000))
+            
+            const passData = r.passengers as unknown as { users: { phone: string } } | null
+            const rawPhone = passData?.users?.phone || '**********'
+            const masked = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '****' + rawPhone.slice(-3) : '**********'
 
-          return {
-            id: r.id,
-            completed_at: r.completed_at!,
-            passenger_phone: masked,
-            zone: r.zones as unknown as RecentRidePuller['zone'],
-            thumbs_up: !!r.thumbs_up,
-            duration_mins: diff
-          }
-        }))
+            return {
+              id: r.id,
+              completed_at: r.completed_at!,
+              passenger_phone: masked,
+              zone: r.zones as unknown as RecentRidePuller['zone'],
+              thumbs_up: !!r.thumbs_up,
+              duration_mins: diff
+            }
+          }))
+        }
+      } catch {
+        setRecentRides([])
       }
+
+
 
 
       setLoadingPage(false)
@@ -508,12 +536,13 @@ export default function PullerDashboardPage() {
         <div className="flex items-start justify-between">
           <div>
             <p className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.4)' }}>
-              নমস্কাৰ
+              {tr.hello}
             </p>
             <h1 className="mt-0.5 text-[28px] font-black leading-tight text-white" style={{ letterSpacing: '-0.02em' }}>
               {user.name}
             </h1>
           </div>
+
           <div className="flex flex-col items-end gap-2">
             <BadgeTag puller={puller} zone={zone} />
             <LogoutButton color={zone ? ZONE_COLORS[zone.zone_number].hex : '#F59E0B'} />
@@ -537,17 +566,19 @@ export default function PullerDashboardPage() {
         >
           <div className="flex flex-col items-start">
             <span
-              className="text-[18px] font-black leading-tight"
-              style={{ color: online ? '#FFFFFF' : '#374151' }}
+              className="text-lg font-black"
+              style={{ color: online ? '#fff' : '#1A1A1E' }}
             >
-              {toggling ? '…' : online ? 'ONLINE' : 'OFFLINE'}
+              {toggling ? '…' : online ? tr.online : tr.offline}
             </span>
+
             <span
               className="mt-0.5 text-xs font-semibold"
               style={{ color: online ? 'rgba(255,255,255,0.7)' : '#6B7280' }}
             >
-              {online ? 'Accepting rides · GPS active' : 'Tap to start accepting rides'}
+              {online ? tr.accepting_rides : 'Tap to start accepting rides'}
             </span>
+
           </div>
 
           {/* Toggle pill indicator */}
@@ -566,38 +597,41 @@ export default function PullerDashboardPage() {
 
         {/* ── Stats 3×2 grid ──────────────────────────────────────────────── */}
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
-          <StatCard label="আজিৰ যাত্ৰা · Today" value={todayRides} />
-          <StatCard label="এই মাহ · This month"  value={monthRides} />
+          <StatCard label={tr.today} value={todayRides} />
+          <StatCard label={tr.this_month}  value={monthRides} />
           <StatCard
-            label="👍 Thumbs up"
+            label={tr.thumbs_up}
             value={puller.thumbs_up}
           />
           <StatCard
-            label="Zone rank"
+            label={tr.zone_rank}
             value={`#${zoneRank}`}
             sub={zone ? `in ${zone.name_as}` : undefined}
           />
           <StatCard 
-            label="Acceptance" 
+            label={tr.acceptance} 
             value={`${Math.min(100, Math.round((monthRides / (data.totalRequests || 1)) * 100))}%`} 
           />
           <StatCard 
-            label="Avg Rating" 
+            label={tr.avg_rating} 
             value={puller.thumbs_up} 
             sub="Total Likes 👍"
           />
         </div>
 
+
         {/* Earnings Strip */}
         <div className="mt-4 overflow-hidden rounded-2xl bg-amber-500/10 border border-amber-500/20 px-4 py-3">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-black text-amber-500 font-nunito">এই মাহ: {monthRides} যাত্ৰা</span>
+            <span className="text-sm font-black text-amber-500 font-nunito">{tr.this_month}: {monthRides} যাত্ৰা</span>
             <div className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
           </div>
           <p className="mt-0.5 text-[10px] font-bold text-amber-500/60 uppercase tracking-tight">
             Subscription: ₹100/month — আপুনি সকলো উপাৰ্জন ৰাখে
           </p>
+
         </div>
+
 
 
         {/* ── Subscription bar ────────────────────────────────────────────── */}
@@ -609,10 +643,11 @@ export default function PullerDashboardPage() {
         <div className="mt-6">
           <div className="flex items-center justify-between mb-3">
             <p className="text-[11px] font-black uppercase tracking-widest text-white/30">
-              শেষ যাত্ৰাসমূহ · Recent Rides
+              {tr.recent_rides}
             </p>
             <Clock size={14} className="text-white/20" />
           </div>
+
           
           <div className="flex flex-col gap-2">
             {recentRides.length > 0 ? (
@@ -643,9 +678,10 @@ export default function PullerDashboardPage() {
               ))
             ) : (
               <p className="py-6 text-center text-xs font-bold text-white/10 border-2 border-dashed border-white/5 rounded-2xl">
-                কোনো যাত্ৰা নাই
+                {tr.no_rides}
               </p>
             )}
+
           </div>
         </div>
 

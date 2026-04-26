@@ -4,6 +4,9 @@ import { useRouter } from 'next/navigation'
 import { LogOut } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
+import { useT } from '@/lib/i18n'
+
+
 interface LogoutButtonProps {
   color?: string
   className?: string
@@ -12,6 +15,7 @@ interface LogoutButtonProps {
 export default function LogoutButton({ color = '#E8E5DE', className = '' }: LogoutButtonProps) {
   const router = useRouter()
   const supabase = createClient()
+  const tr = useT()
 
   async function handleLogout() {
     await supabase.auth.signOut()
@@ -33,8 +37,9 @@ export default function LogoutButton({ color = '#E8E5DE', className = '' }: Logo
         background: 'transparent',
       }}
     >
-      <span>Logout</span>
+      <span>{tr.logout}</span>
       <LogOut size={13} strokeWidth={2.5} />
     </button>
+
   )
 }

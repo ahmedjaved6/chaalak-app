@@ -9,6 +9,9 @@ import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
 import type { RideStatus } from '@/lib/types'
 import { startRide, endRide, markNoShow } from '@/lib/ride'
+import { useT } from '@/lib/i18n'
+
+
 
 
 
@@ -100,6 +103,9 @@ export default function ActiveRidePage() {
   const [busy,       setBusy]       = useState(false)
   const [toast,      setToast]      = useState<{ msg: string; type: ToastType } | null>(null)
   const [showIssue,  setShowIssue]  = useState(false)
+
+  const tr = useT()
+
 
 
 
@@ -281,8 +287,11 @@ export default function ActiveRidePage() {
               className="text-[26px] font-black leading-tight text-white"
               style={{ letterSpacing: '-0.01em' }}
             >
-              যাত্ৰা চলি আছে
+              {tr.accepting_rides.split(' · ')[0]}
             </h1>
+
+
+
             {/* Elapsed timer */}
             <div
               className="rounded-2xl px-4 py-2 text-center"
@@ -312,6 +321,7 @@ export default function ActiveRidePage() {
           >
             <span className="text-xs font-semibold text-amber-400">যাত্ৰা</span>
             <span className="text-lg font-black leading-none text-amber-400">#{rideNumber}</span>
+
           </div>
 
           {zone && (
@@ -369,8 +379,9 @@ export default function ActiveRidePage() {
                 style={{ background: '#F59E0B' }}
               >
                 <Bell size={22} color="#1A1A1E" strokeWidth={2.5} />
-                <span className="mt-0.5 text-[9px] font-black tracking-wide text-[#1A1A1E]">ISSUE</span>
+                <span className="mt-0.5 text-[9px] font-black tracking-wide text-[#1A1A1E]">{tr.report_issue.split(' ')[0]}</span>
               </button>
+
 
               {phone && (
                 <a
@@ -379,8 +390,9 @@ export default function ActiveRidePage() {
                   style={{ background: '#10B981' }}
                 >
                   <Phone size={22} color="#fff" strokeWidth={2.5} />
-                  <span className="mt-0.5 text-[9px] font-black tracking-wide text-white">CALL</span>
+                  <span className="mt-0.5 text-[9px] font-black tracking-wide text-white">{tr.call_puller.split(' ')[2] || 'CALL'}</span>
                 </a>
+
               )}
             </div>
           </div>
@@ -404,8 +416,9 @@ export default function ActiveRidePage() {
                 className="fixed bottom-0 left-0 right-0 z-[2001] rounded-t-[32px] bg-[#1A1A1E] px-6 pb-10 pt-8 shadow-2xl"
               >
                 <div className="mb-6 flex items-center justify-between">
-                  <h3 className="text-xl font-black text-white font-nunito">Report Issue</h3>
+                  <h3 className="text-xl font-black text-white font-nunito">{tr.report_issue}</h3>
                   <button onClick={() => setShowIssue(false)} className="rounded-full bg-white/5 p-2">
+
                     <X size={20} className="text-white/40" />
                   </button>
                 </div>
@@ -457,6 +470,7 @@ export default function ActiveRidePage() {
           >
             {busy ? '…' : isActive ? 'END RIDE' : 'START RIDE'}
           </motion.button>
+
 
           {/* No-Show — red outline, only before ride is started */}
           {!isActive && (

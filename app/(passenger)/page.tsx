@@ -9,6 +9,9 @@ import type { Zone, FareRule } from '@/lib/types'
 import type { OnlinePuller, PassengerMapProps } from './_components/PassengerMap'
 import LogoutButton from '@/components/LogoutButton'
 import { Star, Clock } from 'lucide-react'
+import { useT } from '@/lib/i18n'
+
+
 
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -184,6 +187,9 @@ export default function PassengerHomePage() {
   const [bookError, setBookError]           = useState('')
   const [profile, setProfile]               = useState<PassengerProfile | null>(null)
   const [recentRides, setRecentRides]       = useState<RecentRide[]>([])
+
+  const tr = useT()
+
 
 
   const sbRef = useRef(createClient())
@@ -394,9 +400,10 @@ export default function PassengerHomePage() {
       <div className="bg-[#1F2937] px-5 pt-12 pb-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs font-semibold text-gray-400">নমস্কাৰ</p>
+            <p className="text-xs font-semibold text-gray-400">{tr.hello}</p>
             <h1 className="text-2xl font-black text-white font-nunito">{profile?.name || '...'}</h1>
           </div>
+
           <LogoutButton />
         </div>
 
@@ -432,7 +439,7 @@ export default function PassengerHomePage() {
 
         {/* Section label */}
         <p className="mb-3 text-xs font-bold uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.35)' }}>
-          জ&apos;ন বাছক · Select Zone
+          {tr.select_zone}
         </p>
 
         {/* 2×2 zone grid */}
@@ -456,10 +463,11 @@ export default function PassengerHomePage() {
         <div className="mt-6 mb-2">
           <div className="flex items-center justify-between mb-3">
             <p className="text-[10px] font-black uppercase tracking-widest text-white/30">
-              সাম্প্ৰতিক যাত্ৰা · Recent Rides
+              {tr.recent_rides}
             </p>
             <Clock size={14} className="text-white/20" />
           </div>
+
           
           <div className="flex flex-col gap-2">
             {recentRides.length > 0 ? (
@@ -486,8 +494,9 @@ export default function PassengerHomePage() {
                 </div>
               ))
             ) : (
-              <p className="py-4 text-center text-[11px] font-bold text-white/20">এতিয়ালৈকে কোনো যাত্ৰা নাই</p>
+              <p className="py-4 text-center text-[11px] font-bold text-white/20">{tr.no_rides}</p>
             )}
+
           </div>
         </div>
 
@@ -521,11 +530,13 @@ export default function PassengerHomePage() {
           {booking ? (
             <span className="inline-flex items-center gap-2">
               <span className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-              <span>বুক হৈছে…</span>
+              <span>{tr.searching}</span>
             </span>
           ) : (
-            'ৰিক্সা বুক কৰক'
+            tr.book_ride
           )}
+
+
         </button>
 
       </div>
