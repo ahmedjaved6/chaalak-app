@@ -484,6 +484,22 @@ export default function IncomingRidesPage() {
       }
 
       setLoadingPage(false)
+
+      // ── Check for existing rides in zone ──────────────────────────────────
+      if (pullerRow.zone_id) {
+        const { data: existingRides } = await supabase
+          .from('ride_requests')
+          .select('*')
+          .eq('zone_id', pullerRow.zone_id)
+          .eq('status', 'requested')
+          .gt('expires_at', new Date().toISOString())
+          .order('created_at', { ascending: false })
+          .limit(1)
+        
+        if (existingRides?.length) {
+          handleIncoming(existingRides[0] as IncomingRide)
+        }
+      }
     }
 
     load()

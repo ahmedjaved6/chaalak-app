@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
-import { Phone, ShieldAlert, X, Bell, AlertTriangle, Clock, MapPin } from 'lucide-react'
+import { Phone, ShieldAlert, X, Bell, AlertTriangle, Clock, MapPin, Share2 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import { createClient } from '@/lib/supabase/client'
@@ -86,6 +86,7 @@ export default function PassengerRidePage() {
   const [loading,      setLoading]      = useState(true)
   const [cancelling,   setCancelling]   = useState(false)
   const [showReport,   setShowReport]   = useState(false)
+  const [showToast,    setShowToast]    = useState(false)
 
   const tr = useT()
 
@@ -183,6 +184,28 @@ export default function PassengerRidePage() {
     const confirm = window.confirm('Emergency contact কৰিবনে? (Contact emergency?)')
     if (confirm) {
       window.open(sosUrl, '_blank')
+    }
+  }
+
+  const handleShare = async () => {
+    if (!rideId) return
+    const shareUrl = `${window.location.origin}/share/${rideId}`
+    const text = `Track my Chaalak ride live — Puller Badge: ${puller?.badgeCode || ''}${puller?.badgeNumber || ''}`
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Track my Chaalak ride',
+          text,
+          url: shareUrl
+        })
+      } catch (err) {
+        console.error('Error sharing:', err)
+      }
+    } else {
+      await navigator.clipboard.writeText(shareUrl)
+      setShowToast(true)
+      setTimeout(() => setShowToast(false), 2000)
     }
   }
 
@@ -325,6 +348,29 @@ export default function PassengerRidePage() {
         >
           {statusLabel(rideStatus, tr)}
         </div>
+
+        {/* Share button */}
+        <button
+          onClick={handleShare}
+          className="absolute right-3 top-3 z-[1000] flex h-9 w-9 items-center justify-center rounded-xl text-white transition-all active:scale-90"
+          style={{ background: 'rgba(0,0,0,0.68)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.1)' }}
+        >
+          <Share2 size={18} />
+        </button>
+
+        {/* Toast */}
+        <AnimatePresence>
+          {showToast && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, x: '-50%' }}
+              animate={{ opacity: 1, y: 0, x: '-50%' }}
+              exit={{ opacity: 0, y: 10, x: '-50%' }}
+              className="fixed left-1/2 top-16 z-[2000] rounded-lg bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-lg"
+            >
+              Link copied!
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </div>
 

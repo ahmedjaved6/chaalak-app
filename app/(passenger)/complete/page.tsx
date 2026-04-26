@@ -281,7 +281,7 @@ function SummaryCell({
 
 // ─── Root — detects puller vs passenger ───────────────────────────────────────
 
-export default function CompletePage() {
+function CompletePage() {
   const searchParams = useSearchParams()
   const rideId = searchParams.get('ride_id') ?? ''
 
@@ -331,4 +331,14 @@ export default function CompletePage() {
 
   if (role === 'puller') return <PullerComplete rideId={rideId} />
   return <PassengerComplete rideId={rideId} pullerId={pullerId} />
+}
+
+import { Suspense } from 'react'
+
+export default function CompletePageSuspense() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#1A1A1E]" />}>
+      <CompletePage />
+    </Suspense>
+  )
 }

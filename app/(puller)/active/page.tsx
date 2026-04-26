@@ -10,6 +10,7 @@ import { ZONE_COLORS } from '@/lib/constants'
 import type { RideStatus } from '@/lib/types'
 import { startRide, endRide, markNoShow } from '@/lib/ride'
 import { useT } from '@/lib/i18n'
+import { Suspense } from 'react'
 
 
 
@@ -91,7 +92,7 @@ function Toast({ msg, type, onDismiss }: { msg: string; type: ToastType; onDismi
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function ActiveRidePage() {
+function ActiveRidePage() {
   const router       = useRouter()
   const searchParams = useSearchParams()
   const rideId       = searchParams.get('ride_id')
@@ -237,6 +238,22 @@ export default function ActiveRidePage() {
     setBusy(true)
     try {
       await markNoShow(sbRef.current, data.rideId, data.pullerId)
+      
+      // Call cooldown check for the passenger
+      const { data: ride } = await sbRef.current
+        .from('ride_requests')
+        .select('passenger_id')
+        .eq('id', data.rideId)
+        .maybeSingle()
+      
+      if (ride?.passenger_id) {
+        await fetch('/api/ride/cooldown-check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ passenger_id: ride.passenger_id })
+        })
+      }
+
       if (timerRef.current) clearInterval(timerRef.current)
       router.replace('/dashboard')
     } catch (e: unknown) {
@@ -245,6 +262,29 @@ export default function ActiveRidePage() {
     }
 
   }
+
+  // ── Realtime status listener ──────────────────────────────────────────
+  useEffect(() => {
+    if (!rideId) return
+    const sb = sbRef.current
+
+    const channel = sb
+      .channel(`puller-ride-${rideId}`)
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'ride_requests', filter: `id=eq.${rideId}` },
+        (payload) => {
+          const newStatus = payload.new.status as RideStatus
+          if (newStatus === 'cancelled') {
+            showToast('Passenger cancelled ride', 'error')
+            setTimeout(() => router.replace('/dashboard'), 2000)
+          }
+        }
+      )
+      .subscribe()
+
+    return () => { sb.removeChannel(channel) }
+  }, [rideId, router, showToast])
 
   // ── Loading ──────────────────────────────────────────────────────────────────
 
@@ -498,5 +538,12 @@ export default function ActiveRidePage() {
         )}
       </AnimatePresence>
     </div>
+  )
+}
+export default function ActiveRidePageSuspense() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#1A1A1E]" />}>
+      <ActiveRidePage />
+    </Suspense>
   )
 }

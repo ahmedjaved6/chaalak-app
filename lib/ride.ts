@@ -54,6 +54,23 @@ export async function cancelRideRequest(
     .in('status', ['requested', 'accepted'])
 
   if (error) throw new Error(error.message)
+
+  // Cooldown check
+  const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+  const { count } = await supabase
+    .from('ride_requests')
+    .select('*', { count: 'exact', head: true })
+    .eq('passenger_id', passenger_id)
+    .in('status', ['cancelled', 'no_show'])
+    .gte('created_at', weekAgo)
+
+  if (count !== null && count >= 3) {
+    const cooldownUntil = new Date(Date.now() + 30 * 60 * 1000).toISOString()
+    await supabase
+      .from('passengers')
+      .update({ cooldown_until: cooldownUntil })
+      .eq('id', passenger_id)
+  }
 }
 
 // ─── acceptRide ───────────────────────────────────────────────────────────────

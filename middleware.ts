@@ -8,6 +8,7 @@ export async function middleware(request: NextRequest) {
   // public routes — no auth required
   if (pathname.startsWith('/auth')) return response
   if (pathname.startsWith('/api/push/')) return response
+  if (pathname.startsWith('/share')) return response
 
   // Unauthenticated → redirect to /auth
   if (!user) {

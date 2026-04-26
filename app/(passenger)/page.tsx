@@ -225,6 +225,8 @@ function PassengerHomePage() {
   const [bookError, setBookError]           = useState('')
   const [profile, setProfile]               = useState<PassengerProfile | null>(null)
   const [recentRides, setRecentRides]       = useState<RecentRide[]>([])
+  const [cooldownUntil, setCooldownUntil]   = useState<string | null>(null)
+  const [weeklyCancellations, setWeeklyCancellations] = useState(0)
 
   const tr = useT()
 
@@ -265,12 +267,10 @@ function PassengerHomePage() {
       }
 
       // ── Parallel Data Fetch ──────────────────────────────────────────────
-      const [zonesRes, passengerRes, userRes, passRes] = await Promise.all([
+      const [zonesRes, passengerRes, userRes] = await Promise.all([
         supabase.from('zones').select('*').eq('is_active', true).order('zone_number'),
         supabase.from('passengers').select('id, total_rides, thumbs_given').eq('user_id', user.id).maybeSingle(),
         supabase.from('users').select('name, created_at').eq('id', user.id).single(),
-        // Check for active ride also in parallel
-        supabase.from('ride_requests').select('id').eq('user_id', user.id).in('status', ['requested', 'accepted', 'active']).maybeSingle().catch(() => ({ data: null })),
       ])
 
       // 1. Zones
@@ -309,6 +309,16 @@ function PassengerHomePage() {
         if (historyRes.data) {
           setRecentRides(historyRes.data.map(r => ({ ...r, zone: r.zones as unknown as RecentRide['zone'] })))
         }
+
+        // 5. Cooldown & Stats check
+        const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+        const [paxRes, cancelRes] = await Promise.all([
+          supabase.from('passengers').select('cooldown_until').eq('id', pId).single(),
+          supabase.from('ride_requests').select('id', { count: 'exact', head: true }).eq('passenger_id', pId).in('status', ['cancelled', 'no_show']).gte('created_at', weekAgo)
+        ])
+
+        if (paxRes.data?.cooldown_until) setCooldownUntil(paxRes.data.cooldown_until)
+        if (cancelRes.count !== null) setWeeklyCancellations(cancelRes.count)
       }
 
       fetchOnlinePullers()
@@ -446,6 +456,12 @@ function PassengerHomePage() {
             value={profile ? new Date(profile.created_at).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) : '...'} 
           />
         </div>
+
+        {weeklyCancellations > 0 && (
+          <p className="mt-4 text-center text-[10px] font-bold text-white/30 uppercase tracking-widest">
+            This week: {weeklyCancellations} cancellations
+          </p>
+        )}
       </div>
 
 
@@ -531,45 +547,44 @@ function PassengerHomePage() {
         </div>
 
 
-        {/* Error */}
-        {bookError && (
-          <p className="mt-2 text-center text-xs font-semibold" style={{ color: '#F87171' }}>
-            {bookError}
-          </p>
-        )}
-
-        {/* BOOK button */}
-        <button
-          type="button"
-          onClick={handleBook}
-          disabled={!selectedZoneId || !passengerId || booking}
-          className="mt-4 w-full rounded-2xl py-4 text-[18px] font-black transition-all active:scale-[0.97]"
-          style={{
-            background: selectedZoneId && passengerId && !booking
-              ? '#F59E0B'
-              : 'rgba(245,158,11,0.25)',
-            color: selectedZoneId && passengerId && !booking
-              ? '#1A1A1E'
-              : 'rgba(0,0,0,0.35)',
-            boxShadow: selectedZoneId && passengerId && !booking
-              ? '0 4px 28px rgba(245,158,11,0.32)'
-              : 'none',
-            cursor: selectedZoneId && passengerId && !booking ? 'pointer' : 'not-allowed',
-          }}
-        >
-          {booking ? (
-            <span className="inline-flex items-center gap-2">
-              <span className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
-              <span>{tr.searching}</span>
-            </span>
+        {/* Cooldown / Book Button */}
+        <div className="mt-auto pt-6">
+          {cooldownUntil && new Date(cooldownUntil) > new Date() ? (
+            <div className="flex flex-col gap-3">
+              <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3 text-center">
+                <p className="text-[11px] font-bold text-amber-500 uppercase tracking-widest leading-relaxed">
+                  Too many recent cancellations. ⚠️ <br />
+                  Please wait for the cooldown to expire.
+                </p>
+              </div>
+              <button
+                disabled
+                className="w-full rounded-2xl py-5 text-lg font-black bg-white/5 text-white/20 border border-white/5"
+              >
+                Wait {Math.ceil((new Date(cooldownUntil).getTime() - Date.now()) / 60000)}m before booking
+              </button>
+            </div>
           ) : (
-            tr.book_ride
+            <button
+              onClick={handleBook}
+              disabled={!selectedZoneId || booking}
+              className="w-full rounded-2xl bg-[#F59E0B] py-5 text-lg font-black text-[#1A1A1E] transition-all active:scale-[0.98] disabled:opacity-40 shadow-[0_4px_28px_rgba(245,158,11,0.32)]"
+            >
+              {booking ? (
+                <span className="inline-flex items-center gap-2">
+                  <span className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                  <span>{tr.searching}</span>
+                </span>
+              ) : (
+                tr.book_ride
+              )}
+            </button>
           )}
 
-
-        </button>
-
-      </div>
+          {bookError && (
+            <p className="mt-3 text-center text-xs font-bold text-red-500">{bookError}</p>
+          )}
+        </div>
     </div>
   )
 }

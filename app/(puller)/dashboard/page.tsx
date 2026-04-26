@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Home, Clock, User, MapPin, AlertCircle, CheckCircle2 } from 'lucide-react'
+import { Home, Clock, User, MapPin, AlertCircle, CheckCircle2, BarChart2, ChevronRight } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { HEARTBEAT_INTERVAL_MS, ZONE_COLORS } from '@/lib/constants'
 import type { Zone, Puller, Subscription } from '@/lib/types'
@@ -26,6 +26,7 @@ interface DashboardData {
   monthRides:   number
   zoneRank:     number
   totalRequests: number // for acceptance rate
+  weekRides:    number
 }
 
 interface RecentRidePuller {
@@ -150,9 +151,10 @@ function Toast({ msg, type, onDismiss }: { msg: string; type: ToastType; onDismi
 function TabBar({ active }: { active: 'home' | 'history' | 'profile' }) {
   const router = useRouter()
   const tabs = [
-    { key: 'home',    icon: Home,  label: 'Home',    href: '/dashboard' },
-    { key: 'history', icon: Clock, label: 'History', href: '/history'   },
-    { key: 'profile', icon: User,  label: 'Profile', href: '/profile'   },
+    { key: 'home',    icon: Home,      label: 'Home',    href: '/dashboard' },
+    { key: 'history', icon: Clock,     label: 'History', href: '/history'   },
+    { key: 'summary', icon: BarChart2, label: 'Summary', href: '/summary'   },
+    { key: 'profile', icon: User,      label: 'Profile', href: '/profile'   },
   ] as const
 
   return (
@@ -294,15 +296,9 @@ function PullerDashboardPage() {
         sbRef.current.from('pullers').update({ is_online: false }).eq('id', id)
       }
     }
-    const handleVisibility = () => {
-      if (document.visibilityState === 'hidden') handleUnload()
-    }
-
     window.addEventListener('beforeunload', handleUnload)
-    document.addEventListener('visibilitychange', handleVisibility)
     return () => {
       window.removeEventListener('beforeunload', handleUnload)
-      document.removeEventListener('visibilitychange', handleVisibility)
       handleUnload()
     }
   }, [])
@@ -328,8 +324,8 @@ function PullerDashboardPage() {
       pullerIdRef.current = puller.id
       setOnline(puller.is_online ?? false)
 
-      // Parallel: user name, zone, subscription, ride counts, zone rank, zone requests
-      const [userRes, zoneRes, subRes, todayRes, monthRes, rankRes, zoneReqRes] = await Promise.all([
+      // Parallel: user name, zone, subscription, ride counts, zone rank, zone requests, weekly rides
+      const [userRes, zoneRes, subRes, todayRes, monthRes, rankRes, zoneReqRes, weekRidesRes] = await Promise.all([
 
         supabase.from('users').select('name').eq('id', user.id).maybeSingle(),
 
@@ -375,6 +371,13 @@ function PullerDashboardPage() {
           .select('*', { count: 'exact', head: true })
           .eq('zone_id', puller.zone_id)
           .gte('created_at', (() => { const d = new Date(); d.setDate(1); d.setHours(0,0,0,0); return d.toISOString() })()),
+
+        supabase
+          .from('ride_requests')
+          .select('id', { count: 'exact', head: true })
+          .eq('accepted_by', puller.id)
+          .eq('status', 'completed')
+          .gte('completed_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
       ])
 
       const nextData: DashboardData = {
@@ -386,6 +389,7 @@ function PullerDashboardPage() {
         monthRides:   monthRes.count ?? 0,
         zoneRank:     1,
         totalRequests: Math.max(monthRes.count ?? 0, zoneReqRes?.count ?? 15),
+        weekRides:    weekRidesRes.count ?? 0,
       }
 
       // Zone Rank calculation with try/catch
@@ -659,6 +663,23 @@ function PullerDashboardPage() {
         </div>
 
 
+
+        {/* ── Weekly Summary Card ────────────────────────────────────────── */}
+        <button
+          onClick={() => router.push('/summary')}
+          className="mt-4 flex w-full items-center justify-between rounded-2xl bg-[#2A2A2E] p-4 border border-white/5 transition-all active:scale-[0.98]"
+        >
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-500">
+              <BarChart2 size={20} />
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-black uppercase tracking-widest text-white/30">📊 এই সপ্তাহ</p>
+              <p className="text-xl font-black text-amber-500 leading-tight mt-0.5">{data.weekRides} যাত্ৰা</p>
+            </div>
+          </div>
+          <ChevronRight size={20} className="text-white/20" />
+        </button>
 
         {/* ── Subscription bar ────────────────────────────────────────────── */}
         <div className="mt-4">
