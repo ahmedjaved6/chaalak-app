@@ -4,6 +4,10 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Clock, ThumbsUp, Calendar, ChevronRight } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { ZONE_COLORS } from '@/lib/constants'
+import type { RideRequest, Zone } from '@/lib/types'
+
 
 interface EnrichedRide extends RideRequest {
   zone: Zone | null
@@ -45,17 +49,18 @@ export default function RideHistoryPage() {
         return
       }
 
-      const enriched = (rideData || []).map((r: any) => {
+      const enriched = (rideData || []).map((r) => {
         const start = r.started_at ? new Date(r.started_at).getTime() : 0
         const end = r.completed_at ? new Date(r.completed_at).getTime() : 0
         const duration = start && end ? Math.round((end - start) / 60000) : 0
         
         return {
           ...r,
-          zone: r.zones as Zone,
+          zone: r.zones as unknown as Zone,
           duration_mins: duration
         }
       })
+
 
       setRides(enriched)
       setLoading(false)

@@ -2,8 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { motion } from 'framer-motion'
-import { LogOut, User, Phone, MapPin, Award, Calendar, ChevronRight, Star } from 'lucide-react'
+
+import { LogOut, User, Phone, MapPin, Award, Calendar, Star } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { ZONE_COLORS } from '@/lib/constants'
+import type { Puller, User as AppUser, Zone } from '@/lib/types'
+
 
 interface ProfileData {
   puller: Puller

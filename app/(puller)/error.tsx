@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { AlertCircle } from 'lucide-react'
 
 export default function Error({
-  error,
   reset,
 }: {
   error: Error & { digest?: string }

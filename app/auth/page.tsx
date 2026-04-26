@@ -4,6 +4,8 @@ import { useState, useRef, useEffect, type KeyboardEvent, type ClipboardEvent } 
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
+import type { LanguagePref } from '@/lib/types'
+
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

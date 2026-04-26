@@ -4,6 +4,14 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Phone, MapPin } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { ZONE_COLORS } from '@/lib/constants'
+import type { RideStatus } from '@/lib/types'
+import { startRide, endRide, markNoShow } from '@/lib/ride'
+
+
+
+
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -156,9 +164,10 @@ export default function ActiveRidePage() {
       await startRide(sbRef.current, data.rideId, data.pullerId)
       setRideStatus('active')
       showToast('Ride started', 'success')
-    } catch (e: any) {
-      showToast(e.message ?? 'Failed to start ride', 'error')
+    } catch (e: unknown) {
+      showToast(e instanceof Error ? e.message : 'Failed to start ride', 'error')
     } finally {
+
       setBusy(false)
     }
   }
@@ -170,10 +179,11 @@ export default function ActiveRidePage() {
       await endRide(sbRef.current, data.rideId, data.pullerId)
       if (timerRef.current) clearInterval(timerRef.current)
       router.replace(`/complete?ride_id=${data.rideId}`)
-    } catch (e: any) {
-      showToast(e.message ?? 'Failed to end ride', 'error')
+    } catch (e: unknown) {
+      showToast(e instanceof Error ? e.message : 'Failed to end ride', 'error')
       setBusy(false)
     }
+
   }
 
   async function handleNoShow() {
@@ -183,10 +193,11 @@ export default function ActiveRidePage() {
       await markNoShow(sbRef.current, data.rideId, data.pullerId)
       if (timerRef.current) clearInterval(timerRef.current)
       router.replace('/dashboard')
-    } catch (e: any) {
-      showToast(e.message ?? 'Failed', 'error')
+    } catch (e: unknown) {
+      showToast(e instanceof Error ? e.message : 'Failed', 'error')
       setBusy(false)
     }
+
   }
 
   // ── Loading ──────────────────────────────────────────────────────────────────

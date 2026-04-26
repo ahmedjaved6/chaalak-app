@@ -186,9 +186,10 @@ export default function AdminDashboardPage() {
     setError(null)
     try {
       setData(await fetchDashboardData())
-    } catch (e: any) {
-      setError(e?.message ?? 'Failed to load dashboard')
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Failed to load dashboard')
     } finally {
+
       setLoading(false)
       setRefreshing(false)
     }

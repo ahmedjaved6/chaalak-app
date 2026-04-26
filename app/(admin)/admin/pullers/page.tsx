@@ -324,8 +324,8 @@ export default function AdminPullersPage() {
         await approvePuller(id, zoneId)
         setToast({ msg: 'Puller approved & badge assigned', ok: true })
         setTimeout(load, 400)
-      } catch (e: any) {
-        setToast({ msg: e.message ?? 'Approve failed', ok: false })
+      } catch (e: unknown) {
+        setToast({ msg: e instanceof Error ? e.message : 'Approve failed', ok: false })
       }
     })
   }
@@ -336,8 +336,8 @@ export default function AdminPullersPage() {
         await rejectPuller(id)
         setAll((prev) => prev.filter((p) => p.id !== id))
         setToast({ msg: 'Puller removed', ok: false })
-      } catch (e: any) {
-        setToast({ msg: e.message ?? 'Reject failed', ok: false })
+      } catch (e: unknown) {
+        setToast({ msg: e instanceof Error ? e.message : 'Reject failed', ok: false })
       }
     })
   }
@@ -348,8 +348,8 @@ export default function AdminPullersPage() {
         await suspendPuller(id)
         setAll((prev) => prev.map((p) => p.id === id ? { ...p, status: 'suspended' as const, isOnline: false } : p))
         setToast({ msg: 'Puller suspended', ok: false })
-      } catch (e: any) {
-        setToast({ msg: e.message ?? 'Suspend failed', ok: false })
+      } catch (e: unknown) {
+        setToast({ msg: e instanceof Error ? e.message : 'Suspend failed', ok: false })
       }
     })
   }
@@ -360,8 +360,8 @@ export default function AdminPullersPage() {
         await renewSubscription(id)
         setToast({ msg: 'Subscription renewed +30 days', ok: true })
         setTimeout(load, 400)
-      } catch (e: any) {
-        setToast({ msg: e.message ?? 'Renew failed', ok: false })
+      } catch (e: unknown) {
+        setToast({ msg: e instanceof Error ? e.message : 'Renew failed', ok: false })
       }
     })
   }

@@ -4,6 +4,12 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MapPin, Navigation } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { ZONE_COLORS } from '@/lib/constants'
+import { acceptRide } from '@/lib/ride'
+import type { Zone, SubZone, Puller } from '@/lib/types'
+
+
 
 // ─── Haversine distance (km) ──────────────────────────────────────────────────
 
@@ -123,12 +129,10 @@ function CountdownRing({ secs, total }: { secs: number; total: number }) {
 
 function RideOverlay({
   ride,
-  pullerId,
   onAccept,
   onSkip,
 }: {
   ride:     EnrichedRide
-  pullerId: string
   onAccept: (rideId: string) => Promise<void>
   onSkip:   () => void
 }) {
@@ -641,10 +645,10 @@ export default function IncomingRidesPage() {
           <RideOverlay
             key={overlay.id}
             ride={overlay}
-            pullerId={puller!.id}
             onAccept={handleAccept}
             onSkip={handleSkip}
           />
+
         )}
       </AnimatePresence>
 
