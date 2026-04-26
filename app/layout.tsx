@@ -2,19 +2,33 @@ import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
 
-import { Nunito } from "next/font/google";
-import "@fontsource/noto-sans-bengali/400.css";
-import "@fontsource/noto-sans-bengali/700.css";
-import "@fontsource/noto-sans-devanagari/400.css";
-import "@fontsource/noto-sans-devanagari/700.css";
+import { Nunito, Noto_Sans_Bengali, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import OfflineBanner from "@/components/OfflineBanner";
 
 
 const nunito = Nunito({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "900"],
+  weight: ["400", "600", "700", "800", "900"],
   variable: "--font-nunito",
+  display: "swap",
+  preload: true,
+});
+
+const notoBengali = Noto_Sans_Bengali({
+  subsets: ["bengali"],
+  weight: ["400", "700"],
+  variable: "--font-noto-bengali",
+  display: "swap",
+  preload: false,
+});
+
+const notoDevanagari = Noto_Sans_Devanagari({
+  subsets: ["devanagari"],
+  weight: ["400", "700"],
+  variable: "--font-noto-devanagari",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -48,7 +62,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
       <body
-        className={`${nunito.variable} antialiased font-sans`}
+        className={`${nunito.variable} ${notoBengali.variable} ${notoDevanagari.variable} antialiased font-sans`}
         style={{ fontFamily: "var(--font-nunito), sans-serif" }}
       >
         {children}

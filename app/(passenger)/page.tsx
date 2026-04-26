@@ -10,6 +10,8 @@ import type { OnlinePuller, PassengerMapProps } from './_components/PassengerMap
 import LogoutButton from '@/components/LogoutButton'
 import { Star, Clock } from 'lucide-react'
 import { useT } from '@/lib/i18n'
+import { SkeletonBox } from '@/components/Skeleton'
+import { Suspense } from 'react'
 
 
 
@@ -173,6 +175,42 @@ function StatBox({ label, value }: { label: string; value: string | number }) {
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
+function SkeletonPassenger() {
+  return (
+    <div className="flex h-[100dvh] flex-col overflow-hidden" style={{ backgroundColor: '#1A1A1E' }}>
+      <div className="bg-[#1F2937] px-5 pt-12 pb-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <SkeletonBox h="14px" w="60px" />
+            <div className="mt-2" />
+            <SkeletonBox h="28px" w="150px" />
+          </div>
+          <SkeletonBox h="32px" w="80px" rounded="20px" />
+        </div>
+        <div className="mt-5 grid grid-cols-3 gap-2.5">
+          <SkeletonBox h="50px" rounded="12px" />
+          <SkeletonBox h="50px" rounded="12px" />
+          <SkeletonBox h="50px" rounded="12px" />
+        </div>
+      </div>
+      <div className="shrink-0" style={{ height: '35dvh' }}>
+        <SkeletonBox h="100%" rounded="0px" />
+      </div>
+      <div className="flex-1 px-4 pt-6">
+        <SkeletonBox h="14px" w="100px" />
+        <div className="mt-4 grid grid-cols-2 gap-2.5">
+          <SkeletonBox h="80px" rounded="16px" />
+          <SkeletonBox h="80px" rounded="16px" />
+          <SkeletonBox h="80px" rounded="16px" />
+          <SkeletonBox h="80px" rounded="16px" />
+        </div>
+        <div className="mt-4" />
+        <SkeletonBox h="44px" rounded="12px" />
+      </div>
+    </div>
+  )
+}
+
 export default function PassengerHomePage() {
   const router = useRouter()
 
@@ -215,80 +253,65 @@ export default function PassengerHomePage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { router.replace('/auth'); return }
 
-      // Load zones from DB (or keep fallback)
-      const { data: zonesData } = await supabase
-        .from('zones')
-        .select('*')
-        .eq('is_active', true)
-        .order('zone_number')
-      if (zonesData && zonesData.length > 0) setZones(zonesData as Zone[])
-
-      // Ensure passenger record exists
-      let { data: passenger } = await supabase
-        .from('passengers')
-        .select('id')
-        .eq('user_id', user.id)
-        .maybeSingle()
-
-      if (!passenger) {
-        const { data: newP } = await supabase
-          .from('passengers')
-          .insert({ user_id: user.id })
-          .select('id')
-          .single()
-        passenger = newP
-      }
-      if (passenger) setPassengerId(passenger.id)
-
-      // Check for already-active ride
-      if (passenger) {
-        const { data: active } = await supabase
-          .from('ride_requests')
-          .select('id')
-          .eq('passenger_id', passenger.id)
-          .in('status', ['requested', 'accepted', 'active'])
-          .maybeSingle()
-        if (active) { router.replace('/ride'); return }
-      }
-
-      await fetchOnlinePullers()
-
-      // Fetch Profile & Stats
-      const { data: userData } = await supabase.from('users').select('name, created_at').eq('id', user.id).single()
-      const { data: passData } = await supabase.from('passengers').select('total_rides, thumbs_given').eq('user_id', user.id).single()
+      // ── Caching Logic for Zones ──────────────────────────────────────────
+      const cachedZones = localStorage.getItem('chaalak_zones')
+      const cachedZonesAt = localStorage.getItem('chaalak_zones_cached_at')
+      const zonesAge = Date.now() - parseInt(cachedZonesAt || '0')
       
-      if (userData && passData) {
+      let initialZones = FALLBACK_ZONES
+      if (cachedZones && zonesAge < 3600000) {
+        initialZones = JSON.parse(cachedZones)
+        setZones(initialZones)
+      }
+
+      // ── Parallel Data Fetch ──────────────────────────────────────────────
+      const [zonesRes, passengerRes, userRes, passRes] = await Promise.all([
+        supabase.from('zones').select('*').eq('is_active', true).order('zone_number'),
+        supabase.from('passengers').select('id, total_rides, thumbs_given').eq('user_id', user.id).maybeSingle(),
+        supabase.from('users').select('name, created_at').eq('id', user.id).single(),
+        // Check for active ride also in parallel
+        supabase.from('ride_requests').select('id').eq('user_id', user.id).in('status', ['requested', 'accepted', 'active']).maybeSingle().catch(() => ({ data: null })),
+      ])
+
+      // 1. Zones
+      if (zonesRes.data?.length) {
+        setZones(zonesRes.data as Zone[])
+        localStorage.setItem('chaalak_zones', JSON.stringify(zonesRes.data))
+        localStorage.setItem('chaalak_zones_cached_at', Date.now().toString())
+      }
+
+      // 2. Passenger Record
+      let pId = passengerRes.data?.id
+      if (!pId) {
+        const { data: newP } = await supabase.from('passengers').insert({ user_id: user.id }).select('id').single()
+        pId = newP?.id
+      }
+      if (pId) setPassengerId(pId)
+
+      // 3. Profile
+      if (userRes.data && passengerRes.data) {
         setProfile({
-          name: userData.name,
-          created_at: userData.created_at,
-          total_rides: passData.total_rides,
-          thumbs_given: passData.thumbs_given
+          name: userRes.data.name,
+          created_at: userRes.data.created_at,
+          total_rides: passengerRes.data.total_rides,
+          thumbs_given: passengerRes.data.thumbs_given
         })
       }
 
-      // Fetch Recent Rides
-      if (passenger) {
-        const { data: rides } = await supabase
-          .from('ride_requests')
-          .select(`
-            id, completed_at, status, thumbs_up,
-            zones (name, name_as, zone_number)
-          `)
-          .eq('passenger_id', passenger.id)
-          .eq('status', 'completed')
-          .order('completed_at', { ascending: false })
-          .limit(3)
-        
-        if (rides) {
-          setRecentRides(rides.map(r => ({
-            ...r,
-            zone: r.zones as unknown as RecentRide['zone']
-          })))
+      // 4. Ride History & Active Check (Sequential only if pId was just created)
+      if (pId) {
+        const [activeRes, historyRes] = await Promise.all([
+          supabase.from('ride_requests').select('id').eq('passenger_id', pId).in('status', ['requested', 'accepted', 'active']).maybeSingle(),
+          supabase.from('ride_requests').select('id, completed_at, status, thumbs_up, zones (name, name_as, zone_number)').eq('passenger_id', pId).eq('status', 'completed').order('completed_at', { ascending: false }).limit(3)
+        ])
+
+        if (activeRes.data) { router.replace('/ride'); return }
+        if (historyRes.data) {
+          setRecentRides(historyRes.data.map(r => ({ ...r, zone: r.zones as unknown as RecentRide['zone'] })))
         }
       }
 
-
-
+      fetchOnlinePullers()
       setLoading(false)
     }
 
@@ -335,13 +358,27 @@ export default function PassengerHomePage() {
 
   useEffect(() => {
     if (!selectedZoneId) { setFareRule(null); return }
+    
+    // Caching for Fares
+    const cacheKey = `chaalak_fare_${selectedZoneId}`
+    const cachedFare = localStorage.getItem(cacheKey)
+    if (cachedFare) {
+      setFareRule(JSON.parse(cachedFare))
+      return
+    }
+
     sbRef.current
       .from('fare_rules')
       .select('*')
       .eq('from_zone_id', selectedZoneId)
       .eq('to_zone_id', selectedZoneId)
       .maybeSingle()
-      .then(({ data }) => setFareRule(data as FareRule | null))
+      .then(({ data }) => {
+        if (data) {
+          setFareRule(data as FareRule)
+          localStorage.setItem(cacheKey, JSON.stringify(data))
+        }
+      })
   }, [selectedZoneId])
 
 
@@ -381,14 +418,7 @@ export default function PassengerHomePage() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   if (loading) {
-    return (
-      <div
-        className="flex min-h-screen items-center justify-center"
-        style={{ backgroundColor: '#1A1A1E' }}
-      >
-        <div className="h-9 w-9 animate-spin rounded-full border-2 border-amber-400 border-t-transparent" />
-      </div>
-    )
+    return <SkeletonPassenger />
   }
 
   return (
@@ -541,5 +571,12 @@ export default function PassengerHomePage() {
 
       </div>
     </div>
+  )
+}
+export default function PassengerHomeSuspense() {
+  return (
+    <Suspense fallback={<SkeletonPassenger />}>
+      <PassengerHomePage />
+    </Suspense>
   )
 }

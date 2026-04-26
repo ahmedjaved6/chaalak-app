@@ -9,6 +9,8 @@ import { HEARTBEAT_INTERVAL_MS, ZONE_COLORS } from '@/lib/constants'
 import type { Zone, Puller, Subscription } from '@/lib/types'
 import LogoutButton from '@/components/LogoutButton'
 import { useT } from '@/lib/i18n'
+import { SkeletonBox } from '@/components/Skeleton'
+import { Suspense } from 'react'
 
 
 
@@ -183,6 +185,39 @@ function TabBar({ active }: { active: 'home' | 'history' | 'profile' }) {
 }
 
 // ─── Main page ────────────────────────────────────────────────────────────────
+
+function SkeletonDashboard() {
+  return (
+    <div className="mx-auto max-w-[420px] px-5 pt-12" style={{ backgroundColor: '#1A1A1E' }}>
+      <div className="flex items-start justify-between">
+        <div>
+          <SkeletonBox h="18px" w="80px" />
+          <div className="mt-2" />
+          <SkeletonBox h="32px" w="180px" />
+        </div>
+        <div className="flex flex-col items-end gap-2">
+          <SkeletonBox h="28px" w="60px" rounded="20px" />
+          <div className="mt-2" />
+          <SkeletonBox h="24px" w="70px" rounded="20px" />
+        </div>
+      </div>
+      <div className="mt-8" />
+      <SkeletonBox h="88px" rounded="20px" />
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <SkeletonBox h="80px" rounded="16px" />
+        <SkeletonBox h="80px" rounded="16px" />
+        <SkeletonBox h="80px" rounded="16px" />
+        <SkeletonBox h="80px" rounded="16px" />
+        <SkeletonBox h="80px" rounded="16px" />
+        <SkeletonBox h="80px" rounded="16px" />
+      </div>
+      <div className="mt-4" />
+      <SkeletonBox h="60px" rounded="16px" />
+      <div className="mt-4" />
+      <SkeletonBox h="48px" rounded="16px" />
+    </div>
+  )
+}
 
 export default function PullerDashboardPage() {
   const router = useRouter()
@@ -365,42 +400,40 @@ export default function PullerDashboardPage() {
       dataRef.current = nextData
       setData(nextData)
 
-      // Recent Rides with try/catch
-      try {
-        const { data: rides } = await supabase
-          .from('ride_requests')
-          .select(`
-            id, completed_at, thumbs_up, started_at,
-            passengers (users (phone)),
-            zones (name_as, zone_number)
-          `)
-          .eq('accepted_by', puller.id)
-          .eq('status', 'completed')
-          .order('completed_at', { ascending: false })
-          .limit(3)
+      // Parallel: Recent Rides
+      const recentRidesPromise = supabase
+        .from('ride_requests')
+        .select(`
+          id, completed_at, thumbs_up, started_at,
+          passengers (users (phone)),
+          zones (name_as, zone_number)
+        `)
+        .eq('accepted_by', puller.id)
+        .eq('status', 'completed')
+        .order('completed_at', { ascending: false })
+        .limit(3)
 
-        if (rides) {
-          setRecentRides(rides.map(r => {
-            const start = r.started_at ? new Date(r.started_at).getTime() : 0
-            const end   = r.completed_at ? new Date(r.completed_at).getTime() : 0
-            const diff  = Math.max(1, Math.round((end - start) / 60000))
-            
-            const passData = r.passengers as unknown as { users: { phone: string } } | null
-            const rawPhone = passData?.users?.phone || '**********'
-            const masked = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '****' + rawPhone.slice(-3) : '**********'
+      const [{ data: rides }] = await Promise.all([recentRidesPromise])
 
-            return {
-              id: r.id,
-              completed_at: r.completed_at!,
-              passenger_phone: masked,
-              zone: r.zones as unknown as RecentRidePuller['zone'],
-              thumbs_up: !!r.thumbs_up,
-              duration_mins: diff
-            }
-          }))
-        }
-      } catch {
-        setRecentRides([])
+      if (rides) {
+        setRecentRides(rides.map(r => {
+          const start = r.started_at ? new Date(r.started_at).getTime() : 0
+          const end   = r.completed_at ? new Date(r.completed_at).getTime() : 0
+          const diff  = Math.max(1, Math.round((end - start) / 60000))
+          
+          const passData = r.passengers as unknown as { users: { phone: string } } | null
+          const rawPhone = passData?.users?.phone || '**********'
+          const masked = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '****' + rawPhone.slice(-3) : '**********'
+
+          return {
+            id: r.id,
+            completed_at: r.completed_at!,
+            passenger_phone: masked,
+            zone: r.zones as unknown as RecentRidePuller['zone'],
+            thumbs_up: !!r.thumbs_up,
+            duration_mins: diff
+          }
+        }))
       }
 
 
@@ -511,14 +544,7 @@ export default function PullerDashboardPage() {
   // ── Render ────────────────────────────────────────────────────────────────
 
   if (loadingPage) {
-    return (
-      <div
-        className="flex min-h-screen items-center justify-center"
-        style={{ backgroundColor: '#1A1A1E' }}
-      >
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-400 border-t-transparent" />
-      </div>
-    )
+    return <SkeletonDashboard />
   }
 
   if (!data) return null
@@ -727,5 +753,12 @@ export default function PullerDashboardPage() {
       {/* ── Bottom tab bar ────────────────────────────────────────────────── */}
       <TabBar active="home" />
     </div>
+  )
+}
+export default function PullerDashboardSuspense() {
+  return (
+    <Suspense fallback={<SkeletonDashboard />}>
+      <PullerDashboardPage />
+    </Suspense>
   )
 }

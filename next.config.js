@@ -10,6 +10,22 @@ const nextConfig = {
       }
     }
     return config
+  },
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'no-store' }
+        ]
+      },
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' }
+        ]
+      }
+    ]
   }
 }
 

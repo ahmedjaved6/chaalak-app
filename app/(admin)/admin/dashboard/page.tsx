@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ZONE_COLORS } from '@/lib/constants'
 import LogoutButton from '@/components/LogoutButton'
 import { fetchDashboardData, type DashboardData, type ZoneHealth, type StaleRequest } from './actions'
+import { SkeletonBox } from '@/components/Skeleton'
+import { Suspense } from 'react'
 
 import type { AdminMapProps } from './AdminMap'
 
@@ -235,11 +237,14 @@ export default function AdminDashboardPage() {
     <div className="min-h-screen" style={{ backgroundColor: '#111113' }}>
       {topbar}
       <div className="mx-auto max-w-lg px-4 pt-8">
-        <div className="mb-4 h-[200px] animate-pulse rounded-2xl" style={{ background: 'rgba(255,255,255,0.04)' }} />
-        <div className="grid grid-cols-2 gap-3">
-          {CARDS.map((c) => (
-            <div key={c.key} className="animate-pulse rounded-2xl" style={{ background: `${c.hex}08`, minHeight: 148 }} />
-          ))}
+        <SkeletonBox h="200px" rounded="24px" />
+        <div className="mt-6" />
+        <SkeletonBox h="100px" rounded="20px" />
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          <SkeletonBox h="148px" rounded="20px" />
+          <SkeletonBox h="148px" rounded="20px" />
+          <SkeletonBox h="148px" rounded="20px" />
+          <SkeletonBox h="148px" rounded="20px" />
         </div>
       </div>
     </div>
@@ -339,5 +344,12 @@ export default function AdminDashboardPage() {
         </p>
       </div>
     </div>
+  )
+}
+export default function AdminDashboardSuspense() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#111113]" />}>
+      <AdminDashboardPage />
+    </Suspense>
   )
 }
