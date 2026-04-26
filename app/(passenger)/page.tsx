@@ -211,7 +211,7 @@ function SkeletonPassenger() {
   )
 }
 
-export default function PassengerHomePage() {
+function PassengerHomePage() {
   const router = useRouter()
 
   const [passengerPos, setPassengerPos]     = useState<[number, number] | null>(null)

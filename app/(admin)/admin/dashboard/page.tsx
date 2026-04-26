@@ -177,7 +177,7 @@ function StaleAlert({ requests }: { requests: StaleRequest[] }) {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function AdminDashboardPage() {
+function AdminDashboardPage() {
   const [data,       setData]       = useState<DashboardData | null>(null)
   const [loading,    setLoading]    = useState(true)
   const [refreshing, setRefreshing] = useState(false)

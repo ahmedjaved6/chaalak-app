@@ -219,7 +219,7 @@ function SkeletonDashboard() {
   )
 }
 
-export default function PullerDashboardPage() {
+function PullerDashboardPage() {
   const router = useRouter()
 
   const [data, setData]       = useState<DashboardData | null>(null)
