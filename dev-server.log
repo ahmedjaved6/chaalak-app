@@ -1,0 +1,2581 @@
+
+> chaalak-app@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1545ms
+ ○ Compiling / ...
+ ✓ Compiled / in 9.4s (550 modules)
+ GET / 200 in 4061ms
+ GET / 200 in 9756ms
+ ✓ Compiled in 187ms (255 modules)
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 752ms (309 modules)
+ GET /favicon.ico 200 in 1476ms
+ GET / 200 in 77ms
+   Reload env: .env.local
+ ✓ Compiled in 158ms (518 modules)
+ ✓ Compiled in 82ms (255 modules)
+ ✓ Compiled in 66ms (255 modules)
+ ✓ Compiled in 91ms (255 modules)
+ ✓ Compiled in 76ms (255 modules)
+ ✓ Compiled in 98ms (255 modules)
+ ✓ Compiled in 169ms (532 modules)
+ ✓ Compiled in 63ms (255 modules)
+ ✓ Compiled in 120ms (532 modules)
+ ✓ Compiled in 64ms (255 modules)
+ ✓ Compiled in 117ms (532 modules)
+ ✓ Compiled in 76ms (255 modules)
+ ✓ Compiled in 64ms (255 modules)
+ ✓ Compiled in 55ms (255 modules)
+ ✓ Compiled in 114ms (532 modules)
+ ✓ Compiled in 69ms (255 modules)
+ ✓ Compiled in 85ms (532 modules)
+ ✓ Compiled in 65ms (255 modules)
+ ✓ Compiled in 54ms (255 modules)
+ ✓ Compiled in 84ms (518 modules)
+ ✓ Compiled in 80ms (255 modules)
+ ✓ Compiled in 69ms (255 modules)
+ ✓ Compiled in 80ms (255 modules)
+ ✓ Compiled in 64ms (255 modules)
+ ✓ Compiled in 69ms (255 modules)
+ ✓ Compiled in 63ms (255 modules)
+ ✓ Compiled in 73ms (255 modules)
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 719ms (521 modules)
+ GET /_next/static/css/app/layout.css?v=1777104381851 404 in 386ms
+ GET /_next/static/css/app/layout.css?v=1777104381444 404 in 793ms
+ GET /_next/static/css/app/layout.css?v=1777104381433 404 in 808ms
+ GET /_next/static/css/app/layout.css?v=1777104381866 404 in 300ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\_not-found\page.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\_not-found\\page.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1453ms (747 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ✓ Compiled in 507ms (747 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ✓ Compiled in 406ms (747 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ GET / 500 in 8ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\page.js:1:6094
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\page.js:1:6146)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/'
+}
+ GET / 500 in 11ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\chaalak-app\.next\server\vendor-chunks'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/@swc' in D:\chaalak-app\.next\server for build dependencies doesn't lead to expected result 'D:\chaalak-app\.next\server\vendor-chunks\@swc.js', but to 'Error: Can't resolve './vendor-chunks/@swc' in 'D:\chaalak-app\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/@swc (expected D:\chaalak-app\.next\server\vendor-chunks\@swc.js)
+<w>  at file dependencies D:\chaalak-app\.next\server\webpack-runtime.js
+<w>  at file D:\chaalak-app\.next\server\webpack-runtime.js
+<w>  at file dependencies D:\chaalak-app\.next\server\pages\_error.js
+<w>  at file D:\chaalak-app\.next\server\pages\_error.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/next' in D:\chaalak-app\.next\server for build dependencies doesn't lead to expected result 'D:\chaalak-app\.next\server\vendor-chunks\next.js', but to 'Error: Can't resolve './vendor-chunks/next' in 'D:\chaalak-app\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/next (expected D:\chaalak-app\.next\server\vendor-chunks\next.js)
+<w>  at file dependencies D:\chaalak-app\.next\server\webpack-runtime.js
+<w>  at file D:\chaalak-app\.next\server\webpack-runtime.js
+<w>  at file dependencies D:\chaalak-app\.next\server\pages\_error.js
+<w>  at file D:\chaalak-app\.next\server\pages\_error.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ✓ Compiled in 171ms (471 modules)
+ ✓ Compiled / in 187ms (700 modules)
+ GET / 200 in 277ms
+ GET / 200 in 24ms
+ ✓ Compiled /_not-found in 85ms (703 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\_not-found\page.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\_not-found\page.js:1:3344
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\_not-found\page.js:1:3388)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2090:30)
+    at async pipe.req.req (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:374:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\_not-found\\page.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\_not-found\page.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\_not-found\page.js:1:3344
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\_not-found\page.js:1:3388)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2090:30)
+    at async pipe.req.req (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:374:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\_not-found\\page.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\_not-found\page.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\_not-found\page.js:1:3344
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\_not-found\page.js:1:3388)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2090:30)
+    at async pipe.req.req (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:374:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\_not-found\\page.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\_not-found\page.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\_not-found\page.js:1:3344
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\_not-found\page.js:1:3388)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2090:30)
+    at async pipe.req.req (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:374:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\_not-found\\page.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\_not-found\page.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\_not-found\page.js:1:3344
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\_not-found\page.js:1:3388)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2090:30)
+    at async pipe.req.req (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:374:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\_not-found\\page.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ✓ Compiled /_error in 91ms (705 modules)
+ GET /_next/static/css/app/layout.css?v=1777104477512 500 in 3275ms
+ GET /_next/static/chunks/app-pages-internals.js 500 in 3291ms
+ GET /_next/static/chunks/main-app.js?v=1777104477466 500 in 3297ms
+ GET /_next/static/css/app/layout.css?v=1777104477466 500 in 3299ms
+ GET /_next/static/chunks/main-app.js?v=1777104477512 500 in 3275ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\_not-found\page.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\app\_not-found\page.js:1:3344
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\_not-found\page.js:1:3388)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderErrorToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2090:30)
+    at async pipe.req.req (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:374:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\_not-found\\page.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ GET /_next/static/chunks/app-pages-internals.js 500 in 7ms
+ ✓ Compiled /favicon.ico in 121ms (324 modules)
+ GET /favicon.ico 200 in 178ms
+ GET /favicon.ico 200 in 4ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\chaalak-app\.next\server'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/favicon.ico/route' in D:\chaalak-app\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'D:\chaalak-app\.next\server\app\favicon.ico\route.js', but to 'Error: Can't resolve '../../../../.next/server/app/favicon.ico/route' in 'D:\chaalak-app\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/favicon.ico/route (expected D:\chaalak-app\.next\server\app\favicon.ico\route.js)
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\handle-externals.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\chaalak-app\.next\server'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\chaalak-app\.next\server'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/favicon.ico/route' in D:\chaalak-app\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'D:\chaalak-app\.next\server\app\favicon.ico\route.js', but to 'Error: Can't resolve '../../../../.next/server/app/favicon.ico/route' in 'D:\chaalak-app\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/favicon.ico/route (expected D:\chaalak-app\.next\server\app\favicon.ico\route.js)
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\swc\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/favicon.ico/route' in D:\chaalak-app\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'D:\chaalak-app\.next\server\app\favicon.ico\route.js', but to 'Error: Can't resolve '../../../../.next/server/app/favicon.ico/route' in 'D:\chaalak-app\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/favicon.ico/route (expected D:\chaalak-app\.next\server\app\favicon.ico\route.js)
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\swc\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\chaalak-app\.next\server'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/favicon.ico/route' in D:\chaalak-app\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'D:\chaalak-app\.next\server\app\favicon.ico\route.js', but to 'Error: Can't resolve '../../../../.next/server/app/favicon.ico/route' in 'D:\chaalak-app\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/favicon.ico/route (expected D:\chaalak-app\.next\server\app\favicon.ico\route.js)
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\swc\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\chaalak-app\.next\server'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/favicon.ico/route' in D:\chaalak-app\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'D:\chaalak-app\.next\server\app\favicon.ico\route.js', but to 'Error: Can't resolve '../../../../.next/server/app/favicon.ico/route' in 'D:\chaalak-app\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/favicon.ico/route (expected D:\chaalak-app\.next\server\app\favicon.ico\route.js)
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\handle-externals.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\chaalak-app\.next\server\vendor-chunks'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/next' in D:\chaalak-app\.next\server for build dependencies doesn't lead to expected result 'D:\chaalak-app\.next\server\vendor-chunks\next.js', but to 'Error: Can't resolve './vendor-chunks/next' in 'D:\chaalak-app\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/next (expected D:\chaalak-app\.next\server\vendor-chunks\next.js)
+<w>  at file dependencies D:\chaalak-app\.next\server\webpack-runtime.js
+<w>  at file D:\chaalak-app\.next\server\webpack-runtime.js
+<w>  at file dependencies D:\chaalak-app\.next\server\app\favicon.ico\route.js
+<w>  at file D:\chaalak-app\.next\server\app\favicon.ico\route.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs D:\chaalak-app\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+ ✓ Compiled in 478ms (477 modules)
+   Reload env: .env.local
+ ✓ Compiled in 779ms (458 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\chaalak-app\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'D:\chaalak-app\.next\cache\webpack\client-development-fallback\0.pack.gz'
+ ✓ Compiled in 360ms (424 modules)
+ ✓ Compiled in 85ms (424 modules)
+ ✓ Compiled in 63ms (424 modules)
+ ✓ Compiled in 60ms (424 modules)
+ ✓ Compiled in 60ms (424 modules)
+ ✓ Compiled in 94ms (424 modules)
+ ✓ Compiled in 101ms (424 modules)
+ ✓ Compiled in 87ms (424 modules)
+ ✓ Compiled in 90ms (424 modules)
+ ✓ Compiled in 372ms (424 modules)
+ ✓ Compiled in 255ms (472 modules)
+ ✓ Compiled /middleware in 414ms (125 modules)
+ ○ Compiling /auth ...
+ ✓ Compiled /auth in 2.3s (1640 modules)
+ GET /auth 200 in 2838ms
+ ✓ Compiled /_not-found in 270ms (1620 modules)
+ GET /_next/static/css/app/layout.css?v=1777107626580 404 in 337ms
+ GET /_next/static/chunks/main-app.js?v=1777107626580 404 in 343ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 344ms
+ ✓ Compiled /favicon.ico in 210ms (778 modules)
+ GET /favicon.ico 200 in 265ms
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (216kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ ✓ Compiled in 254ms (886 modules)
+ ✓ Compiled in 158ms (886 modules)
+ ✓ Compiled in 130ms (886 modules)
+ ✓ Compiled in 184ms (886 modules)
+ ✓ Compiled in 114ms (886 modules)
+ ✓ Compiled in 93ms (886 modules)
+ ✓ Compiled in 165ms (886 modules)
+ ✓ Compiled in 152ms (886 modules)
+ ✓ Compiled in 382ms (886 modules)
+ ✓ Compiled in 146ms (886 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\favicon.ico\route.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:203:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:167:22)
+    at D:\chaalak-app\.next\server\app\auth\page.js:1:14757
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\auth\page.js:1:14814)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\favicon.ico\\route.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/auth'
+}
+ ✓ Compiled /_error in 411ms (1619 modules)
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (D:\chaalak-app\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\favicon.ico\route.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:203:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:167:22)
+    at D:\chaalak-app\.next\server\app\auth\page.js:1:14757
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\auth\page.js:1:14814)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\favicon.ico\\route.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/auth'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\pages\_document.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:198:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:111:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:110:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:162:22)
+    at D:\chaalak-app\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (D:\chaalak-app\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\pages\\_document.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+Error: ENOENT: no such file or directory, open 'D:\chaalak-app\.next\fallback-build-manifest.json'
+    at readFileSync (node:fs:440:20)
+    at loadManifest (D:\chaalak-app\node_modules\next\dist\server\load-manifest.js:36:52)
+    at loadManifestWithRetries (D:\chaalak-app\node_modules\next\dist\server\load-components.js:40:51)
+    at async loadDefaultErrorComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-default-error-components.js:30:24)
+    at async DevServer.getFallbackErrorComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:594:16)
+    at async DevServer.renderErrorToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2203:40)
+    at async pipe.req.req (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:395:24)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\chaalak-app\\.next\\fallback-build-manifest.json'
+}
+ GET /auth 500 in 874ms
+ GET /auth 500 in 220ms
+ ✓ Compiled /favicon.ico in 85ms (778 modules)
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\favicon.ico\route.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:203:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:167:22)
+    at D:\chaalak-app\.next\server\app\favicon.ico\route.js:12:16051
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\favicon.ico\route.js:12:16092)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\favicon.ico\\route.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 109ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\favicon.ico\route.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:203:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:167:22)
+    at D:\chaalak-app\.next\server\app\auth\page.js:1:14757
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\auth\page.js:1:14814)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\favicon.ico\\route.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/auth'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\favicon.ico\route.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:203:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:167:22)
+    at D:\chaalak-app\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (D:\chaalak-app\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\favicon.ico\\route.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\favicon.ico\route.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:203:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:167:22)
+    at D:\chaalak-app\.next\server\app\auth\page.js:1:14757
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\auth\page.js:1:14814)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\favicon.ico\\route.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/auth'
+}
+ ⨯ Error: Cannot find module './682.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\favicon.ico\route.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:203:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:167:22)
+    at D:\chaalak-app\.next\server\pages\_document.js:1:335
+    at Object.<anonymous> (D:\chaalak-app\.next\server\pages\_document.js:1:376)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:72:65
+    at async Promise.all (index 0)
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:71:33)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\favicon.ico\\route.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+Error: ENOENT: no such file or directory, open 'D:\chaalak-app\.next\fallback-build-manifest.json'
+    at readFileSync (node:fs:440:20)
+    at loadManifest (D:\chaalak-app\node_modules\next\dist\server\load-manifest.js:36:52)
+    at loadManifestWithRetries (D:\chaalak-app\node_modules\next\dist\server\load-components.js:40:51)
+    at async loadDefaultErrorComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-default-error-components.js:30:24)
+    at async DevServer.getFallbackErrorComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:594:16)
+    at async DevServer.renderErrorToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2203:40)
+    at async pipe.req.req (D:\chaalak-app\node_modules\next\dist\server\base-server.js:2056:30)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:395:24)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\chaalak-app\\.next\\fallback-build-manifest.json'
+}
+ GET /auth 500 in 439ms
+ GET /auth 500 in 214ms
+ ⨯ Error: Cannot find module './948.js'
+Require stack:
+- D:\chaalak-app\.next\server\webpack-runtime.js
+- D:\chaalak-app\.next\server\app\favicon.ico\route.js
+- D:\chaalak-app\node_modules\next\dist\server\require.js
+- D:\chaalak-app\node_modules\next\dist\server\load-components.js
+- D:\chaalak-app\node_modules\next\dist\build\utils.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-middleware.js
+- D:\chaalak-app\node_modules\next\dist\server\dev\hot-reloader-webpack.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js
+- D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1456:15)
+    at D:\chaalak-app\node_modules\next\dist\server\require-hook.js:55:36
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1066:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1071:22)
+    at Module._load (node:internal/modules/cjs/loader:1242:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at __webpack_require__.f.require (D:\chaalak-app\.next\server\webpack-runtime.js:203:28)
+    at D:\chaalak-app\.next\server\webpack-runtime.js:116:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (D:\chaalak-app\.next\server\webpack-runtime.js:115:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (D:\chaalak-app\.next\server\webpack-runtime.js:167:22)
+    at D:\chaalak-app\.next\server\app\favicon.ico\route.js:12:16051
+    at Object.<anonymous> (D:\chaalak-app\.next\server\app\favicon.ico\route.js:12:16092)
+    at Module._compile (node:internal/modules/cjs/loader:1812:14)
+    at Object..js (node:internal/modules/cjs/loader:1943:10)
+    at Module.load (node:internal/modules/cjs/loader:1533:32)
+    at Module._load (node:internal/modules/cjs/loader:1335:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1556:12)
+    at mod.require (D:\chaalak-app\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (D:\chaalak-app\node_modules\next\dist\server\require.js:109:84)
+    at D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:84
+    at async loadComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\load-components.js:103:26)
+    at async DevServer.findPageComponentsImpl (D:\chaalak-app\node_modules\next\dist\server\next-server.js:714:36)
+    at async DevServer.findPageComponents (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:577:20)
+    at async DevServer.renderPageComponent (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1910:24)
+    at async DevServer.renderToResponseImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\chaalak-app\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\chaalak-app\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\chaalak-app\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\chaalak-app\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\chaalak-app\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\chaalak-app\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'D:\\chaalak-app\\.next\\server\\webpack-runtime.js',
+    'D:\\chaalak-app\\.next\\server\\app\\favicon.ico\\route.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\require.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\load-components.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\build\\utils.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-middleware.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\dev\\hot-reloader-webpack.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-utils\\setup-dev-bundler.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\router-server.js',
+    'D:\\chaalak-app\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ],
+  page: '/favicon.ico'
+}
+ GET /favicon.ico 500 in 6ms

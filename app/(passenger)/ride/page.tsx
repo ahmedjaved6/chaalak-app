@@ -1,0 +1,409 @@
+'use client'
+
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import dynamic from 'next/dynamic'
+import { Phone, ShieldAlert, X } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { createClient } from '@/lib/supabase/client'
+import { cancelRideRequest } from '@/lib/ride'
+import { ZONE_COLORS } from '@/lib/constants'
+import type { RideStatus } from '@/lib/types'
+import type { RideMapProps } from '../_components/RideMap'
+
+const RideMap = dynamic<RideMapProps>(
+  () => import('../_components/RideMap'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex h-full items-center justify-center" style={{ background: '#0f1117' }}>
+        <div className="h-7 w-7 animate-spin rounded-full border-2 border-amber-400 border-t-transparent" />
+      </div>
+    ),
+  }
+)
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface PullerInfo {
+  id:          string
+  badgeCode:   string
+  badgeNumber: number
+  thumbsUp:    number
+  name:        string
+  phone:       string | null
+  zoneNumber:  number
+  zoneNameAs:  string
+}
+
+// ─── Status label helper ──────────────────────────────────────────────────────
+
+function statusLabel(s: RideStatus): string {
+  if (s === 'requested') return '🔍 ৰিক্সা বিচাৰি আছে…'
+  if (s === 'accepted')  return '🛺 ৰিক্সাৱালা আহি আছে'
+  if (s === 'active')    return '🚀 যাত্ৰা আৰম্ভ হ\'ল'
+  return ''
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+export default function PassengerRidePage() {
+  const router = useRouter()
+
+  const [rideId,       setRideId]       = useState<string | null>(null)
+  const [passengerId,  setPassengerId]  = useState<string | null>(null)
+  const [rideStatus,   setRideStatus]   = useState<RideStatus>('requested')
+  const [puller,       setPuller]       = useState<PullerInfo | null>(null)
+  const [passengerPos, setPassengerPos] = useState<[number, number] | null>(null)
+  const [pullerPos,    setPullerPos]    = useState<[number, number] | null>(null)
+  const [loading,      setLoading]      = useState(true)
+  const [cancelling,   setCancelling]   = useState(false)
+
+  const sbRef       = useRef(createClient())
+  const pullerIdRef = useRef<string | null>(null)
+
+  // ── Geolocation ──────────────────────────────────────────────────────────────
+
+  useEffect(() => {
+    if (!('geolocation' in navigator)) return
+    navigator.geolocation.getCurrentPosition(
+      (pos) => setPassengerPos([pos.coords.latitude, pos.coords.longitude]),
+      () => {},
+      { enableHighAccuracy: true, timeout: 10_000 }
+    )
+  }, [])
+
+  // ── Navigate when completed ───────────────────────────────────────────────────
+
+  useEffect(() => {
+    if ((rideStatus === 'completed' || rideStatus === 'no_show') && rideId) {
+      localStorage.removeItem('chaalak_ride_id')
+      router.replace(`/complete?ride_id=${rideId}`)
+    }
+    if (rideStatus === 'cancelled') {
+      localStorage.removeItem('chaalak_ride_id')
+      router.replace('/')
+    }
+  }, [rideStatus, rideId, router])
+
+  // ── Load puller details (called on accept and on initial load) ────────────────
+
+  const loadPullerInfo = useCallback(async (pid: string) => {
+    const sb = sbRef.current
+    const { data: p } = await sb
+      .from('pullers')
+      .select('id, badge_code, badge_number, thumbs_up, lat, lng, zone_id, user_id')
+      .eq('id', pid)
+      .maybeSingle()
+    if (!p) return
+
+    const [userRes, zoneRes] = await Promise.all([
+      sb.from('users').select('name, phone').eq('id', p.user_id).maybeSingle(),
+      sb.from('zones').select('zone_number, name_as').eq('id', p.zone_id).maybeSingle(),
+    ])
+
+    pullerIdRef.current = p.id
+    setPuller({
+      id:          p.id,
+      badgeCode:   p.badge_code,
+      badgeNumber: p.badge_number,
+      thumbsUp:    p.thumbs_up ?? 0,
+      name:        userRes.data?.name  ?? 'Puller',
+      phone:       userRes.data?.phone ?? null,
+      zoneNumber:  zoneRes.data?.zone_number ?? 1,
+      zoneNameAs:  zoneRes.data?.name_as     ?? '',
+    })
+    if (p.lat != null && p.lng != null) setPullerPos([p.lat, p.lng])
+  }, [])
+
+  // ── Refresh puller GPS every 10 s ─────────────────────────────────────────────
+
+  const refreshPullerPos = useCallback(async () => {
+    if (!pullerIdRef.current) return
+    const { data } = await sbRef.current
+      .from('pullers')
+      .select('lat, lng')
+      .eq('id', pullerIdRef.current)
+      .maybeSingle()
+    if (data?.lat != null && data?.lng != null)
+      setPullerPos([data.lat as number, data.lng as number])
+  }, [])
+
+  // ── Initial load ──────────────────────────────────────────────────────────────
+
+  useEffect(() => {
+    const sb = sbRef.current
+
+    async function load() {
+      const { data: { user } } = await sb.auth.getUser()
+      if (!user) { router.replace('/auth'); return }
+
+      const { data: passenger } = await sb
+        .from('passengers')
+        .select('id')
+        .eq('user_id', user.id)
+        .maybeSingle()
+      if (!passenger) { router.replace('/'); return }
+      setPassengerId(passenger.id)
+
+      // Resolve ride_id: localStorage → DB fallback
+      let rid: string | null = localStorage.getItem('chaalak_ride_id')
+      if (!rid) {
+        const { data: active } = await sb
+          .from('ride_requests')
+          .select('id')
+          .eq('passenger_id', passenger.id)
+          .in('status', ['requested', 'accepted', 'active'])
+          .maybeSingle()
+        if (!active) { router.replace('/'); return }
+        rid = active.id as string
+        localStorage.setItem('chaalak_ride_id', rid)
+      }
+      setRideId(rid)
+
+      const { data: ride } = await sb
+        .from('ride_requests')
+        .select('status, accepted_by')
+        .eq('id', rid)
+        .maybeSingle()
+      if (!ride) { router.replace('/'); return }
+      setRideStatus(ride.status as RideStatus)
+
+      if (ride.accepted_by) {
+        await loadPullerInfo(ride.accepted_by)
+        await refreshPullerPos()
+      }
+
+      setLoading(false)
+    }
+
+    load()
+  }, [router, loadPullerInfo, refreshPullerPos])
+
+  // ── Realtime subscription + 10 s position poll ────────────────────────────────
+
+  useEffect(() => {
+    if (!rideId) return
+    const sb = sbRef.current
+
+    const channel = sb
+      .channel(`passenger-ride-${rideId}`)
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'ride_requests', filter: `id=eq.${rideId}` },
+        async (payload) => {
+          const newStatus = payload.new.status as RideStatus
+          setRideStatus(newStatus)
+          if (
+            (newStatus === 'accepted' || newStatus === 'active') &&
+            payload.new.accepted_by &&
+            payload.new.accepted_by !== pullerIdRef.current
+          ) {
+            await loadPullerInfo(payload.new.accepted_by)
+          }
+        }
+      )
+      .subscribe()
+
+    const interval = setInterval(refreshPullerPos, 10_000)
+
+    return () => {
+      sb.removeChannel(channel)
+      clearInterval(interval)
+    }
+  }, [rideId, loadPullerInfo, refreshPullerPos])
+
+  // ── Cancel ride ───────────────────────────────────────────────────────────────
+
+  async function handleCancel() {
+    if (!rideId || !passengerId || cancelling) return
+    setCancelling(true)
+    try {
+      await cancelRideRequest(sbRef.current, rideId, passengerId)
+      localStorage.removeItem('chaalak_ride_id')
+      router.replace('/')
+    } catch {
+      setCancelling(false)
+    }
+  }
+
+  // ── Loading ───────────────────────────────────────────────────────────────────
+
+  if (loading) {
+    return (
+      <div
+        className="flex min-h-screen items-center justify-center"
+        style={{ backgroundColor: '#1A1A1E' }}
+      >
+        <div className="h-9 w-9 animate-spin rounded-full border-2 border-amber-400 border-t-transparent" />
+      </div>
+    )
+  }
+
+  // ── Derived ───────────────────────────────────────────────────────────────────
+
+  const zoneColor  = puller ? ZONE_COLORS[puller.zoneNumber] : null
+  const canCancel  = rideStatus === 'requested' || rideStatus === 'accepted'
+  const sosText    = encodeURIComponent(
+    `SOS ${rideId ?? ''} ${puller?.badgeCode ?? ''} ${new Date().toLocaleTimeString('en-IN')}`
+  )
+  const sosUrl = `https://wa.me/${process.env.NEXT_PUBLIC_SOS_NUMBER || '919999999999'}?text=${sosText}`
+
+  // ── Render ────────────────────────────────────────────────────────────────────
+
+  return (
+    <div
+      className="flex h-[100dvh] flex-col overflow-hidden"
+      style={{ backgroundColor: '#1A1A1E' }}
+    >
+      {/* ── Map ─────────────────────────────────────────────────────────────── */}
+      <div className="relative shrink-0" style={{ height: '46dvh', minHeight: 220 }}>
+        <RideMap passengerPos={passengerPos} pullerPos={pullerPos} />
+
+        {/* Status pill */}
+        <div
+          className="absolute left-3 top-3 z-[1000] rounded-xl px-3 py-1.5 text-sm font-bold text-white"
+          style={{ background: 'rgba(0,0,0,0.68)', backdropFilter: 'blur(8px)' }}
+        >
+          {statusLabel(rideStatus)}
+        </div>
+      </div>
+
+      {/* ── Bottom sheet ─────────────────────────────────────────────────────── */}
+      <div className="flex flex-1 flex-col overflow-y-auto px-4 pt-4 pb-safe">
+
+        {/* ETA */}
+        <p
+          className="mb-4 text-center text-sm font-semibold"
+          style={{ color: 'rgba(255,255,255,0.45)' }}
+        >
+          সাধাৰণতে ৩–৭ মিনিটত আহে
+        </p>
+
+        {/* Puller card */}
+        <AnimatePresence mode="wait">
+          {puller ? (
+            <motion.div
+              key="puller-card"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              className="mb-4 rounded-3xl p-4"
+              style={{
+                background: 'rgba(255,255,255,0.05)',
+                border: '1.5px solid rgba(255,255,255,0.09)',
+              }}
+            >
+              <p
+                className="mb-3 text-[10px] font-bold uppercase tracking-widest"
+                style={{ color: 'rgba(255,255,255,0.35)' }}
+              >
+                তোমাৰ ৰিক্সাৱালা
+              </p>
+
+              <div className="flex items-center gap-3">
+                {/* Badge in zone color */}
+                <div
+                  className="flex h-[56px] w-[56px] shrink-0 flex-col items-center justify-center rounded-2xl"
+                  style={{
+                    background: zoneColor ? `${zoneColor.hex}1A` : 'rgba(255,255,255,0.08)',
+                    border: `2px solid ${zoneColor?.hex ?? 'rgba(255,255,255,0.2)'}`,
+                  }}
+                >
+                  <span
+                    className="text-[9px] font-bold leading-none"
+                    style={{ color: zoneColor?.hex ?? '#fff' }}
+                  >
+                    {puller.badgeCode.slice(0, 2)}
+                  </span>
+                  <span
+                    className="text-[22px] font-black leading-tight"
+                    style={{ color: zoneColor?.hex ?? '#fff' }}
+                  >
+                    {puller.badgeNumber}
+                  </span>
+                </div>
+
+                {/* Name + stats */}
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-base font-black text-white">{puller.name}</p>
+                  <div className="mt-0.5 flex items-center gap-1.5">
+                    <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      👍 {puller.thumbsUp}
+                    </span>
+                    <span style={{ color: 'rgba(255,255,255,0.2)' }}>·</span>
+                    <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      {puller.zoneNameAs}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Call button */}
+                {puller.phone && (
+                  <a
+                    href={`tel:${puller.phone.replace(/\D/g, '')}`}
+                    className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-2xl active:opacity-70"
+                    style={{ background: '#10B981' }}
+                  >
+                    <Phone size={20} color="#fff" strokeWidth={2.5} />
+                    <span className="mt-0.5 text-[8px] font-black text-white">CALL</span>
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="searching"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="mb-4 flex items-center justify-center gap-3 rounded-3xl p-6"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1.5px solid rgba(255,255,255,0.07)',
+              }}
+            >
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-amber-400 border-t-transparent" />
+              <p className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                ৰিক্সাৱালা বিচাৰি আছে…
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* SOS + Cancel */}
+        <div className="mt-auto flex gap-3 pb-6">
+          <a
+            href={sosUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl py-4 text-sm font-black"
+            style={{
+              background: 'rgba(239,68,68,0.10)',
+              border: '1.5px solid rgba(239,68,68,0.4)',
+              color: '#EF4444',
+            }}
+          >
+            <ShieldAlert size={17} />
+            SOS
+          </a>
+
+          <button
+            type="button"
+            onClick={handleCancel}
+            disabled={!canCancel || cancelling}
+            className="flex flex-1 items-center justify-center gap-2 rounded-2xl py-4 text-sm font-black disabled:opacity-35"
+            style={{
+              background: 'rgba(255,255,255,0.05)',
+              border: '1.5px solid rgba(255,255,255,0.09)',
+              color: 'rgba(255,255,255,0.7)',
+            }}
+          >
+            <X size={17} />
+            {cancelling ? 'Cancelling…' : 'Cancel'}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}

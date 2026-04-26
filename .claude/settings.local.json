@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(cd D:\\\\chaalak-app && npm run dev 2>&1 &)",
+      "PowerShell(Set-Location D:\\\\chaalak-app; $job = Start-Job { Set-Location D:\\\\chaalak-app; npm run dev 2>&1 }; Start-Sleep -Seconds 12; Receive-Job $job; Stop-Job $job; Remove-Job $job)",
+      "PowerShell(netstat -ano)",
+      "PowerShell(3001..3010 | ForEach-Object { $port = $_; $result = netstat -ano | findstr \":$port \"; if \\($result\\) { \"$port IN USE\" } else { \"$port free\" } })",
+      "PowerShell(Set-Location D:\\\\chaalak-app; node -e \"const p = require\\('./package.json'\\); const deps = {...p.dependencies, ...p.devDependencies}; const expected = ['@supabase/supabase-js','@supabase/ssr','leaflet','react-leaflet','@types/leaflet','web-push','@types/web-push','zustand','react-hook-form','zod','@hookform/resolvers','date-fns','clsx','tailwind-merge','lucide-react','@radix-ui/react-dialog','@radix-ui/react-toast','framer-motion']; expected.forEach\\(p => console.log\\(deps[p] ? `OK  ${p}@${deps[p]}` : `MISSING  ${p}`\\)\\)\")",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "PowerShell(Start-Sleep -Seconds 5; $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 15; \"Status: $\\($r.StatusCode\\)\"; \"Content-Type: $\\($r.Headers['Content-Type']\\)\"; $r.Content.Substring\\(0, [Math]::Min\\(300, $r.Content.Length\\)\\))"
+    ]
+  }
+}
