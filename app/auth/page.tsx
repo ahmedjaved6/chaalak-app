@@ -344,6 +344,63 @@ export default function AuthPage() {
     setLoading(false)
   }
 
+  async function handleDemoLogin(email: string) {
+    setLoading(true)
+    setError('')
+    const supabase = createClient()
+
+    const { error: loginErr } = await supabase.auth.signInWithPassword({
+      email,
+      password: 'test1234',
+    })
+
+    if (loginErr) {
+      setError(loginErr.message)
+      setLoading(false)
+      return
+    }
+
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) { setError('Authentication failed'); setLoading(false); return }
+
+    // Check role from users table
+    const { data: existing } = await supabase
+      .from('users')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle()
+
+    const role = existing?.role ?? 'passenger'
+
+    // Sync metadata just in case
+    await supabase.auth.updateUser({ data: { role } })
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('chaalak_role', role)
+      localStorage.setItem('chaalak_lang', lang)
+    }
+
+    if (role === 'passenger') {
+      router.push('/')
+    } else if (role === 'admin') {
+      router.push('/admin/dashboard')
+    } else {
+      const { data: pullerRow } = await supabase
+        .from('pullers')
+        .select('status')
+        .eq('user_id', user.id)
+        .maybeSingle()
+
+      if (pullerRow?.status === 'active') {
+        router.push('/dashboard')
+      } else {
+        setStep('PENDING')
+      }
+    }
+    setLoading(false)
+  }
+
+
   async function handleLogout() {
     const supabase = createClient()
     await supabase.auth.signOut()
@@ -467,6 +524,45 @@ export default function AuthPage() {
         >
           {tx.continue}
         </AmberButton>
+
+        {/* Demo Login Section */}
+        <div className="mt-8">
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-white/10" />
+            <span className="text-[10px] font-black uppercase tracking-widest text-white/30">Demo Accounts</span>
+            <div className="h-px flex-1 bg-white/10" />
+          </div>
+          
+          <div className="mt-4 grid grid-cols-1 gap-2">
+            <button
+              onClick={() => handleDemoLogin('passenger@test.com')}
+              disabled={loading}
+              className="flex items-center justify-between rounded-xl bg-amber-500/10 border border-amber-500/20 px-4 py-3 text-left transition-all active:scale-[0.98]"
+            >
+              <span className="text-xs font-black text-amber-500 uppercase tracking-tight">Demo Passenger</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+            </button>
+
+            <button
+              onClick={() => handleDemoLogin('puller@test.com')}
+              disabled={loading}
+              className="flex items-center justify-between rounded-xl bg-emerald-500/10 border border-emerald-500/20 px-4 py-3 text-left transition-all active:scale-[0.98]"
+            >
+              <span className="text-xs font-black text-emerald-500 uppercase tracking-tight">Demo Puller</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </button>
+
+            <button
+              onClick={() => handleDemoLogin('admin@chaalak.app')}
+              disabled={loading}
+              className="flex items-center justify-between rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-left transition-all active:scale-[0.98]"
+            >
+              <span className="text-xs font-black text-white/60 uppercase tracking-tight">Demo Admin</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-white/40 animate-pulse" />
+            </button>
+          </div>
+        </div>
+
       </motion.div>
     ),
 
