@@ -3,6 +3,7 @@ import { updateSession } from '@/lib/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  console.log('Middleware hit:', pathname)
   const { response, user } = await updateSession(request)
 
   // public routes — no auth required

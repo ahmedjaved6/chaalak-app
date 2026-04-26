@@ -23,9 +23,11 @@ export async function updateSession(request: NextRequest) {
   )
 
   // Refresh the session — must call getUser() (not getSession()) per Supabase docs
+  console.log('Middleware: Calling getUser()...')
   const {
     data: { user },
   } = await supabase.auth.getUser()
+  console.log('Middleware: getUser() returned:', user?.id || 'no-user')
 
   return { response: supabaseResponse, user }
 }

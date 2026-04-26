@@ -345,6 +345,19 @@ export default function AuthPage() {
             </div>
             <span className="text-[11px] font-bold text-gray-500 font-nunito tracking-tighter">{tx.passengerDesc}</span>
           </button>
+          {/* Admin Card */}
+          <button
+            onClick={() => setSelectedRole('admin')}
+            className={`flex flex-col items-center p-6 rounded-[20px] border-2 transition-all active:scale-[0.98] ${
+              selectedRole === 'admin' ? 'bg-white/5 border-white' : 'bg-[#2A2A2E] border-[#3A3A3E]'
+            }`}
+          >
+            <span className="text-[18px] font-black text-white font-nunito">Admin</span>
+            <div className="my-8 flex items-center justify-center text-white/40">
+              <ShieldCheck className="h-16 w-16" />
+            </div>
+            <span className="text-[11px] font-bold text-gray-500 font-nunito tracking-tighter">Manage Platform</span>
+          </button>
         </div>
 
         <div className="mt-auto pb-12">
