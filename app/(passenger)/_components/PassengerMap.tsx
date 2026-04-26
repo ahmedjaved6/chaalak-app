@@ -4,13 +4,9 @@
 // ── It is safe to call L.* at module level here.
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { MapContainer, TileLayer, Marker, ZoomControl, useMap } from 'react-leaflet'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
-// ─── Guwahati city center ─────────────────────────────────────────────────────
 export const GUWAHATI: [number, number] = [26.1445, 91.7362]
-
-// ─── Custom icons ────────────────────────────────────────────────────────────
 
 const passengerIcon = L.divIcon({
   html: `
@@ -40,18 +36,6 @@ const pullerIcon = L.divIcon({
   iconAnchor: [19, 19],
 })
 
-// ─── Map re-center on position change ────────────────────────────────────────
-
-function Recenter({ lat, lng }: { lat: number; lng: number }) {
-  const map = useMap()
-  useEffect(() => {
-    map.setView([lat, lng], map.getZoom(), { animate: true })
-  }, [map, lat, lng])
-  return null
-}
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 export interface OnlinePuller {
   id: string
   lat: number | null
@@ -63,51 +47,78 @@ export interface PassengerMapProps {
   pullers: OnlinePuller[]
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 export default function PassengerMap({ passengerPos, pullers }: PassengerMapProps) {
-  return (
-    <MapContainer
-      center={passengerPos ?? GUWAHATI}
-      zoom={13}
-      style={{ height: '100%', width: '100%' }}
-      zoomControl={false}
-      scrollWheelZoom={false}
-      attributionControl={false}
-    >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>'
-      />
-      <ZoomControl position="bottomright" />
 
-      {/* Passenger blue dot */}
-      {passengerPos && (
-        <>
-          <Recenter lat={passengerPos[0]} lng={passengerPos[1]} />
-          <Marker 
-            position={passengerPos} 
-            icon={passengerIcon} 
-            alt="Your location"
-            keyboard={true}
-            ref={(m) => m?.getElement()?.setAttribute('aria-label', 'Your location')}
-          />
-        </>
-      )}
+  const mapRef = useRef<L.Map | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const markersRef = useRef<Record<string, L.Marker>>({})
+  const paxMarkerRef = useRef<L.Marker | null>(null)
 
-      {/* Online puller markers */}
-      {pullers.map((p) =>
-        p.lat != null && p.lng != null ? (
-          <Marker 
-            key={p.id} 
-            position={[p.lat, p.lng]} 
-            icon={pullerIcon} 
-            alt={`Puller ${p.id}`}
-            keyboard={true}
-            ref={(m) => m?.getElement()?.setAttribute('aria-label', `Puller ${p.id}`)}
-          />
-        ) : null
-      )}
-    </MapContainer>
-  )
+  useEffect(() => {
+    if (!mapRef.current && containerRef.current) {
+      const m = L.map(containerRef.current, {
+        center: passengerPos ?? GUWAHATI,
+        zoom: 13,
+        zoomControl: false,
+        scrollWheelZoom: false,
+        attributionControl: false,
+      })
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(m)
+      L.control.zoom({ position: 'bottomright' }).addTo(m)
+      mapRef.current = m
+    }
+
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove()
+        mapRef.current = null
+      }
+    }
+  }, [])
+
+  // Sync passenger marker
+  useEffect(() => {
+    if (!mapRef.current) return
+    if (passengerPos) {
+      if (!paxMarkerRef.current) {
+        paxMarkerRef.current = L.marker(passengerPos, { icon: passengerIcon, keyboard: true, alt: 'Your location' }).addTo(mapRef.current)
+        paxMarkerRef.current.getElement()?.setAttribute('aria-label', 'Your location')
+      } else {
+        paxMarkerRef.current.setLatLng(passengerPos)
+      }
+      mapRef.current.setView(passengerPos, mapRef.current.getZoom(), { animate: true })
+    } else if (paxMarkerRef.current) {
+      paxMarkerRef.current.remove()
+      paxMarkerRef.current = null
+    }
+  }, [passengerPos])
+
+  // Sync puller markers
+  useEffect(() => {
+    if (!mapRef.current) return
+    const currentIds = new Set(pullers.map(p => p.id))
+
+    // Remove stale
+    for (const id in markersRef.current) {
+      if (!currentIds.has(id)) {
+        markersRef.current[id].remove()
+        delete markersRef.current[id]
+      }
+    }
+
+    // Add/update active
+    pullers.forEach(p => {
+      if (p.lat == null || p.lng == null) return
+      if (markersRef.current[p.id]) {
+        markersRef.current[p.id].setLatLng([p.lat, p.lng])
+      } else {
+        const m = L.marker([p.lat, p.lng], { icon: pullerIcon, keyboard: true, alt: `Puller ${p.id}` }).addTo(mapRef.current!)
+        m.getElement()?.setAttribute('aria-label', `Puller ${p.id}`)
+        markersRef.current[p.id] = m
+      }
+    })
+  }, [pullers])
+
+  if (typeof window === 'undefined') return null
+  return <div ref={containerRef} id="map" style={{ height: '100%', width: '100%' }} />
 }

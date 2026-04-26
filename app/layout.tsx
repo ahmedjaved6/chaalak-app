@@ -36,7 +36,6 @@ export const metadata: Metadata = {
   description: "Guwahati's own rickshaw hailing app",
   manifest: "/manifest.json",
   appleWebApp: {
-    capable: true,
     statusBarStyle: "black-translucent",
     title: "Chaalak",
   },
@@ -59,6 +58,7 @@ export default function RootLayout({
     <html lang="as">
       <head>
         <meta charSet="utf-8" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
       <body

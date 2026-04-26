@@ -348,13 +348,13 @@ function PullerDashboardPage() {
           .from('ride_requests')
           .select('*', { count: 'exact', head: true })
           .eq('accepted_by', puller.id)
-          .gte('created_at', (() => { const d = new Date(); d.setHours(0,0,0,0); return d.toISOString() })()),
+          .gte('created_at', (() => { const d = new Date(); d.setHours(0,0,0,0); return d.toISOString().slice(0,23)+'Z' })()),
 
         supabase
           .from('ride_requests')
           .select('*', { count: 'exact', head: true })
           .eq('accepted_by', puller.id)
-          .gte('created_at', (() => { const d = new Date(); d.setDate(1); d.setHours(0,0,0,0); return d.toISOString() })()),
+          .gte('created_at', (() => { const d = new Date(); d.setDate(1); d.setHours(0,0,0,0); return d.toISOString().slice(0,23)+'Z' })()),
 
         supabase
           .from('pullers')
@@ -370,14 +370,14 @@ function PullerDashboardPage() {
           .from('ride_requests')
           .select('*', { count: 'exact', head: true })
           .eq('zone_id', puller.zone_id)
-          .gte('created_at', (() => { const d = new Date(); d.setDate(1); d.setHours(0,0,0,0); return d.toISOString() })()),
+          .gte('created_at', (() => { const d = new Date(); d.setDate(1); d.setHours(0,0,0,0); return d.toISOString().slice(0,23)+'Z' })()),
 
         supabase
           .from('ride_requests')
           .select('id', { count: 'exact', head: true })
           .eq('accepted_by', puller.id)
           .eq('status', 'completed')
-          .gte('completed_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()),
+          .gte('completed_at', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 23) + 'Z'),
       ])
 
       const nextData: DashboardData = {
@@ -405,43 +405,45 @@ function PullerDashboardPage() {
       setData(nextData)
 
       // Parallel: Recent Rides
-      const recentRidesPromise = supabase
-        .from('ride_requests')
-        .select(`
-          id, completed_at, thumbs_up, started_at,
-          passengers (users (phone)),
-          zones (name_as, zone_number)
-        `)
-        .eq('accepted_by', puller.id)
-        .eq('status', 'completed')
-        .order('completed_at', { ascending: false })
-        .limit(3)
+      try {
+        const { data: rides, error } = await supabase
+          .from('ride_requests')
+          .select(`
+            id, completed_at, thumbs_up, started_at,
+            passengers (users (phone)),
+            zones (name_as, zone_number)
+          `)
+          .eq('accepted_by', puller.id)
+          .eq('status', 'completed')
+          .order('completed_at', { ascending: false })
+          .limit(3)
 
-      const [{ data: rides }] = await Promise.all([recentRidesPromise])
+        if (error) throw error
 
-      if (rides) {
-        setRecentRides(rides.map(r => {
-          const start = r.started_at ? new Date(r.started_at).getTime() : 0
-          const end   = r.completed_at ? new Date(r.completed_at).getTime() : 0
-          const diff  = Math.max(1, Math.round((end - start) / 60000))
-          
-          const passData = r.passengers as unknown as { users: { phone: string } } | null
-          const rawPhone = passData?.users?.phone || '**********'
-          const masked = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '****' + rawPhone.slice(-3) : '**********'
+        if (rides) {
+          setRecentRides(rides.map(r => {
+            const start = r.started_at ? new Date(r.started_at).getTime() : 0
+            const end   = r.completed_at ? new Date(r.completed_at).getTime() : 0
+            const diff  = Math.max(1, Math.round((end - start) / 60000))
+            
+            const passData = r.passengers as unknown as { users: { phone: string } } | null
+            const rawPhone = passData?.users?.phone || '**********'
+            const masked = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '****' + rawPhone.slice(-3) : '**********'
 
-          return {
-            id: r.id,
-            completed_at: r.completed_at!,
-            passenger_phone: masked,
-            zone: r.zones as unknown as RecentRidePuller['zone'],
-            thumbs_up: !!r.thumbs_up,
-            duration_mins: diff
-          }
-        }))
+            return {
+              id: r.id,
+              completed_at: r.completed_at!,
+              passenger_phone: masked,
+              zone: r.zones as unknown as RecentRidePuller['zone'],
+              thumbs_up: !!r.thumbs_up,
+              duration_mins: diff
+            }
+          }))
+        }
+      } catch (e) {
+        console.warn('Recent rides fetch failed:', e)
+        setRecentRides([])
       }
-
-
-
 
       setLoadingPage(false)
 
