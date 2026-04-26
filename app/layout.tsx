@@ -3,7 +3,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import { Nunito } from "next/font/google";
+import "@fontsource/noto-sans-bengali/400.css";
+import "@fontsource/noto-sans-bengali/700.css";
+import "@fontsource/noto-sans-devanagari/400.css";
+import "@fontsource/noto-sans-devanagari/700.css";
 import "./globals.css";
+
 
 const nunito = Nunito({
   subsets: ["latin"],

@@ -13,7 +13,8 @@ export type VehicleType = 'rickshaw' | 'auto' | 'bike' | 'car'
 export type RideStatus = 'requested' | 'accepted' | 'active' | 'completed' | 'cancelled' | 'expired' | 'no_show'
 export type PullerStatus = 'pending' | 'active' | 'suspended'
 export type SubscriptionStatus = 'active' | 'inactive' | 'expired'
-export type LanguagePref = 'as' | 'hi' | 'en'
+export type LanguagePref = 'as' | 'hi' | 'en' | 'bn'
+
 
 export interface Zone {
   id: string
