@@ -7,14 +7,6 @@ import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
 import type { Zone } from '@/lib/types'
 
-// ─── Static fallback zones (used if DB not yet seeded) ───────────────────────
-
-const FALLBACK_ZONES: Zone[] = [
-  { id: '__1', name: 'Pan Bazar',  name_as: 'পান বজাৰ',  name_hi: 'पान बाज़ार', color_hex: '#F59E0B', color_label: 'amber',  zone_number: 1, is_active: true },
-  { id: '__2', name: 'Chandmari', name_as: 'চান্দমাৰী', name_hi: 'चांदमारी',   color_hex: '#10B981', color_label: 'green',  zone_number: 2, is_active: true },
-  { id: '__3', name: 'Dispur',    name_as: 'দিছপুৰ',    name_hi: 'दिसपुर',     color_hex: '#3B82F6', color_label: 'blue',   zone_number: 3, is_active: true },
-  { id: '__4', name: 'Beltola',   name_as: 'বেলটোলা',   name_hi: 'बेलतोला',    color_hex: '#8B5CF6', color_label: 'purple', zone_number: 4, is_active: true },
-]
 
 // ─── Animation variant ────────────────────────────────────────────────────────
 
@@ -94,7 +86,7 @@ export default function OnboardingPage() {
 
   const [step, setStep]               = useState<1 | 2 | 3>(1)
   const [name, setName]               = useState('')
-  const [zones, setZones]             = useState<Zone[]>(FALLBACK_ZONES)
+  const [zones, setZones]             = useState<Zone[]>([])
   const [selectedZoneId, setSelectedZoneId] = useState<string>('')
   const [loading, setLoading]         = useState(false)
   const [error, setError]             = useState('')
