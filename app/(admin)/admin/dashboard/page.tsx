@@ -5,7 +5,9 @@ import dynamic from 'next/dynamic'
 import { RefreshCw, AlertTriangle } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ZONE_COLORS } from '@/lib/constants'
+import LogoutButton from '@/components/LogoutButton'
 import { fetchDashboardData, type DashboardData, type ZoneHealth, type StaleRequest } from './actions'
+
 import type { AdminMapProps } from './AdminMap'
 
 const AdminMap = dynamic<AdminMapProps>(
@@ -221,6 +223,8 @@ export default function AdminDashboardPage() {
         >
           ADMIN
         </div>
+        <LogoutButton color="#F59E0B" />
+
       </div>
     </div>
   )

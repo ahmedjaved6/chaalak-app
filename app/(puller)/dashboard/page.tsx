@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Home, Clock, User, MapPin, AlertCircle, CheckCircle2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import { ZONE_COLORS, HEARTBEAT_INTERVAL_MS } from '@/lib/constants'
+import { HEARTBEAT_INTERVAL_MS, ZONE_COLORS } from '@/lib/constants'
 import type { Zone, Puller, Subscription } from '@/lib/types'
+import LogoutButton from '@/components/LogoutButton'
+
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -18,7 +20,18 @@ interface DashboardData {
   todayRides:   number
   monthRides:   number
   zoneRank:     number
+  totalRequests: number // for acceptance rate
 }
+
+interface RecentRidePuller {
+  id: string
+  completed_at: string
+  passenger_phone: string
+  zone: { name_as: string, zone_number: number }
+  thumbs_up: boolean
+  duration_mins: number
+}
+
 
 type ToastType = 'error' | 'success' | 'info'
 
@@ -175,6 +188,8 @@ export default function PullerDashboardPage() {
   const [toggling, setToggling] = useState(false)
   const [loadingPage, setLoadingPage] = useState(true)
   const [toast, setToast]     = useState<{ msg: string; type: ToastType } | null>(null)
+  const [recentRides, setRecentRides] = useState<RecentRidePuller[]>([])
+
 
   // Stable refs — persist across renders, safe in closures
   const sbRef       = useRef(createClient())
@@ -270,8 +285,9 @@ export default function PullerDashboardPage() {
       pullerIdRef.current = puller.id
       setOnline(puller.is_online ?? false)
 
-      // Parallel: user name, zone, subscription, ride counts, zone rank
-      const [userRes, zoneRes, subRes, todayRes, monthRes, rankRes] = await Promise.all([
+      // Parallel: user name, zone, subscription, ride counts, zone rank, zone requests
+      const [userRes, zoneRes, subRes, todayRes, monthRes, rankRes, zoneReqRes] = await Promise.all([
+
         supabase.from('users').select('name').eq('id', user.id).maybeSingle(),
 
         puller.zone_id
@@ -304,6 +320,13 @@ export default function PullerDashboardPage() {
           .eq('zone_id', puller.zone_id)
           .eq('status', 'active')
           .gt('total_rides', puller.total_rides),
+
+        // Total requests in zone (for acceptance rate)
+        supabase
+          .from('ride_requests')
+          .select('*', { count: 'exact', head: true })
+          .eq('zone_id', puller.zone_id)
+          .gte('created_at', (() => { const d = new Date(); d.setDate(1); d.setHours(0,0,0,0); return d.toISOString() })()),
       ])
 
       const nextData: DashboardData = {
@@ -314,10 +337,49 @@ export default function PullerDashboardPage() {
         todayRides:   todayRes.count ?? 0,
         monthRides:   monthRes.count ?? 0,
         zoneRank:     (rankRes.count ?? 0) + 1,
+        totalRequests: Math.max(monthRes.count ?? 0, zoneReqRes?.count ?? 15),
       }
+
       dataRef.current = nextData
       setData(nextData)
+
+      // Recent Rides
+      const { data: rides } = await supabase
+        .from('ride_requests')
+        .select(`
+          id, completed_at, thumbs_up, started_at,
+          passengers (users (phone)),
+          zones (name_as, zone_number)
+        `)
+        .eq('accepted_by', puller.id)
+        .eq('status', 'completed')
+        .order('completed_at', { ascending: false })
+        .limit(3)
+
+      if (rides) {
+        setRecentRides(rides.map(r => {
+          const start = r.started_at ? new Date(r.started_at).getTime() : 0
+          const end   = r.completed_at ? new Date(r.completed_at).getTime() : 0
+          const diff  = Math.max(1, Math.round((end - start) / 60000))
+          
+          const passData = r.passengers as unknown as { users: { phone: string } } | null
+          const rawPhone = passData?.users?.phone || '**********'
+          const masked = rawPhone.length > 5 ? rawPhone.slice(0, 3) + '****' + rawPhone.slice(-3) : '**********'
+
+          return {
+            id: r.id,
+            completed_at: r.completed_at!,
+            passenger_phone: masked,
+            zone: r.zones as unknown as RecentRidePuller['zone'],
+            thumbs_up: !!r.thumbs_up,
+            duration_mins: diff
+          }
+        }))
+      }
+
+
       setLoadingPage(false)
+
 
     }
 
@@ -452,7 +514,11 @@ export default function PullerDashboardPage() {
               {user.name}
             </h1>
           </div>
-          <BadgeTag puller={puller} zone={zone} />
+          <div className="flex flex-col items-end gap-2">
+            <BadgeTag puller={puller} zone={zone} />
+            <LogoutButton color={zone ? ZONE_COLORS[zone.zone_number].hex : '#F59E0B'} />
+          </div>
+
         </div>
 
         {/* ── Online/Offline toggle ───────────────────────────────────────── */}
@@ -498,8 +564,8 @@ export default function PullerDashboardPage() {
           </div>
         </motion.button>
 
-        {/* ── Stats 2×2 grid ──────────────────────────────────────────────── */}
-        <div className="mt-5 grid grid-cols-2 gap-3">
+        {/* ── Stats 3×2 grid ──────────────────────────────────────────────── */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
           <StatCard label="আজিৰ যাত্ৰা · Today" value={todayRides} />
           <StatCard label="এই মাহ · This month"  value={monthRides} />
           <StatCard
@@ -511,12 +577,78 @@ export default function PullerDashboardPage() {
             value={`#${zoneRank}`}
             sub={zone ? `in ${zone.name_as}` : undefined}
           />
+          <StatCard 
+            label="Acceptance" 
+            value={`${Math.min(100, Math.round((monthRides / (data.totalRequests || 1)) * 100))}%`} 
+          />
+          <StatCard 
+            label="Avg Rating" 
+            value={puller.thumbs_up} 
+            sub="Total Likes 👍"
+          />
         </div>
+
+        {/* Earnings Strip */}
+        <div className="mt-4 overflow-hidden rounded-2xl bg-amber-500/10 border border-amber-500/20 px-4 py-3">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-black text-amber-500 font-nunito">এই মাহ: {monthRides} যাত্ৰা</span>
+            <div className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+          </div>
+          <p className="mt-0.5 text-[10px] font-bold text-amber-500/60 uppercase tracking-tight">
+            Subscription: ₹100/month — আপুনি সকলো উপাৰ্জন ৰাখে
+          </p>
+        </div>
+
 
         {/* ── Subscription bar ────────────────────────────────────────────── */}
         <div className="mt-4">
           <SubBar sub={subscription} />
         </div>
+
+        {/* ── Recent Rides ─────────────────────────────────────────────────── */}
+        <div className="mt-6">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-black uppercase tracking-widest text-white/30">
+              শেষ যাত্ৰাসমূহ · Recent Rides
+            </p>
+            <Clock size={14} className="text-white/20" />
+          </div>
+          
+          <div className="flex flex-col gap-2">
+            {recentRides.length > 0 ? (
+              recentRides.map((ride) => (
+                <div 
+                  key={ride.id} 
+                  className="flex items-center justify-between rounded-2xl bg-white/5 border border-white/10 p-3.5"
+                >
+                  <div className="flex items-center gap-3">
+                    <div 
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-[11px] font-black text-white"
+                      style={{ background: ZONE_COLORS[ride.zone.zone_number]?.hex ?? '#888' }}
+                    >
+                      {ride.zone.zone_number}
+                    </div>
+                    <div>
+                      <p className="text-xs font-black text-white">{ride.passenger_phone}</p>
+                      <p className="text-[10px] font-bold text-gray-500 uppercase">{ride.duration_mins} mins</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {ride.thumbs_up && <CheckCircle2 size={14} className="text-emerald-500" />}
+                    <span className="text-[10px] font-bold text-gray-600">
+                      {new Date(ride.completed_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                    </span>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="py-6 text-center text-xs font-bold text-white/10 border-2 border-dashed border-white/5 rounded-2xl">
+                কোনো যাত্ৰা নাই
+              </p>
+            )}
+          </div>
+        </div>
+
 
         {/* ── Zone info chip ───────────────────────────────────────────────── */}
         {zone && (

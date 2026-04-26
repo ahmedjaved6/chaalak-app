@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Phone, MapPin } from 'lucide-react'
+import { Phone, MapPin, Bell, X, UserX, Ghost, Route } from 'lucide-react'
+
 import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
 import type { RideStatus } from '@/lib/types'
@@ -27,6 +28,22 @@ function formatElapsed(secs: number): string {
   const s = secs % 60
   return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 }
+
+function IssueOption({ label, icon, onClick }: { label: string; icon: React.ReactNode; onClick: () => void }) {
+
+  return (
+    <button
+      onClick={onClick}
+      className="flex w-full items-center gap-4 rounded-2xl bg-white/5 p-4 border border-white/10 transition-all active:scale-[0.98]"
+    >
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-amber-500">
+        {icon}
+      </div>
+      <span className="text-base font-bold text-white">{label}</span>
+    </button>
+  )
+}
+
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -82,6 +99,9 @@ export default function ActiveRidePage() {
   const [elapsed,    setElapsed]    = useState(0)
   const [busy,       setBusy]       = useState(false)
   const [toast,      setToast]      = useState<{ msg: string; type: ToastType } | null>(null)
+  const [showIssue,  setShowIssue]  = useState(false)
+
+
 
   const sbRef    = useRef(createClient())
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -152,8 +172,28 @@ export default function ActiveRidePage() {
       setLoading(false)
     }
 
+
     load()
   }, [rideId, router])
+
+  const logIssue = async (event: string, details: Record<string, unknown>) => {
+
+    const { data: { user } } = await sbRef.current.auth.getUser()
+    await fetch('/api/admin/log', {
+      method: 'POST',
+      body: JSON.stringify({
+        user_id: user?.id,
+        ride_id: rideId,
+        role: 'puller',
+        event,
+        details
+      })
+    })
+    setShowIssue(false)
+    showToast('Issue reported to admin', 'success')
+  }
+
+
 
   // ── Handlers ────────────────────────────────────────────────────────────────
 
@@ -321,19 +361,77 @@ export default function ActiveRidePage() {
               </p>
             </div>
 
-            {/* Call button — tel: link with real phone number */}
-            {phone && (
-              <a
-                href={`tel:${phone.replace(/\D/g, '')}`}
+            {/* Call + Issue buttons */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => setShowIssue(true)}
                 className="flex h-[60px] w-[60px] shrink-0 flex-col items-center justify-center rounded-2xl transition-opacity active:opacity-70"
-                style={{ background: '#10B981' }}
+                style={{ background: '#F59E0B' }}
               >
-                <Phone size={22} color="#fff" strokeWidth={2.5} />
-                <span className="mt-0.5 text-[9px] font-black tracking-wide text-white">CALL</span>
-              </a>
-            )}
+                <Bell size={22} color="#1A1A1E" strokeWidth={2.5} />
+                <span className="mt-0.5 text-[9px] font-black tracking-wide text-[#1A1A1E]">ISSUE</span>
+              </button>
+
+              {phone && (
+                <a
+                  href={`tel:${phone.replace(/\D/g, '')}`}
+                  className="flex h-[60px] w-[60px] shrink-0 flex-col items-center justify-center rounded-2xl transition-opacity active:opacity-70"
+                  style={{ background: '#10B981' }}
+                >
+                  <Phone size={22} color="#fff" strokeWidth={2.5} />
+                  <span className="mt-0.5 text-[9px] font-black tracking-wide text-white">CALL</span>
+                </a>
+              )}
+            </div>
           </div>
         </div>
+
+        {/* Issue Modal */}
+        <AnimatePresence>
+          {showIssue && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setShowIssue(false)}
+                className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm"
+              />
+              <motion.div
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '100%' }}
+                className="fixed bottom-0 left-0 right-0 z-[2001] rounded-t-[32px] bg-[#1A1A1E] px-6 pb-10 pt-8 shadow-2xl"
+              >
+                <div className="mb-6 flex items-center justify-between">
+                  <h3 className="text-xl font-black text-white font-nunito">Report Issue</h3>
+                  <button onClick={() => setShowIssue(false)} className="rounded-full bg-white/5 p-2">
+                    <X size={20} className="text-white/40" />
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  <IssueOption 
+                    label="Passenger not found" 
+                    icon={<Ghost size={18} />} 
+                    onClick={() => logIssue('passenger_not_found', {})}
+                  />
+                  <IssueOption 
+                    label="Passenger cancelled in person" 
+                    icon={<UserX size={18} />} 
+                    onClick={() => logIssue('passenger_cancelled_verbal', {})}
+                  />
+                  <IssueOption 
+                    label="Route issue" 
+                    icon={<Route size={18} />} 
+                    onClick={() => logIssue('route_issue_puller', {})}
+                  />
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
 
         {/* ── Action buttons ────────────────────────────────────────────────── */}
         <div className="mt-6 flex flex-col gap-3">

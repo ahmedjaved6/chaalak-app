@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import dynamic from 'next/dynamic'
-import { Phone, ShieldAlert, X } from 'lucide-react'
+import { Phone, ShieldAlert, X, Bell, AlertTriangle, Clock, MapPin } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+
 import { createClient } from '@/lib/supabase/client'
 import { cancelRideRequest } from '@/lib/ride'
 import { ZONE_COLORS } from '@/lib/constants'
@@ -45,6 +46,27 @@ function statusLabel(s: RideStatus): string {
   return ''
 }
 
+function ReportOption({ label, icon, onClick, variant = 'default' }: { label: string; icon: React.ReactNode; onClick: () => void, variant?: 'default' | 'danger' }) {
+
+  return (
+    <button
+      onClick={onClick}
+      className="flex w-full items-center gap-4 rounded-2xl p-4 transition-all active:scale-[0.98]"
+      style={{
+        background: variant === 'danger' ? 'rgba(239,68,68,0.1)' : 'rgba(255,255,255,0.05)',
+        border: variant === 'danger' ? '1.5px solid rgba(239,68,68,0.3)' : '1.5px solid rgba(255,255,255,0.08)',
+        color: variant === 'danger' ? '#EF4444' : '#fff'
+      }}
+    >
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5">
+        {icon}
+      </div>
+      <span className="text-base font-bold">{label}</span>
+    </button>
+  )
+}
+
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function PassengerRidePage() {
@@ -58,6 +80,9 @@ export default function PassengerRidePage() {
   const [pullerPos,    setPullerPos]    = useState<[number, number] | null>(null)
   const [loading,      setLoading]      = useState(true)
   const [cancelling,   setCancelling]   = useState(false)
+  const [showReport,   setShowReport]   = useState(false)
+
+
 
   const sbRef       = useRef(createClient())
   const pullerIdRef = useRef<string | null>(null)
@@ -128,6 +153,31 @@ export default function PassengerRidePage() {
     if (data?.lat != null && data?.lng != null)
       setPullerPos([data.lat as number, data.lng as number])
   }, [])
+
+  const logIssue = async (event: string, details: Record<string, unknown>) => {
+
+    const { data: { user } } = await sbRef.current.auth.getUser()
+    await fetch('/api/admin/log', {
+      method: 'POST',
+      body: JSON.stringify({
+        user_id: user?.id,
+        ride_id: rideId,
+        role: 'passenger',
+        event,
+        details
+      })
+    })
+    setShowReport(false)
+  }
+
+
+  const handleSOS = () => {
+    const confirm = window.confirm('Emergency contact কৰিবনে? (Contact emergency?)')
+    if (confirm) {
+      window.open(sosUrl, '_blank')
+    }
+  }
+
 
   // ── Initial load ──────────────────────────────────────────────────────────────
 
@@ -371,38 +421,98 @@ export default function PassengerRidePage() {
           )}
         </AnimatePresence>
 
-        {/* SOS + Cancel */}
-        <div className="mt-auto flex gap-3 pb-6">
-          <a
-            href={sosUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex flex-1 items-center justify-center gap-2 rounded-2xl py-4 text-sm font-black"
-            style={{
-              background: 'rgba(239,68,68,0.10)',
-              border: '1.5px solid rgba(239,68,68,0.4)',
-              color: '#EF4444',
-            }}
-          >
-            <ShieldAlert size={17} />
-            SOS
-          </a>
-
+        {/* SOS + Alert + Cancel */}
+        <div className="mt-auto flex flex-col gap-3 pb-6">
           <button
-            type="button"
-            onClick={handleCancel}
-            disabled={!canCancel || cancelling}
-            className="flex flex-1 items-center justify-center gap-2 rounded-2xl py-4 text-sm font-black disabled:opacity-35"
+            onClick={handleSOS}
+            className="flex w-full items-center justify-center gap-2 rounded-2xl py-4 text-[16px] font-black"
             style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1.5px solid rgba(255,255,255,0.09)',
-              color: 'rgba(255,255,255,0.7)',
+              background: '#EF4444',
+              boxShadow: '0 4px 20px rgba(239,68,68,0.3)',
+              color: '#fff',
             }}
           >
-            <X size={17} />
-            {cancelling ? 'Cancelling…' : 'Cancel'}
+            <ShieldAlert size={20} strokeWidth={2.5} />
+            SOS — Emergency
           </button>
+
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowReport(true)}
+              className="flex flex-1 items-center justify-center gap-2 rounded-2xl py-4 text-sm font-black"
+              style={{
+                background: '#F59E0B',
+                color: '#1A1A1E',
+              }}
+            >
+              <Bell size={17} strokeWidth={2.5} />
+              Report Issue
+            </button>
+
+            <button
+              type="button"
+              onClick={handleCancel}
+              disabled={!canCancel || cancelling}
+              className="flex flex-1 items-center justify-center gap-2 rounded-2xl py-4 text-sm font-black disabled:opacity-35"
+              style={{
+                background: 'rgba(255,255,255,0.05)',
+                border: '1.5px solid rgba(255,255,255,0.09)',
+                color: 'rgba(255,255,255,0.7)',
+              }}
+            >
+              <X size={17} />
+              {cancelling ? '…' : 'Cancel'}
+            </button>
+          </div>
         </div>
+
+        {/* Report Modal */}
+        <AnimatePresence>
+          {showReport && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setShowReport(false)}
+                className="fixed inset-0 z-[2000] bg-black/60 backdrop-blur-sm"
+              />
+              <motion.div
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '100%' }}
+                className="fixed bottom-0 left-0 right-0 z-[2001] rounded-t-[32px] bg-[#1A1A1E] px-6 pb-10 pt-8 shadow-2xl"
+              >
+                <div className="mb-6 flex items-center justify-between">
+                  <h3 className="text-xl font-black text-white font-nunito">Report Issue</h3>
+                  <button onClick={() => setShowReport(false)} className="rounded-full bg-white/5 p-2">
+                    <X size={20} className="text-white/40" />
+                  </button>
+                </div>
+
+                <div className="space-y-3">
+                  <ReportOption 
+                    label="Puller not arriving" 
+                    icon={<Clock size={18} />} 
+                    onClick={() => logIssue('puller_not_arriving', { status: 'waiting' })}
+                  />
+                  <ReportOption 
+                    label="Wrong route" 
+                    icon={<MapPin size={18} />} 
+                    onClick={() => logIssue('wrong_route', { lat: pullerPos?.[0], lng: pullerPos?.[1] })}
+                  />
+                  <ReportOption 
+                    label="Feeling unsafe" 
+                    variant="danger"
+                    icon={<AlertTriangle size={18} />} 
+                    onClick={() => { logIssue('unsafe_passenger', {}); handleSOS(); }}
+                  />
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
       </div>
     </div>
   )

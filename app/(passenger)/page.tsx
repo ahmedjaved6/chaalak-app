@@ -7,6 +7,32 @@ import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
 import type { Zone, FareRule } from '@/lib/types'
 import type { OnlinePuller, PassengerMapProps } from './_components/PassengerMap'
+import LogoutButton from '@/components/LogoutButton'
+import { Star, Clock } from 'lucide-react'
+
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface PassengerProfile {
+  name: string
+  created_at: string
+  total_rides: number
+  thumbs_given: number
+}
+
+interface RecentRide {
+  id: string
+  completed_at: string
+  status: string
+  thumbs_up: boolean
+  zone: {
+    name: string
+    name_as: string
+    zone_number: number
+  }
+}
+
+
 
 // ─── Dynamic Leaflet map (SSR disabled) ───────────────────────────────────────
 
@@ -132,6 +158,16 @@ function FarePill({ label, value }: { label: string; value: string }) {
   )
 }
 
+function StatBox({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="bg-[#F2F0EB] rounded-xl p-2.5 flex flex-col items-center">
+      <span className="text-lg font-black text-amber-600 font-nunito leading-tight">{value}</span>
+      <span className="text-[9px] font-black text-gray-400 uppercase tracking-tighter mt-0.5">{label}</span>
+    </div>
+  )
+}
+
+
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function PassengerHomePage() {
@@ -146,6 +182,9 @@ export default function PassengerHomePage() {
   const [loading, setLoading]               = useState(true)
   const [booking, setBooking]               = useState(false)
   const [bookError, setBookError]           = useState('')
+  const [profile, setProfile]               = useState<PassengerProfile | null>(null)
+  const [recentRides, setRecentRides]       = useState<RecentRide[]>([])
+
 
   const sbRef = useRef(createClient())
 
@@ -207,8 +246,46 @@ export default function PassengerHomePage() {
       }
 
       await fetchOnlinePullers()
+
+      // Fetch Profile & Stats
+      const { data: userData } = await supabase.from('users').select('name, created_at').eq('id', user.id).single()
+      const { data: passData } = await supabase.from('passengers').select('total_rides, thumbs_given').eq('user_id', user.id).single()
+      
+      if (userData && passData) {
+        setProfile({
+          name: userData.name,
+          created_at: userData.created_at,
+          total_rides: passData.total_rides,
+          thumbs_given: passData.thumbs_given
+        })
+      }
+
+      // Fetch Recent Rides
+      if (passenger) {
+        const { data: rides } = await supabase
+          .from('ride_requests')
+          .select(`
+            id, completed_at, status, thumbs_up,
+            zones (name, name_as, zone_number)
+          `)
+          .eq('passenger_id', passenger.id)
+          .eq('status', 'completed')
+          .order('completed_at', { ascending: false })
+          .limit(3)
+        
+        if (rides) {
+          setRecentRides(rides.map(r => ({
+            ...r,
+            zone: r.zones as unknown as RecentRide['zone']
+          })))
+        }
+      }
+
+
+
       setLoading(false)
     }
+
 
     init()
   }, [router, fetchOnlinePullers])
@@ -313,9 +390,30 @@ export default function PassengerHomePage() {
       className="flex h-[100dvh] flex-col overflow-hidden"
       style={{ backgroundColor: '#1A1A1E' }}
     >
+      {/* ── Passenger Header ─────────────────────────────────────────────────── */}
+      <div className="bg-[#1F2937] px-5 pt-12 pb-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-xs font-semibold text-gray-400">নমস্কাৰ</p>
+            <h1 className="text-2xl font-black text-white font-nunito">{profile?.name || '...'}</h1>
+          </div>
+          <LogoutButton />
+        </div>
+
+        {/* Stats Row */}
+        <div className="mt-5 grid grid-cols-3 gap-2.5">
+          <StatBox label="Total Rides" value={profile?.total_rides || 0} />
+          <StatBox label="Thumbs Given" value={profile?.thumbs_given || 0} />
+          <StatBox 
+            label="Member Since" 
+            value={profile ? new Date(profile.created_at).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' }) : '...'} 
+          />
+        </div>
+      </div>
+
 
       {/* ── TOP HALF: Map ─────────────────────────────────────────────────── */}
-      <div className="relative shrink-0" style={{ height: '45dvh', minHeight: 200 }}>
+      <div className="relative shrink-0" style={{ height: '35dvh', minHeight: 180 }}>
         <PassengerMap
           passengerPos={passengerPos}
           pullers={onlinePullers}
@@ -327,6 +425,7 @@ export default function PassengerHomePage() {
         {/* Online count overlay — top right */}
         <OnlineBadge count={onlinePullers.length} />
       </div>
+
 
       {/* ── BOTTOM HALF: Booking ──────────────────────────────────────────── */}
       <div className="flex flex-1 flex-col overflow-y-auto px-4 pt-4 pb-6">
@@ -352,6 +451,46 @@ export default function PassengerHomePage() {
         <div className="mt-3">
           <FareStrip fare={fareRule} />
         </div>
+
+        {/* Recent Rides Section */}
+        <div className="mt-6 mb-2">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[10px] font-black uppercase tracking-widest text-white/30">
+              সাম্প্ৰতিক যাত্ৰা · Recent Rides
+            </p>
+            <Clock size={14} className="text-white/20" />
+          </div>
+          
+          <div className="flex flex-col gap-2">
+            {recentRides.length > 0 ? (
+              recentRides.map((ride) => (
+                <div 
+                  key={ride.id} 
+                  className="flex items-center justify-between rounded-xl bg-white/5 border border-white/10 p-3"
+                >
+                  <div className="flex items-center gap-3">
+                    <div 
+                      className="rounded-lg px-2 py-0.5 text-[9px] font-black uppercase"
+                      style={{ 
+                        background: `${ZONE_COLORS[ride.zone.zone_number]?.hex}20`,
+                        color: ZONE_COLORS[ride.zone.zone_number]?.hex 
+                      }}
+                    >
+                      {ride.zone.name_as}
+                    </div>
+                    <span className="text-[11px] font-bold text-gray-500">
+                      {new Date(ride.completed_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                    </span>
+                  </div>
+                  {ride.thumbs_up && <Star size={12} className="text-amber-500 fill-amber-500" />}
+                </div>
+              ))
+            ) : (
+              <p className="py-4 text-center text-[11px] font-bold text-white/20">এতিয়ালৈকে কোনো যাত্ৰা নাই</p>
+            )}
+          </div>
+        </div>
+
 
         {/* Error */}
         {bookError && (
