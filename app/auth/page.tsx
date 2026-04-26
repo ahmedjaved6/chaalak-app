@@ -306,7 +306,13 @@ export default function AuthPage() {
         role: selectedRole,
         language_pref: lang,
       })
+      // Save role to auth metadata for middleware RBAC
+      await supabase.auth.updateUser({ data: { role: selectedRole } })
+    } else {
+      // Ensure metadata is sync'd for existing users
+      await supabase.auth.updateUser({ data: { role: existing.role } })
     }
+
 
     const role = existing?.role ?? selectedRole
 

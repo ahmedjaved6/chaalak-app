@@ -16,6 +16,31 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  const role = user.user_metadata?.role as string | undefined
+
+  // Role-based protection
+  if (pathname.startsWith('/admin')) {
+    if (role !== 'admin') {
+      return NextResponse.redirect(new URL('/', request.url))
+    }
+  }
+
+  if (pathname.startsWith('/dashboard') || pathname.startsWith('/incoming') || pathname.startsWith('/history') || pathname.startsWith('/active')) {
+    if (role !== 'puller' && role !== 'admin') {
+      return NextResponse.redirect(new URL('/', request.url))
+    }
+  }
+
+  if (pathname === '/') {
+    if (role === 'puller') {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+    if (role === 'admin') {
+      return NextResponse.redirect(new URL('/admin/dashboard', request.url))
+    }
+  }
+
+
   return response
 }
 
