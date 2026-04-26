@@ -152,13 +152,14 @@ export default function ShareTripPage({ params }: { params: { rideId: string } }
     )
   }
 
-  const statusMessages = {
+  const statusMessages: Record<RideStatus, string> = {
     requested: 'Looking for puller...',
     accepted: 'Puller is on the way',
     active: 'Ride in progress',
     completed: 'Trip completed safely ✓',
     cancelled: 'Trip cancelled',
     no_show: 'Passenger no-show',
+    expired: 'Trip request expired',
   }
 
   const zoneColor = data?.zone ? ZONE_COLORS[data.zone.zone_number] : null

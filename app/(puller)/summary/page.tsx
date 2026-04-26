@@ -3,9 +3,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
-import { ChevronRight, Flame, TrendingUp, TrendingDown, Award, Calendar, BarChart2, Star, Home, Clock, User } from 'lucide-react'
+import { Flame, TrendingUp, TrendingDown, Award, Calendar, BarChart2, Home, Clock, User } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import { ZONE_COLORS } from '@/lib/constants'
 
 // ─── Tab Bar ──────────────────────────────────────────────────────────────────
 
@@ -53,10 +52,10 @@ export default function WeeklySummaryPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState<{
-    thisWeekRides: any[]
-    lastWeekRides: any[]
-    allRides: any[]
-    sub: any
+    thisWeekRides: { completed_at: string; thumbs_up: boolean }[]
+    lastWeekRides: { id: string }[]
+    allRides: { completed_at: string }[]
+    sub: { valid_till: string } | null
   } | null>(null)
   
   const sbRef = useRef(createClient())

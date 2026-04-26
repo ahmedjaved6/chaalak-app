@@ -46,8 +46,8 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ cooldown: false })
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('Cooldown check failed:', err)
-    return NextResponse.json({ error: err.message }, { status: 500 })
+    return NextResponse.json({ error: err instanceof Error ? err.message : 'Unknown error' }, { status: 500 })
   }
 }

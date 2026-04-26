@@ -585,6 +585,7 @@ function PassengerHomePage() {
             <p className="mt-3 text-center text-xs font-bold text-red-500">{bookError}</p>
           )}
         </div>
+      </div>
     </div>
   )
 }
