@@ -39,6 +39,12 @@ export default function SearchingPage() {
   useEffect(() => {
     const sb = sbRef.current
     async function load() {
+      const savedRideId = localStorage.getItem('chaalak_active_ride')
+      if (!savedRideId) {
+        router.replace('/')
+        return
+      }
+
       const { data: { user } } = await sb.auth.getUser()
       if (!user) { router.replace('/auth'); return }
 
@@ -49,11 +55,20 @@ export default function SearchingPage() {
       const { data: active } = await sb
         .from('ride_requests')
         .select('id, status, zones(name_as), expires_at')
-        .eq('passenger_id', passenger.id)
-        .eq('status', 'requested')
+        .eq('id', savedRideId)
         .maybeSingle()
 
-      if (!active) { router.replace('/'); return }
+      if (!active || active.status === 'cancelled' || active.status === 'expired' || active.status === 'completed') { 
+        localStorage.removeItem('chaalak_active_ride')
+        localStorage.removeItem('chaalak_active_zone')
+        router.replace('/')
+        return 
+      }
+      
+      if (active.status === 'accepted' || active.status === 'active') {
+        router.replace('/ride')
+        return
+      }
       
       setRideId(active.id)
       setZoneName((active.zones as unknown as Record<string, string>)?.name_as || '')
@@ -83,6 +98,8 @@ export default function SearchingPage() {
           if (payload.new.status === 'accepted') {
             router.push('/ride')
           } else if (payload.new.status === 'expired' || payload.new.status === 'cancelled') {
+            localStorage.removeItem('chaalak_active_ride')
+            localStorage.removeItem('chaalak_active_zone')
             router.replace('/')
           }
         }
@@ -100,6 +117,8 @@ export default function SearchingPage() {
     setCancelling(true)
     try {
       await cancelRideRequest(sbRef.current, rideId, passengerId)
+      localStorage.removeItem('chaalak_active_ride')
+      localStorage.removeItem('chaalak_active_zone')
       router.replace('/')
     } catch {
       setCancelling(false)

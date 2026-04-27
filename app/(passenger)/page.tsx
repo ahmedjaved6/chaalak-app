@@ -127,6 +127,13 @@ function PassengerHomePage() {
       const { data: { user } } = await sbRef.current.auth.getUser()
       if (!user) { router.replace('/auth'); return }
 
+      // LocalStorage check for active ride
+      const savedRide = localStorage.getItem('chaalak_active_ride')
+      if (savedRide) {
+        router.replace('/ride')
+        return
+      }
+
       const [zonesRes, passengerRes, userRes] = await Promise.all([
         sbRef.current.from('zones').select('*').eq('is_active', true).order('zone_number'),
         sbRef.current.from('passengers').select('id, total_rides, thumbs_given').eq('user_id', user.id).maybeSingle(),
@@ -134,15 +141,31 @@ function PassengerHomePage() {
       ])
 
       if (zonesRes.data) setZones(zonesRes.data as Zone[])
-      if (passengerRes.data) setPassengerId(passengerRes.data.id)
-      if (userRes.data) setProfile({ ...userRes.data, ...passengerRes.data })
+      
+      let finalPassengerId = ''
+      if (!passengerRes.data) {
+        const { data: newPassenger } = await sbRef.current
+          .from('passengers')
+          .insert({ user_id: user.id, total_rides: 0, thumbs_given: 0, no_show_count: 0 })
+          .select('id, total_rides, thumbs_given')
+          .single()
+        if (newPassenger) {
+          finalPassengerId = newPassenger.id
+          setPassengerId(newPassenger.id)
+          if (userRes.data) setProfile({ ...userRes.data, ...newPassenger })
+        }
+      } else {
+        finalPassengerId = passengerRes.data.id
+        setPassengerId(passengerRes.data.id)
+        if (userRes.data) setProfile({ ...userRes.data, ...passengerRes.data })
+      }
 
       // Check for active ride
-      if (passengerRes.data) {
+      if (finalPassengerId) {
         const { data: active } = await sbRef.current
           .from('ride_requests')
           .select('id, status')
-          .eq('passenger_id', passengerRes.data.id)
+          .eq('passenger_id', finalPassengerId)
           .in('status', ['requested', 'accepted', 'active'])
           .maybeSingle()
         if (active) {
@@ -161,7 +184,7 @@ function PassengerHomePage() {
   async function handleBook() {
     if (!selectedZoneId || !passengerId || booking) return
     setBooking(true)
-    const { error } = await sbRef.current.from('ride_requests').insert({
+    const { data: rideData, error } = await sbRef.current.from('ride_requests').insert({
       passenger_id: passengerId,
       zone_id: selectedZoneId,
       status: 'requested',
@@ -170,7 +193,10 @@ function PassengerHomePage() {
       expires_at: new Date(Date.now() + 180_000).toISOString(),
     }).select('id').single()
 
-    if (error) { setBooking(false); return }
+    if (error || !rideData) { setBooking(false); return }
+    
+    localStorage.setItem('chaalak_active_ride', rideData.id)
+    localStorage.setItem('chaalak_active_zone', selectedZoneId)
     router.push('/book')
   }
 

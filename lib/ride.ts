@@ -119,6 +119,13 @@ export async function endRide(
   ride_id: string,
   puller_id: string,
 ): Promise<void> {
+  // Get ride data to find passenger_id
+  const { data: ride } = await supabase
+    .from('ride_requests')
+    .select('passenger_id')
+    .eq('id', ride_id)
+    .single()
+
   const { error } = await supabase
     .from('ride_requests')
     .update({ status: 'completed', completed_at: new Date().toISOString() })
@@ -126,6 +133,14 @@ export async function endRide(
     .eq('accepted_by', puller_id)
 
   if (error) throw new Error(error.message)
+
+  if (ride) {
+    // Increment ride counts
+    await Promise.all([
+      supabase.rpc('increment_puller_rides', { pull_id: puller_id }),
+      supabase.rpc('increment_passenger_rides', { pass_id: ride.passenger_id })
+    ])
+  }
 }
 
 // ─── markNoShow ───────────────────────────────────────────────────────────────

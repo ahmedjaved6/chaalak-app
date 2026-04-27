@@ -79,12 +79,40 @@ export default function IncomingRidesPage() {
 
   // Realtime
   useEffect(() => {
-    if (!puller) return
+    if (!puller || !puller.zone_id) return
     const sb = sbRef.current
-    const channel = sb.channel('incoming-rides')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'ride_requests', filter: `status=eq.requested` }, payload => {
-        handleIncoming(payload.new as IncomingRide, puller)
-      })
+    const channel = sb
+      .channel('incoming-rides')
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'ride_requests',
+          filter: `zone_id=eq.${puller.zone_id}`
+        },
+        (payload) => {
+          const ride = payload.new as IncomingRide & { status: string }
+          if (ride.status === 'requested') {
+            handleIncoming(ride, puller)
+          }
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'ride_requests',
+          filter: `zone_id=eq.${puller.zone_id}`
+        },
+        (payload) => {
+          const ride = payload.new as IncomingRide & { status: string }
+          if (ride.status === 'cancelled' || ride.status === 'expired') {
+            setOverlay(prev => prev?.id === ride.id ? null : prev)
+          }
+        }
+      )
       .subscribe()
     return () => { sb.removeChannel(channel) }
   }, [puller])
@@ -123,6 +151,7 @@ export default function IncomingRidesPage() {
       setTimeout(() => setToast(null), 3000)
       return
     }
+    localStorage.setItem('chaalak_current_ride', overlay.id)
     router.push(`/active?ride_id=${overlay.id}`)
   }
 

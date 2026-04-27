@@ -204,12 +204,24 @@ function PullerDashboardPage() {
 
   // Toggle Handlers
   async function handleToggle() {
-    if (toggling || !pullerIdRef.current) return
+    if (toggling || !pullerIdRef.current || !data) return
     setToggling(true)
     const sb = sbRef.current
 
     if (!online) {
-      navigator.geolocation.getCurrentPosition(async (pos) => {
+      const fallbackLat = data.puller.lat || 26.1445
+      const fallbackLng = data.puller.lng || 91.7362
+
+      const getPosition = () => new Promise<GeolocationPosition>((resolve, reject) => {
+        const timeout = setTimeout(() => reject(new Error('timeout')), 5000)
+        navigator.geolocation.getCurrentPosition(
+          (pos) => { clearTimeout(timeout); resolve(pos) },
+          (err) => { clearTimeout(timeout); reject(err) }
+        )
+      })
+
+      try {
+        const pos = await getPosition()
         const { latitude: lat, longitude: lng } = pos.coords
         await sb.from('pullers').update({ is_online: true, lat, lng, last_active_at: new Date().toISOString() }).eq('id', pullerIdRef.current)
         setOnline(true)
@@ -219,10 +231,15 @@ function PullerDashboardPage() {
             sb.rpc('puller_heartbeat', { puller_id: pullerIdRef.current, lat: p.coords.latitude, lng: p.coords.longitude })
           })
         }, HEARTBEAT_INTERVAL_MS)
-      }, () => {
+      } catch {
+        await sb.from('pullers').update({ is_online: true, lat: fallbackLat, lng: fallbackLng, last_active_at: new Date().toISOString() }).eq('id', pullerIdRef.current)
+        setOnline(true)
         setToggling(false)
-        setToast({ msg: 'GPS Required', type: 'error' })
-      })
+        setToast({ msg: 'Using last known location', type: 'info' })
+        intervalRef.current = setInterval(() => {
+          sb.rpc('puller_heartbeat', { puller_id: pullerIdRef.current, lat: fallbackLat, lng: fallbackLng })
+        }, HEARTBEAT_INTERVAL_MS)
+      }
     } else {
       goOffline()
       setToggling(false)

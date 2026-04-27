@@ -32,7 +32,6 @@ interface PageData {
 function ActiveRidePage() {
   const router       = useRouter()
   const searchParams = useSearchParams()
-  const rideId       = searchParams.get('ride_id')
 
   const [data,       setData]       = useState<PageData | null>(null)
   const [loading,    setLoading]    = useState(true)
@@ -45,7 +44,11 @@ function ActiveRidePage() {
 
   // Initialization
   useEffect(() => {
-    if (!rideId) { router.replace('/dashboard'); return }
+    const urlRideId = searchParams.get('ride_id')
+    const savedRideId = localStorage.getItem('chaalak_current_ride')
+    const finalRideId = urlRideId || savedRideId
+
+    if (!finalRideId) { router.replace('/dashboard'); return }
     const sb = sbRef.current
 
     async function load() {
@@ -55,7 +58,7 @@ function ActiveRidePage() {
       const { data: puller } = await sb.from('pullers').select('id, total_rides').eq('user_id', user.id).maybeSingle()
       if (!puller) { router.replace('/dashboard'); return }
 
-      const { data: ride } = await sb.from('ride_requests').select('id, status, accepted_at, passenger_id').eq('id', rideId).maybeSingle()
+      const { data: ride } = await sb.from('ride_requests').select('id, status, accepted_at, passenger_id').eq('id', finalRideId).maybeSingle()
       if (!ride) { router.replace('/dashboard'); return }
 
       const { data: pax } = await sb.from('passengers').select('user_id').eq('id', ride.passenger_id).maybeSingle()
@@ -82,7 +85,7 @@ function ActiveRidePage() {
     }
     load()
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
-  }, [rideId, router])
+  }, [searchParams, router])
 
   async function handleStart() {
     if (busy || !data) return

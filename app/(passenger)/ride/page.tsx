@@ -66,14 +66,20 @@ export default function PassengerRidePage() {
       if (!passenger) { router.replace('/'); return }
       setPassengerId(passenger.id)
 
+      const savedRideId = localStorage.getItem('chaalak_active_ride')
+      if (!savedRideId) { router.replace('/'); return }
+
       const { data: active } = await sb
         .from('ride_requests')
         .select('id, status, accepted_by')
-        .eq('passenger_id', passenger.id)
-        .in('status', ['requested', 'accepted', 'active'])
+        .eq('id', savedRideId)
         .maybeSingle()
 
-      if (!active) { router.replace('/'); return }
+      if (!active) { 
+        localStorage.removeItem('chaalak_active_ride')
+        router.replace('/'); 
+        return 
+      }
       if (active.status === 'requested') { router.replace('/book'); return }
 
       setRideId(active.id)
@@ -125,7 +131,9 @@ export default function PassengerRidePage() {
     if ((rideStatus === 'completed' || rideStatus === 'no_show') && rideId) {
       router.replace(`/complete?ride_id=${rideId}`)
     }
-    if (rideStatus === 'cancelled') {
+    if (rideStatus === 'cancelled' || rideStatus === 'expired') {
+      localStorage.removeItem('chaalak_active_ride')
+      localStorage.removeItem('chaalak_active_zone')
       router.replace('/')
     }
   }, [rideStatus, rideId, router])
@@ -142,14 +150,36 @@ export default function PassengerRidePage() {
         async (payload) => {
           const s = payload.new.status as RideStatus
           setRideStatus(s)
-          if ((s === 'accepted' || s === 'active') && payload.new.accepted_by && !puller) {
+          if (s === 'accepted' && payload.new.accepted_by && !puller) {
             await loadPullerInfo(payload.new.accepted_by)
+          }
+          if (s === 'completed') {
+            router.push(`/complete?ride_id=${rideId}`)
+          }
+          if (s === 'cancelled' || s === 'expired') {
+            localStorage.removeItem('chaalak_active_ride')
+            localStorage.removeItem('chaalak_active_zone')
+            router.push('/')
           }
         }
       )
       .subscribe()
     return () => { sb.removeChannel(channel) }
-  }, [rideId, puller, loadPullerInfo])
+  }, [rideId, puller, loadPullerInfo, router])
+
+  // Poll Puller GPS
+  useEffect(() => {
+    if (!puller?.id || rideStatus !== 'active') return
+    const interval = setInterval(async () => {
+      const { data } = await sbRef.current
+        .from('pullers')
+        .select('lat, lng')
+        .eq('id', puller.id)
+        .single()
+      if (data && data.lat && data.lng) setPullerPos([data.lat, data.lng])
+    }, 10000)
+    return () => clearInterval(interval)
+  }, [puller?.id, rideStatus])
 
   const handleShare = async () => {
     if (!rideId) return
