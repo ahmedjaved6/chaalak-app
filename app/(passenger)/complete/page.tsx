@@ -6,6 +6,7 @@ import { Check, ThumbsUp } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 import { createClient } from '@/lib/supabase/client'
+import BackButton from '@/components/BackButton'
 
 // ─── Main Content ─────────────────────────────────────────────────────────────
 
@@ -37,7 +38,10 @@ function CompletePageContent() {
   }
 
   return (
-    <main className="flex min-h-[100dvh] flex-col items-center justify-center p-8 bg-white">
+    <main className="flex min-h-[100dvh] flex-col items-center justify-center p-8 bg-white relative">
+      <div className="absolute top-6 left-6">
+        <BackButton fallback="/" />
+      </div>
       {/* Checkmark Circle */}
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}

@@ -7,6 +7,7 @@ import { Clock, ThumbsUp, Calendar, ChevronRight } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
 import type { RideRequest, Zone } from '@/lib/types'
+import BackButton from '@/components/BackButton'
 
 
 interface EnrichedRide extends RideRequest {
@@ -80,9 +81,12 @@ export default function RideHistoryPage() {
   return (
     <div className="min-h-screen bg-[#1A1A1E] text-white pb-20">
       {/* Header */}
-      <div className="px-6 pt-14 pb-6 bg-gradient-to-b from-[#047857] to-[#10B981]">
-        <h1 className="text-2xl font-black">যাত্ৰাৰ ইতিহাস</h1>
-        <p className="text-emerald-100 text-xs font-bold uppercase tracking-widest mt-1">Ride History</p>
+      <div className="px-6 pt-14 pb-6 bg-gradient-to-b from-[#047857] to-[#10B981] flex items-center gap-4">
+        <BackButton fallback="/dashboard" />
+        <div>
+          <h1 className="text-2xl font-black">যাত্ৰাৰ ইতিহাস</h1>
+          <p className="text-emerald-100 text-xs font-bold uppercase tracking-widest mt-1">Ride History</p>
+        </div>
       </div>
 
       <div className="px-5 mt-6">

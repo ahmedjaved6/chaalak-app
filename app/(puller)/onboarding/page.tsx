@@ -6,6 +6,7 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
 import type { Zone } from '@/lib/types'
+import BackButton from '@/components/BackButton'
 
 
 // ─── Animation variant ────────────────────────────────────────────────────────
@@ -187,6 +188,7 @@ export default function OnboardingPage() {
               {/* ── STEP 1: Name ─────────────────────────────────────────── */}
               {step === 1 && (
                 <motion.div key="step1" {...SLIDE} className="flex flex-col gap-6">
+                  <BackButton fallback="/auth" />
                   <div>
                     <h1
                       className="text-[32px] font-black leading-tight text-white"
@@ -243,16 +245,7 @@ export default function OnboardingPage() {
               {/* ── STEP 2: Zone select ───────────────────────────────────── */}
               {step === 2 && (
                 <motion.div key="step2" {...SLIDE} className="flex flex-col gap-6">
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className="flex items-center gap-1.5 self-start text-sm font-semibold transition-colors"
-                    style={{ color: 'rgba(255,255,255,0.4)' }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.7)')}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)')}
-                  >
-                    ← পিছলৈ
-                  </button>
+                  <BackButton onBack={() => setStep(1)} />
 
                   <div>
                     <h1
@@ -314,6 +307,10 @@ export default function OnboardingPage() {
                   animate="animate"
                   className="flex flex-col items-center gap-7 pt-8 text-center"
                 >
+                  <div className="self-start">
+                    <BackButton onBack={() => setStep(2)} />
+                  </div>
+
                   {/* Success icon */}
                   <div
                     className="flex h-24 w-24 items-center justify-center rounded-full"

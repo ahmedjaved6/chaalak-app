@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Flame, TrendingUp, TrendingDown, Award, Calendar, BarChart2, Home, Clock, User } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-
+import BackButton from '@/components/BackButton'
 // ─── Tab Bar ──────────────────────────────────────────────────────────────────
 
 function TabBar({ active }: { active: 'home' | 'history' | 'summary' | 'profile' }) {
@@ -153,9 +153,12 @@ export default function WeeklySummaryPage() {
       <div className="mx-auto max-w-[420px] px-6 pt-12">
         
         {/* Header */}
-        <header>
-          <h1 className="text-[28px] font-black text-white font-nunito">সাপ্তাহিক সাৰাংশ</h1>
-          <p className="mt-1 text-sm font-bold text-white/40">{weekStart} — {weekEnd}</p>
+        <header className="flex items-center gap-4">
+          <BackButton fallback="/dashboard" />
+          <div>
+            <h1 className="text-[28px] font-black text-white font-nunito">সাপ্তাহিক সাৰাংশ</h1>
+            <p className="mt-1 text-sm font-bold text-white/40">{weekStart} — {weekEnd}</p>
+          </div>
         </header>
 
         {/* Hero Stat */}

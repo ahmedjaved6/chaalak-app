@@ -7,6 +7,7 @@ import { LogOut, User, Phone, MapPin, Award, Calendar, Star } from 'lucide-react
 import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
 import type { Puller, User as AppUser, Zone } from '@/lib/types'
+import BackButton from '@/components/BackButton'
 
 
 interface ProfileData {
@@ -76,6 +77,9 @@ export default function PullerProfilePage() {
     <div className="min-h-screen bg-[#1A1A1E] text-white pb-24">
       {/* Header Profile Section */}
       <div className="px-6 pt-16 pb-10 bg-gradient-to-b from-[#1F2937] to-[#111827] relative overflow-hidden">
+        <div className="absolute top-6 left-6 z-10">
+          <BackButton fallback="/dashboard" />
+        </div>
         {/* Background Accent */}
         <div 
           className="absolute -top-24 -right-24 w-64 h-64 rounded-full opacity-10 blur-3xl"

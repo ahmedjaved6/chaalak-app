@@ -2,13 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { ChevronLeft, Clock } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 import { createClient } from '@/lib/supabase/client'
 import { cancelRideRequest } from '@/lib/ride'
-
-
+import BackButton from '@/components/BackButton'
 // ─── Rickshaw Icon ────────────────────────────────────────────────────────────
 
 function RickshawIcon({ className }: { className?: string }) {
@@ -110,13 +109,11 @@ export default function SearchingPage() {
   return (
     <main className="flex min-h-[100dvh] flex-col bg-white p-6">
       {/* Top Header */}
-      <div className="flex items-center gap-4 mb-12">
-        <button onClick={handleCancel} className="h-10 w-10 flex items-center justify-center rounded-full bg-[#F4F4F5] text-[#0F172A]">
-          <ChevronLeft size={24} />
-        </button>
-        <h1 className="text-[24px] font-bold text-[#0F172A] font-display uppercase tracking-tight">
+      <div className="flex items-center gap-3 mb-12">
+        <BackButton onBack={handleCancel} />
+        <span className="text-[20px] font-bold text-[#0F172A] font-display uppercase tracking-tight">
           Finding your ride
-        </h1>
+        </span>
       </div>
 
       {/* Pulsing Animation */}

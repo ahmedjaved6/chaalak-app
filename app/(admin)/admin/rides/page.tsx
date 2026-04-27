@@ -5,6 +5,7 @@ import { Clock, MapPin, ChevronRight, RefreshCw } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
 import { ZONE_COLORS } from '@/lib/constants'
+import BackButton from '@/components/BackButton'
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -52,8 +53,9 @@ function AdminRidesPage() {
   return (
     <main className="min-h-screen bg-[#FAFAFA] pb-20">
       {/* Header */}
-      <div className="bg-white border-b border-[#E4E4E7] px-5 pt-12 pb-5 flex items-center justify-between">
-        <h1 className="text-[24px] font-bold text-[#0F172A] font-display uppercase tracking-tight">Ride Logs</h1>
+      <div className="bg-white border-b border-[#E4E4E7] px-5 pt-12 pb-5 flex items-center justify-between gap-3">
+        <BackButton fallback="/admin/dashboard" />
+        <h1 className="flex-1 text-[24px] font-bold text-[#0F172A] font-display uppercase tracking-tight">Ride Logs</h1>
         <button onClick={load} className="h-9 w-9 flex items-center justify-center rounded-full bg-[#F4F4F5] text-[#64748B]">
           <RefreshCw size={18} />
         </button>

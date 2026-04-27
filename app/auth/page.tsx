@@ -3,84 +3,18 @@
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence, type Variants } from 'framer-motion'
-import { ChevronLeft, ArrowRight, ShieldCheck, Bike } from 'lucide-react'
+import { ChevronLeft, Bike, Mail, Phone as PhoneIcon, Clock } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
 import type { LanguagePref } from '@/lib/types'
+import { useT } from '@/lib/i18n'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type Step = 'LANG_SELECT' | 'ROLE_SELECT' | 'PHONE_LOGIN' | 'OTP_VERIFY' | 'PENDING'
+type Step = 'LANG_SELECT' | 'ENTRY' | 'OTP_VERIFY' | 'PENDING'
 type SelectedRole = 'passenger' | 'puller' | 'admin'
-
-// ─── Translations ──────────────────────────────────────────────────────────────
-
-const T = {
-  as: {
-    chooseRole: 'আপুনি কোন?',
-    puller: 'চালক',
-    passenger: 'যাত্ৰী',
-    pullerDesc: 'ৰিক্সা · অট\' · বাইক',
-    passengerDesc: 'যাত্ৰা বুক কৰক',
-    continue: 'আগবাঢ়ক',
-    enterPhone: 'আপোনাৰ নম্বৰ দিয়ক',
-    sendOtp: 'OTP পঠাওক',
-    verifyOtp: 'OTP দিয়ক',
-    verify: 'যাচাই কৰক',
-    demoAccounts: 'Demo Accounts',
-    pendingTitle: 'অনুমোদনৰ বাবে অপেক্ষাৰত',
-    pendingBody: 'আপোনাৰ আবেদন পৰ্যালোচনা কৰা হৈছে। অনুগ্ৰহ কৰি অপেক্ষা কৰক।',
-    logout: 'লগআউট',
-  },
-  hi: {
-    chooseRole: 'आप कौन हैं?',
-    puller: 'चालक',
-    passenger: 'यात्री',
-    pullerDesc: 'रिक्शा · ऑटो · बाइक',
-    passengerDesc: 'यात्रा बुक करें',
-    continue: 'आगे बढ़ें',
-    enterPhone: 'अपना नंबर दर्ज करें',
-    sendOtp: 'OTP भेजें',
-    verifyOtp: 'OTP दर्ज करें',
-    verify: 'सत्यापित करें',
-    demoAccounts: 'Demo Accounts',
-    pendingTitle: 'अनुमोदन लंबित',
-    pendingBody: 'आपका आवेदन समीक्षाधीन है। कृपया प्रतीक्षा करें।',
-    logout: 'लॉगआउट',
-  },
-  bn: {
-    chooseRole: 'আপনি কে?',
-    puller: 'চালক',
-    passenger: 'যাত্রী',
-    pullerDesc: 'রিকশা · অটো · বাইক',
-    passengerDesc: 'যাত্রা বুক করুন',
-    continue: 'এগিয়ে যান',
-    enterPhone: 'আপনার নম্বর দিন',
-    sendOtp: 'OTP পাঠান',
-    verifyOtp: 'OTP দিন',
-    verify: 'যাচাই করুন',
-    demoAccounts: 'Demo Accounts',
-    pendingTitle: 'অনুমোদনের অপেক্ষায়',
-    pendingBody: 'আপনার আবেদন পর্যালোচনা করা হচ্ছে। অনুগ্রহ করে অপেক্ষা করুন।',
-    logout: 'লগআউট',
-  },
-  en: {
-    chooseRole: 'Who are you?',
-    puller: 'Puller',
-    passenger: 'Passenger',
-    pullerDesc: 'Rickshaw · Auto · Bike',
-    passengerDesc: 'Book a ride',
-    continue: 'Continue',
-    enterPhone: 'Enter your number',
-    sendOtp: 'Send OTP',
-    verifyOtp: 'Enter OTP',
-    verify: 'Verify',
-    demoAccounts: 'Demo Accounts',
-    pendingTitle: 'Approval Pending',
-    pendingBody: 'Your application is under review. Please wait for approval.',
-    logout: 'Logout',
-  },
-} as const
+type AuthMethod = 'phone' | 'email'
+type AuthMode = 'login' | 'signup'
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -132,16 +66,23 @@ const SLIDE: Variants = {
 
 export default function AuthPage() {
   const router = useRouter()
+  const tx = useT()
 
   const [step, setStep]                 = useState<Step>('LANG_SELECT')
   const [lang, setLang]                 = useState<LanguagePref>('as')
+  
+  const [mode, setMode]                 = useState<AuthMode>('login')
+  const [method, setMethod]             = useState<AuthMethod>('phone')
   const [selectedRole, setSelectedRole] = useState<SelectedRole | null>(null)
+  
   const [phone, setPhone]               = useState('')
+  const [email, setEmail]               = useState('')
+  
   const [otp, setOtp]                   = useState<string[]>(Array(6).fill(''))
   const [loading, setLoading]           = useState(false)
+  const [resendCooldown, setResendCooldown] = useState(0)
 
   const otpRefs = useRef<(HTMLInputElement | null)[]>([])
-  const tx = T[lang === 'bn' ? 'bn' : lang === 'hi' ? 'hi' : lang === 'as' ? 'as' : 'en']
 
   // Auth initialization
   useEffect(() => {
@@ -159,22 +100,52 @@ export default function AuthPage() {
     })
   }, [router])
 
+  // Cooldown timer
+  useEffect(() => {
+    if (resendCooldown > 0) {
+      const timer = setTimeout(() => setResendCooldown(resendCooldown - 1), 1000)
+      return () => clearTimeout(timer)
+    }
+  }, [resendCooldown])
+
   // Handlers
   function handleLangSelect(l: LanguagePref) {
     setLang(l)
     localStorage.setItem('chaalak_lang', l)
-    setStep('ROLE_SELECT')
+    setStep('ENTRY')
   }
 
   async function handleSendOtp() {
-    const clean = phone.replace(/\s/g, '')
-    if (clean.length !== 10) { alert('Enter a valid 10-digit number'); return }
+    let identifier = ''
+    if (method === 'phone') {
+      const clean = phone.replace(/\s/g, '')
+      if (clean.length !== 10) { alert('Enter a valid 10-digit number'); return }
+      identifier = `+91${clean}`
+    } else {
+      if (!email.includes('@')) { alert('Enter a valid email'); return }
+      identifier = email
+    }
 
     setLoading(true)
     const supabase = createClient()
-    const { error: err } = await supabase.auth.signInWithOtp({ phone: `+91${clean}` })
+    
+    let err
+    if (method === 'phone') {
+      const { error } = await supabase.auth.signInWithOtp({ phone: identifier })
+      err = error
+    } else {
+      const { error } = await supabase.auth.signInWithOtp({ email: identifier, options: { shouldCreateUser: true } })
+      err = error
+    }
+
     setLoading(false)
     if (err) { alert(err.message); return }
+    
+    if (mode === 'signup') {
+      localStorage.setItem('chaalak_pending_role', selectedRole || 'passenger')
+    }
+    
+    setResendCooldown(60)
     setStep('OTP_VERIFY')
   }
 
@@ -183,50 +154,103 @@ export default function AuthPage() {
     if (token.length !== 6) return
     setLoading(true)
     const supabase = createClient()
-    const cleanPhone = `+91${phone.replace(/\s/g, '')}`
+    
+    let verifyErr
+    let cleanPhone = ''
+    
+    if (method === 'phone') {
+      cleanPhone = `+91${phone.replace(/\s/g, '')}`
+      const { error } = await supabase.auth.verifyOtp({ phone: cleanPhone, token, type: 'sms' })
+      verifyErr = error
+    } else {
+      const { error } = await supabase.auth.verifyOtp({ email, token, type: 'email' })
+      verifyErr = error
+    }
 
-    const { error: verifyErr } = await supabase.auth.verifyOtp({
-      phone: cleanPhone,
-      token,
-      type: 'sms',
-    })
     if (verifyErr) { alert(verifyErr.message); setLoading(false); return }
 
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { setLoading(false); return }
 
-    const { data: existing } = await supabase.from('users').select('role').eq('id', user.id).maybeSingle()
-    if (!existing) {
-      await supabase.from('users').insert({
-        id: user.id,
-        email: user.email ?? `${cleanPhone.replace('+', '')}@phone.local`,
-        name: cleanPhone,
-        role: selectedRole ?? 'passenger',
-        language_pref: lang,
-      })
-      await supabase.auth.updateUser({ data: { role: selectedRole ?? 'passenger' } })
-    } else {
-      await supabase.auth.updateUser({ data: { role: existing.role } })
+    if (mode === 'login') {
+      const { data: existing } = await supabase.from('users').select('role').eq('id', user.id).maybeSingle()
+      if (existing) {
+        await supabase.auth.updateUser({ data: { role: existing.role } })
+        localStorage.setItem('chaalak_role', existing.role)
+        
+        if (existing.role === 'passenger') router.replace('/')
+        else if (existing.role === 'admin') router.replace('/admin/dashboard')
+        else {
+          const { data: puller } = await supabase.from('pullers').select('status').eq('user_id', user.id).maybeSingle()
+          if (puller?.status === 'active') router.replace('/dashboard')
+          else setStep('PENDING')
+        }
+      } else {
+        // First login but no user record? Fallback to passenger
+        const pendingRole = localStorage.getItem('chaalak_pending_role') || 'passenger'
+        await supabase.from('users').insert({
+          id: user.id,
+          email: user.email ?? (method === 'phone' ? `${cleanPhone.replace('+', '')}@phone.local` : ''),
+          name: method === 'phone' ? cleanPhone : email,
+          role: pendingRole,
+          language_pref: lang,
+        })
+        await supabase.auth.updateUser({ data: { role: pendingRole } })
+        localStorage.setItem('chaalak_role', pendingRole)
+        router.replace('/')
+      }
+    } else if (mode === 'signup') {
+      const pendingRole = localStorage.getItem('chaalak_pending_role') || 'passenger'
+      const { data: existing } = await supabase.from('users').select('role').eq('id', user.id).maybeSingle()
+      
+      if (!existing) {
+        const cleanIdentifier = method === 'phone' ? `+91${phone.replace(/\s/g, '')}` : email
+        await supabase.from('users').insert({
+          id: user.id,
+          phone: method === 'phone' ? cleanIdentifier : null,
+          email: method === 'email' ? email : `${cleanIdentifier.replace('+', '')}@phone.local`,
+          name: '',
+          role: pendingRole,
+          language_pref: localStorage.getItem('chaalak_lang') || 'as',
+        })
+        
+        if (pendingRole === 'passenger') {
+          await supabase.from('passengers').insert({
+            user_id: user.id,
+            total_rides: 0,
+            thumbs_given: 0,
+            no_show_count: 0
+          })
+          await supabase.auth.updateUser({ data: { role: 'passenger' } })
+          localStorage.setItem('chaalak_role', 'passenger')
+          router.replace('/')
+        } else if (pendingRole === 'puller') {
+          await supabase.auth.updateUser({ data: { role: 'puller' } })
+          localStorage.setItem('chaalak_role', 'puller')
+          router.replace('/onboarding')
+        }
+      } else {
+        // Already exists
+        await supabase.auth.updateUser({ data: { role: existing.role } })
+        localStorage.setItem('chaalak_role', existing.role)
+        if (existing.role === 'passenger') router.replace('/')
+        else if (existing.role === 'admin') router.replace('/admin/dashboard')
+        else {
+          const { data: puller } = await supabase.from('pullers').select('status').eq('user_id', user.id).maybeSingle()
+          if (puller?.status === 'active') router.replace('/dashboard')
+          else setStep('PENDING')
+        }
+      }
+      localStorage.removeItem('chaalak_pending_role')
     }
 
-    const role = existing?.role ?? selectedRole ?? 'passenger'
-    localStorage.setItem('chaalak_role', role)
-    localStorage.setItem('chaalak_lang', lang)
-
-    if (role === 'passenger') router.push('/')
-    else if (role === 'admin') router.push('/admin/dashboard')
-    else {
-      const { data: puller } = await supabase.from('pullers').select('status').eq('user_id', user.id).maybeSingle()
-      if (puller?.status === 'active') router.push('/dashboard')
-      else setStep('PENDING')
-    }
     setLoading(false)
   }
 
-  async function handleDemoLogin(email: string) {
+  async function handleDemoLogin(demoEmail: string) {
     setLoading(true)
     const supabase = createClient()
-    const { error: loginErr } = await supabase.auth.signInWithPassword({ email, password: 'test1234' })
+    const { error: loginErr } = await supabase.auth.signInWithPassword({ email: demoEmail, password: 'test1234' })
     if (loginErr) { alert(loginErr.message); setLoading(false); return }
 
     const { data: { user: demoUser } } = await supabase.auth.getUser()
@@ -254,6 +278,25 @@ export default function AuthPage() {
     setOtp(next)
     if (val && i < 5) otpRefs.current[i + 1]?.focus()
   }
+
+  function handlePaste(e: React.ClipboardEvent) {
+    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6)
+    if (pasted.length === 6) {
+      const next = pasted.split('')
+      setOtp(next)
+      // auto submit could happen here or in a useEffect checking otp.join('').length
+      otpRefs.current[5]?.focus()
+    }
+  }
+
+  // Auto-submit OTP
+  useEffect(() => {
+    if (otp.join('').length === 6 && step === 'OTP_VERIFY') {
+      handleVerify()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [otp, step])
+
 
   // Screens
   const screens: Record<Step, React.ReactNode> = {
@@ -289,101 +332,176 @@ export default function AuthPage() {
       </motion.div>
     ),
 
-    // ── SCREEN 2: Role Select ──────────────────────────────────────────────
-    ROLE_SELECT: (
-      <motion.div key="ROLE_SELECT" {...SLIDE} className="flex flex-col min-h-[100dvh] px-6 pt-12 bg-[#FAFAFA]">
-        <button onClick={() => setStep('LANG_SELECT')} className="h-10 w-10 flex items-center justify-center rounded-full bg-[#F4F4F5] text-[#1D4ED8] active:scale-90 transition-transform">
-          <ChevronLeft size={24} />
-        </button>
+    // ── SCREEN 2: ENTRY (LOGIN / SIGNUP) ──────────────────────────────────────────────
+    ENTRY: (
+      <motion.div key="ENTRY" {...SLIDE} className="flex flex-col min-h-[100dvh] bg-white">
+        <div className="px-6 pt-12 pb-4">
+          <button onClick={() => setStep('LANG_SELECT')} className="h-10 w-10 flex items-center justify-center rounded-full bg-[#F4F4F5] text-[#1D4ED8] active:scale-90 transition-transform mb-6">
+            <ChevronLeft size={24} />
+          </button>
+        </div>
 
-        <h2 className="mt-10 text-[28px] font-bold text-[#0F172A] font-display uppercase">{tx.chooseRole}</h2>
-
-        <div className="mt-8 grid grid-cols-2 gap-4">
-          {/* PULLER card */}
-          <button
-            onClick={() => setSelectedRole('puller')}
-            className={`flex flex-col items-center p-6 rounded-[16px] border-[1.5px] bg-white transition-all active:scale-[0.98] ${
-              selectedRole === 'puller' ? 'bg-[#EFF6FF] border-[#1D4ED8] border-2' : 'border-[#E4E4E7]'
-            }`}
+        {/* Tabs */}
+        <div className="flex border-b-[2px] border-[#E4E4E7] px-6">
+          <button 
+            onClick={() => setMode('login')}
+            className={`flex-1 pb-3 text-center text-[15px] font-bold font-body transition-colors ${mode === 'login' ? 'border-b-[2px] border-[#1D4ED8] text-[#1D4ED8]' : 'text-[#94A3B8]'} -mb-[2px]`}
           >
-            <div className="flex gap-2 mb-8 text-[#1D4ED8]">
-              <RickshawIcon className="h-8 w-8" />
-              <AutoIcon className="h-8 w-8" />
-              <Bike className="h-8 w-8" />
+            {tx.login}
+          </button>
+          <button 
+            onClick={() => setMode('signup')}
+            className={`flex-1 pb-3 text-center text-[15px] font-bold font-body transition-colors ${mode === 'signup' ? 'border-b-[2px] border-[#1D4ED8] text-[#1D4ED8]' : 'text-[#94A3B8]'} -mb-[2px]`}
+          >
+            {tx.signup}
+          </button>
+        </div>
+
+        <div className="flex-1 px-6 pt-8 pb-12 overflow-y-auto">
+          {mode === 'login' ? (
+            <div className="flex flex-col h-full animate-fade-in">
+              <h2 className="text-[32px] font-extrabold text-[#0F172A] font-display uppercase leading-tight">{tx.welcome_back}</h2>
+              <p className="mt-1 text-[14px] font-medium text-[#64748B] font-body">{tx.login} to your account</p>
+              
+              <div className="mt-6 flex gap-2">
+                <button onClick={() => setMethod('phone')} className={`px-4 py-2 rounded-full text-[12px] font-semibold font-body flex items-center gap-1 border transition-colors ${method === 'phone' ? 'bg-[#EFF6FF] border-[#1D4ED8] text-[#1D4ED8]' : 'bg-[#F4F4F5] border-[#E4E4E7] text-[#64748B]'}`}>
+                  <PhoneIcon size={14} /> {tx.phone_method}
+                </button>
+                <button onClick={() => setMethod('email')} className={`px-4 py-2 rounded-full text-[12px] font-semibold font-body flex items-center gap-1 border transition-colors ${method === 'email' ? 'bg-[#EFF6FF] border-[#1D4ED8] text-[#1D4ED8]' : 'bg-[#F4F4F5] border-[#E4E4E7] text-[#64748B]'}`}>
+                  <Mail size={14} /> {tx.email_method}
+                </button>
+              </div>
+
+              <div className="mt-6 relative">
+                {method === 'phone' ? (
+                  <>
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1D4ED8] font-bold text-[20px] font-display tracking-tight">+91</div>
+                    <input
+                      type="tel"
+                      maxLength={10}
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                      className="w-full bg-white border-[1.5px] border-[#E4E4E7] rounded-xl py-4 pl-16 pr-4 text-[#0F172A] text-[18px] font-medium font-body tracking-[0.05em] outline-none focus:border-[#1D4ED8] transition-colors"
+                      placeholder="00000 00000"
+                    />
+                  </>
+                ) : (
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-white border-[1.5px] border-[#E4E4E7] rounded-xl py-4 px-4 text-[#0F172A] text-[18px] font-medium font-body tracking-[0.05em] outline-none focus:border-[#1D4ED8] transition-colors"
+                    placeholder="you@example.com"
+                  />
+                )}
+              </div>
+
+              <button
+                onClick={handleSendOtp}
+                disabled={loading || (method === 'phone' && phone.length !== 10) || (method === 'email' && !email.includes('@'))}
+                className="mt-6 w-full h-14 bg-[#1D4ED8] text-white rounded-[12px] text-[18px] font-bold font-display uppercase transition-all disabled:bg-[#E4E4E7] disabled:text-[#94A3B8]"
+              >
+                {loading ? '...' : tx.send_otp}
+              </button>
             </div>
-            <span className="text-[20px] font-bold text-[#0F172A] font-display uppercase">{tx.puller}</span>
-            <span className="mt-1 text-[11px] font-bold text-[#94A3B8] font-display tracking-tight text-center">{tx.pullerDesc}</span>
-          </button>
+          ) : (
+            <div className="flex flex-col h-full animate-fade-in">
+              <h2 className="text-[32px] font-extrabold text-[#0F172A] font-display uppercase leading-tight">{tx.create_account}</h2>
+              <p className="mt-1 text-[14px] font-medium text-[#64748B] font-body">Join Chaalak</p>
+              
+              <div className="mt-6">
+                <p className="text-[14px] font-semibold text-[#64748B] font-body mb-3">{tx.i_am_a}</p>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    onClick={() => setSelectedRole('puller')}
+                    className={`flex flex-col items-center p-5 rounded-[16px] border-[1.5px] bg-white transition-all active:scale-[0.98] ${
+                      selectedRole === 'puller' ? 'bg-[#EFF6FF] border-[#1D4ED8] border-2' : 'border-[#E4E4E7]'
+                    }`}
+                  >
+                    <div className="flex gap-1.5 mb-3 text-[#1D4ED8]">
+                      <RickshawIcon className="h-7 w-7" />
+                      <AutoIcon className="h-7 w-7" />
+                      <Bike className="h-7 w-7" />
+                    </div>
+                    <span className="text-[20px] font-bold text-[#0F172A] font-display uppercase">{tx.puller}</span>
+                    <span className="mt-1 text-[11px] font-medium text-[#64748B] font-body text-center">{tx.pullerDesc}</span>
+                  </button>
 
-          {/* PASSENGER card */}
-          <button
-            onClick={() => setSelectedRole('passenger')}
-            className={`flex flex-col items-center p-6 rounded-[16px] border-[1.5px] bg-white transition-all active:scale-[0.98] ${
-              selectedRole === 'passenger' ? 'bg-[#EFF6FF] border-[#1D4ED8] border-2' : 'border-[#E4E4E7]'
-            }`}
-          >
-            <div className="mb-8 text-[#1D4ED8]">
-              <HailingPerson className="h-14 w-14" />
+                  <button
+                    onClick={() => setSelectedRole('passenger')}
+                    className={`flex flex-col items-center p-5 rounded-[16px] border-[1.5px] bg-white transition-all active:scale-[0.98] ${
+                      selectedRole === 'passenger' ? 'bg-[#EFF6FF] border-[#1D4ED8] border-2' : 'border-[#E4E4E7]'
+                    }`}
+                  >
+                    <div className="mb-3 text-[#1D4ED8]">
+                      <HailingPerson className="h-[52px] w-[52px]" />
+                    </div>
+                    <span className="text-[20px] font-bold text-[#0F172A] font-display uppercase">{tx.passenger}</span>
+                    <span className="mt-1 text-[11px] font-medium text-[#64748B] font-body text-center">Book rides instantly</span>
+                  </button>
+                </div>
+              </div>
+
+              {selectedRole && (
+                <div className="mt-6 animate-slide-up">
+                  <div className="flex gap-2">
+                    <button onClick={() => setMethod('phone')} className={`px-4 py-2 rounded-full text-[12px] font-semibold font-body flex items-center gap-1 border transition-colors ${method === 'phone' ? 'bg-[#EFF6FF] border-[#1D4ED8] text-[#1D4ED8]' : 'bg-[#F4F4F5] border-[#E4E4E7] text-[#64748B]'}`}>
+                      <PhoneIcon size={14} /> {tx.phone_method}
+                    </button>
+                    <button onClick={() => setMethod('email')} className={`px-4 py-2 rounded-full text-[12px] font-semibold font-body flex items-center gap-1 border transition-colors ${method === 'email' ? 'bg-[#EFF6FF] border-[#1D4ED8] text-[#1D4ED8]' : 'bg-[#F4F4F5] border-[#E4E4E7] text-[#64748B]'}`}>
+                      <Mail size={14} /> {tx.email_method}
+                    </button>
+                  </div>
+
+                  <div className="mt-4 relative">
+                    {method === 'phone' ? (
+                      <>
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1D4ED8] font-bold text-[20px] font-display tracking-tight">+91</div>
+                        <input
+                          type="tel"
+                          maxLength={10}
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                          className="w-full bg-white border-[1.5px] border-[#E4E4E7] rounded-xl py-4 pl-16 pr-4 text-[#0F172A] text-[18px] font-medium font-body tracking-[0.05em] outline-none focus:border-[#1D4ED8] transition-colors"
+                          placeholder="00000 00000"
+                        />
+                      </>
+                    ) : (
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full bg-white border-[1.5px] border-[#E4E4E7] rounded-xl py-4 px-4 text-[#0F172A] text-[18px] font-medium font-body tracking-[0.05em] outline-none focus:border-[#1D4ED8] transition-colors"
+                        placeholder="you@example.com"
+                      />
+                    )}
+                  </div>
+
+                  <button
+                    onClick={handleSendOtp}
+                    disabled={loading || !selectedRole || (method === 'phone' && phone.length !== 10) || (method === 'email' && !email.includes('@'))}
+                    className="mt-6 w-full h-14 bg-[#1D4ED8] text-white rounded-[12px] text-[18px] font-bold font-display uppercase transition-all disabled:bg-[#E4E4E7] disabled:text-[#94A3B8]"
+                  >
+                    {loading ? '...' : tx.create_account}
+                  </button>
+                </div>
+              )}
             </div>
-            <span className="text-[20px] font-bold text-[#0F172A] font-display uppercase">{tx.passenger}</span>
-            <span className="mt-1 text-[11px] font-bold text-[#94A3B8] font-display tracking-tight text-center">{tx.passengerDesc}</span>
-          </button>
-        </div>
+          )}
 
-        <div className="mt-auto pb-12">
-          <button
-            disabled={!selectedRole}
-            onClick={() => setStep('PHONE_LOGIN')}
-            className={`w-full h-14 rounded-[12px] flex items-center justify-center gap-2 text-[18px] font-bold font-display uppercase transition-all ${
-              selectedRole ? 'bg-[#1D4ED8] text-white' : 'bg-[#E4E4E7] text-[#94A3B8]'
-            }`}
-          >
-            {tx.continue} <ArrowRight size={20} />
-          </button>
-        </div>
-      </motion.div>
-    ),
+          {/* SCREEN 3: DEMO ACCOUNTS */}
+          <div className="mt-12">
+            <div className="flex items-center gap-3">
+              <div className="h-[1px] flex-1 bg-[#E4E4E7]" />
+              <span className="text-[11px] font-normal text-[#94A3B8] font-body">{tx.demo_accounts}</span>
+              <div className="h-[1px] flex-1 bg-[#E4E4E7]" />
+            </div>
 
-    // ── SCREEN 3: Phone Login ──────────────────────────────────────────────
-    PHONE_LOGIN: (
-      <motion.div key="PHONE_LOGIN" {...SLIDE} className="flex flex-col min-h-[100dvh] px-6 pt-12 bg-[#FAFAFA]">
-        <button onClick={() => setStep('ROLE_SELECT')} className="h-10 w-10 flex items-center justify-center rounded-full bg-[#F4F4F5] text-[#1D4ED8] active:scale-90 transition-transform">
-          <ChevronLeft size={24} />
-        </button>
-
-        <h2 className="mt-10 text-[32px] font-extrabold text-[#0F172A] font-display uppercase leading-tight">{tx.enterPhone}</h2>
-
-        <div className="mt-10 relative">
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1D4ED8] font-bold text-[20px] font-display tracking-tight">+91</div>
-          <input
-            type="tel"
-            maxLength={10}
-            value={phone}
-            onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-            className="w-full bg-white border-[1.5px] border-[#E4E4E7] rounded-xl py-4 pl-16 pr-4 text-[#0F172A] text-[18px] font-medium font-body tracking-[0.05em] outline-none focus:border-[#1D4ED8] transition-colors"
-            placeholder="00000 00000"
-          />
-        </div>
-
-        <button
-          onClick={handleSendOtp}
-          disabled={phone.length !== 10 || loading}
-          className="mt-6 w-full h-14 bg-[#1D4ED8] text-white rounded-[12px] text-[18px] font-bold font-display uppercase transition-all disabled:bg-[#E4E4E7] disabled:text-[#94A3B8]"
-        >
-          {loading ? '...' : tx.sendOtp}
-        </button>
-
-        <div className="mt-12">
-          <div className="flex items-center gap-3">
-            <div className="h-[1.5px] flex-1 bg-[#E4E4E7]" />
-            <span className="text-[11px] font-normal text-[#94A3B8] font-body uppercase tracking-wider">Demo Accounts</span>
-            <div className="h-[1.5px] flex-1 bg-[#E4E4E7]" />
-          </div>
-
-          <div className="mt-6 flex gap-2">
-            <DemoBtn label="Passenger" color="bg-[#EFF6FF] border-[#1D4ED8] text-[#1D4ED8]" onClick={() => handleDemoLogin('passenger@test.com')} />
-            <DemoBtn label="Puller" color="bg-[#DCFCE7] border-[#16A34A] text-[#16A34A]" onClick={() => handleDemoLogin('puller@test.com')} />
-            <DemoBtn label="Admin" color="bg-[#F4F4F5] border-[#D1D5DB] text-[#64748B]" onClick={() => handleDemoLogin('admin@chaalak.app')} />
+            <div className="mt-6 flex justify-center gap-2">
+              <DemoBtn label="Passenger" color="bg-[#EFF6FF] border-[#1D4ED8] text-[#1D4ED8]" onClick={() => handleDemoLogin('passenger@test.com')} />
+              <DemoBtn label="Puller" color="bg-[#DCFCE7] border-[#16A34A] text-[#16A34A]" onClick={() => handleDemoLogin('puller@test.com')} />
+              <DemoBtn label="Admin" color="bg-[#F4F4F5] border-[#D1D5DB] text-[#64748B]" onClick={() => handleDemoLogin('admin@chaalak.app')} />
+            </div>
           </div>
         </div>
       </motion.div>
@@ -391,15 +509,23 @@ export default function AuthPage() {
 
     // ── SCREEN 4: OTP Verify ───────────────────────────────────────────────
     OTP_VERIFY: (
-      <motion.div key="OTP_VERIFY" {...SLIDE} className="flex flex-col min-h-[100dvh] px-6 pt-12 bg-[#FAFAFA]">
-        <button onClick={() => setStep('PHONE_LOGIN')} className="h-10 w-10 flex items-center justify-center rounded-full bg-[#F4F4F5] text-[#1D4ED8] active:scale-90 transition-transform">
+      <motion.div key="OTP_VERIFY" {...SLIDE} className="flex flex-col min-h-[100dvh] px-6 pt-12 bg-white">
+        <button onClick={() => setStep('ENTRY')} className="h-10 w-10 flex items-center justify-center rounded-full bg-[#F4F4F5] text-[#1D4ED8] active:scale-90 transition-transform">
           <ChevronLeft size={24} />
         </button>
 
-        <h2 className="mt-10 text-[32px] font-extrabold text-[#0F172A] font-display uppercase leading-tight">{tx.verifyOtp}</h2>
-        <p className="mt-2 text-[14px] font-medium text-[#64748B] font-body">Sent to +91 {phone}</p>
+        <div className="mt-8 flex justify-center">
+          <div className="h-[80px] w-[80px] rounded-full bg-[#EFF6FF] flex items-center justify-center">
+            {method === 'email' ? <Mail size={48} className="text-[#1D4ED8]" /> : <PhoneIcon size={48} className="text-[#1D4ED8]" />}
+          </div>
+        </div>
 
-        <div className="mt-12 flex justify-between gap-2">
+        <h2 className="mt-8 text-[28px] font-extrabold text-[#0F172A] font-display uppercase leading-tight text-center">
+          {method === 'phone' ? `Enter the code sent to +91${phone.slice(-4).padStart(10, '*')}` : `Enter the code sent to ${email.substring(0, 2)}***@${email.split('@')[1]}`}
+        </h2>
+        <p className="mt-2 text-[13px] font-medium text-[#64748B] font-body text-center">6-digit code · expires in 10 min</p>
+
+        <div className="mt-10 flex justify-center gap-2" onPaste={handlePaste}>
           {otp.map((digit, i) => (
             <input
               key={i}
@@ -411,7 +537,7 @@ export default function AuthPage() {
               onKeyDown={(e) => {
                 if (e.key === 'Backspace' && !otp[i] && i > 0) otpRefs.current[i - 1]?.focus()
               }}
-              className="w-[48px] h-[60px] bg-white border-[1.5px] border-[#E4E4E7] rounded-xl text-center text-[#1D4ED8] text-[28px] font-extrabold font-display outline-none focus:border-[#1D4ED8] focus:border-2 transition-all"
+              className={`w-[48px] h-[60px] bg-white border-[1.5px] rounded-xl text-center text-[#1D4ED8] text-[28px] font-extrabold font-display outline-none transition-all ${digit ? 'bg-[#EFF6FF] border-[#1D4ED8]' : 'border-[#E4E4E7]'} focus:border-[#1D4ED8] focus:border-2 focus:shadow-[0_0_0_3px_#EFF6FF]`}
             />
           ))}
         </div>
@@ -421,34 +547,50 @@ export default function AuthPage() {
           disabled={otp.join('').length !== 6 || loading}
           className="mt-8 w-full h-14 bg-[#1D4ED8] text-white rounded-[12px] text-[18px] font-bold font-display uppercase transition-all disabled:bg-[#E4E4E7] disabled:text-[#94A3B8]"
         >
-          {loading ? '...' : tx.verify}
+          {loading ? '...' : tx.verify_otp}
         </button>
+
+        <div className="mt-8 text-center">
+          <span className="text-[12px] font-normal text-[#64748B] font-body">Didn&apos;t receive it? </span>
+          <button 
+            onClick={handleSendOtp} 
+            disabled={resendCooldown > 0} 
+            className="text-[12px] font-semibold text-[#1D4ED8] underline disabled:text-[#94A3B8] disabled:no-underline"
+          >
+            {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend'}
+          </button>
+        </div>
       </motion.div>
     ),
 
     // ── PENDING Screen ─────────────────────────────────────────────────────
     PENDING: (
-      <motion.div key="PENDING" {...SLIDE} className="flex flex-col items-center justify-center min-h-[100dvh] px-8 text-center bg-[#FAFAFA]">
-        <div className="h-20 w-20 bg-[#EFF6FF] rounded-full flex items-center justify-center border-2 border-blue-100 mb-8">
-          <ShieldCheck className="h-10 w-10 text-[#1D4ED8]" />
+      <motion.div key="PENDING" {...SLIDE} className="flex flex-col items-center justify-center min-h-[100dvh] px-8 text-center bg-white">
+        <div className="h-[80px] w-[80px] bg-[#FEF3C7] rounded-full flex items-center justify-center mb-8">
+          <Clock size={48} className="text-[#D97706]" />
         </div>
-        <h2 className="text-[32px] font-extrabold text-[#0F172A] font-display uppercase mb-2 leading-tight">{tx.pendingTitle}</h2>
-        <p className="text-[#64748B] font-body leading-relaxed mb-12">{tx.pendingBody}</p>
+        <h2 className="text-[28px] font-extrabold text-[#0F172A] font-display uppercase mb-2 leading-tight">Application Submitted</h2>
+        <p className="text-[#64748B] font-body text-[14px] leading-relaxed mb-6 max-w-[280px]">
+          Your puller profile is being reviewed. You&apos;ll be able to start accepting rides once approved.
+        </p>
+        
         <button
           onClick={() => {
             const supabase = createClient()
             supabase.auth.signOut().then(() => router.push('/auth'))
           }}
-          className="px-8 py-3 rounded-full border border-[#E4E4E7] text-[#94A3B8] text-[14px] font-bold font-body hover:text-[#0F172A] transition-colors"
+          className="w-full h-12 bg-[#F4F4F5] rounded-[12px] text-[#0F172A] text-[14px] font-bold font-body transition-colors mt-6"
         >
           {tx.logout}
         </button>
+        
+        <p className="mt-8 text-[12px] font-normal text-[#94A3B8] font-body">Questions? WhatsApp: +91XXXXXXXXXX</p>
       </motion.div>
     ),
   }
 
   return (
-    <div className="min-h-[100dvh] bg-[#FAFAFA] overflow-hidden select-none">
+    <div className="min-h-[100dvh] bg-white overflow-hidden select-none">
       <AnimatePresence mode="wait">
         {screens[step]}
       </AnimatePresence>
@@ -460,7 +602,7 @@ function DemoBtn({ label, color, onClick }: { label: string; color: string; onCl
   return (
     <button
       onClick={onClick}
-      className={`flex-1 py-3 px-1 rounded-[8px] text-[12px] font-semibold border-1.5 transition-all active:scale-[0.95] ${color}`}
+      className={`px-4 py-3 rounded-xl text-[12px] font-bold font-body border transition-all active:scale-[0.95] ${color}`}
     >
       {label}
     </button>
