@@ -46,7 +46,7 @@ export interface OnlinePuller {
   zones?: {
     zone_number: number
     color_hex: string
-  }
+  }[]
 }
 
 export interface PassengerMapProps {

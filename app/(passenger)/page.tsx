@@ -188,7 +188,7 @@ function PassengerHomePage() {
       .not('lat', 'is', null)
       .not('lng', 'is', null)
     
-    if (pullers) setOnlinePullers(pullers as any)
+    if (pullers) setOnlinePullers(pullers as OnlinePuller[])
   }
 
   // Realtime & Polling
