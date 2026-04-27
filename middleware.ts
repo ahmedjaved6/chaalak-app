@@ -7,9 +7,8 @@ export async function middleware(request: NextRequest) {
   const { response, user } = await updateSession(request)
 
   // public routes — no auth required
-  if (pathname.startsWith('/auth')) return response
-  if (pathname.startsWith('/api/push/')) return response
-  if (pathname.startsWith('/share')) return response
+  const excluded = ['/auth', '/auth/callback', '/api/push/', '/share']
+  if (excluded.some(path => pathname.startsWith(path))) return response
 
   // Unauthenticated → redirect to /auth
   if (!user) {

@@ -131,10 +131,19 @@ export default function AuthPage() {
     
     let err
     if (method === 'phone') {
-      const { error } = await supabase.auth.signInWithOtp({ phone: identifier })
+      const { error } = await supabase.auth.signInWithOtp({
+        phone: identifier,
+        options: { shouldCreateUser: true }
+      })
       err = error
     } else {
-      const { error } = await supabase.auth.signInWithOtp({ email: identifier, options: { shouldCreateUser: true } })
+      const { error } = await supabase.auth.signInWithOtp({
+        email: identifier,
+        options: {
+          shouldCreateUser: true,
+          emailRedirectTo: `${window.location.origin}/auth/callback`
+        }
+      })
       err = error
     }
 
