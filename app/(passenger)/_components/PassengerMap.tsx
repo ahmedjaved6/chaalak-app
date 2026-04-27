@@ -38,8 +38,15 @@ const pullerIcon = L.divIcon({
 
 export interface OnlinePuller {
   id: string
+  badge_code: string
+  badge_number: number
   lat: number | null
   lng: number | null
+  zone_id: string
+  zones?: {
+    zone_number: number
+    color_hex: string
+  }
 }
 
 export interface PassengerMapProps {

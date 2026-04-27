@@ -109,8 +109,8 @@ function PassengerHomePage() {
   const router = useRouter()
   const sbRef = useRef(createClient())
 
-  const [passengerPos]                       = useState<[number, number] | null>(null)
-  const [onlinePullers]                     = useState<OnlinePuller[]>([])
+  const [passengerPos, setPassengerPos]     = useState<[number, number] | null>(null)
+  const [onlinePullers, setOnlinePullers]   = useState<OnlinePuller[]>([])
   const [zones, setZones]                   = useState<Zone[]>(FALLBACK_ZONES)
   const [selectedZoneId, setSelectedZoneId] = useState<string>('')
   const [passengerId, setPassengerId]       = useState<string>('')
@@ -179,6 +179,52 @@ function PassengerHomePage() {
     init()
     return () => clearTimeout(t)
   }, [router])
+
+  const fetchOnlinePullers = async () => {
+    const { data: pullers } = await sbRef.current
+      .from('pullers')
+      .select('id, badge_code, badge_number, lat, lng, zone_id, zones(zone_number, color_hex)')
+      .eq('is_online', true)
+      .not('lat', 'is', null)
+      .not('lng', 'is', null)
+    
+    if (pullers) setOnlinePullers(pullers as any)
+  }
+
+  // Realtime & Polling
+  useEffect(() => {
+    fetchOnlinePullers()
+    
+    const channel = sbRef.current
+      .channel('online-pullers')
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'pullers',
+        filter: 'is_online=eq.true'
+      }, () => {
+        fetchOnlinePullers()
+      })
+      .subscribe()
+
+    const interval = setInterval(fetchOnlinePullers, 15000)
+
+    return () => {
+      sbRef.current.removeChannel(channel)
+      clearInterval(interval)
+    }
+  }, [])
+
+  // Geolocation
+  useEffect(() => {
+    if (!('geolocation' in navigator)) return
+    const id = navigator.geolocation.watchPosition(
+      (pos) => setPassengerPos([pos.coords.latitude, pos.coords.longitude]),
+      () => {},
+      { enableHighAccuracy: true, timeout: 5000 }
+    )
+    return () => navigator.geolocation.clearWatch(id)
+  }, [])
 
   // Booking
   async function handleBook() {
