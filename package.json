@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/barlow-condensed": "^5.2.8",
     "@fontsource/noto-sans-bengali": "^5.2.11",
     "@fontsource/noto-sans-devanagari": "^5.2.8",
     "@hookform/resolvers": "^5.2.2",

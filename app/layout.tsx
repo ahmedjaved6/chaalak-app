@@ -1,20 +1,9 @@
 import type { Metadata, Viewport } from "next";
-
-import "./globals.css";
-
-import { Nunito, Noto_Sans_Bengali, Noto_Sans_Devanagari } from "next/font/google";
+import { Barlow_Condensed, Noto_Sans_Bengali, Inter } from "next/font/google";
 import "./globals.css";
 import OfflineBanner from "@/components/OfflineBanner";
 
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
-  variable: "--font-nunito",
-  display: "swap",
-  preload: true,
-});
-
+// Noto Sans Bengali for local language support
 const notoBengali = Noto_Sans_Bengali({
   subsets: ["bengali"],
   weight: ["400", "700"],
@@ -23,12 +12,19 @@ const notoBengali = Noto_Sans_Bengali({
   preload: false,
 });
 
-const notoDevanagari = Noto_Sans_Devanagari({
-  subsets: ["devanagari"],
-  weight: ["400", "700"],
-  variable: "--font-noto-devanagari",
+// Barlow Condensed for high-impact display text
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-barlow-condensed",
   display: "swap",
-  preload: false,
+});
+
+// Inter for clean body text
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -42,12 +38,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1A1A1E",
+  themeColor: "#1D4ED8", // Updated to new brand blue
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   viewportFit: "cover",
-}
+};
 
 export default function RootLayout({
   children,
@@ -62,8 +58,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
       <body
-        className={`${nunito.variable} ${notoBengali.variable} ${notoDevanagari.variable} antialiased font-sans`}
-        style={{ fontFamily: "var(--font-nunito), sans-serif" }}
+        className={`${barlowCondensed.variable} ${notoBengali.variable} ${inter.variable} antialiased font-sans`}
       >
         {children}
         <OfflineBanner />

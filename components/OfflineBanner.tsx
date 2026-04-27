@@ -1,5 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { WifiOff } from 'lucide-react'
 
 export default function OfflineBanner() {
   const [offline, setOffline] = useState(false)
@@ -19,19 +21,21 @@ export default function OfflineBanner() {
     }
   }, [])
 
-  if (!offline) return null
-
   return (
-    <div style={{
-      position:'fixed', bottom:0, left:0, right:0, zIndex:9999,
-      background:'#1A1A1E', borderTop:'1.5px solid #EF4444',
-      padding:'12px 16px', display:'flex', alignItems:'center',
-      gap:'10px', justifyContent:'center'
-    }}>
-      <div style={{width:8,height:8,borderRadius:'50%',background:'#EF4444',flexShrink:0}}/>
-      <span style={{fontFamily:'Nunito',fontWeight:700,fontSize:13,color:'white'}}>
-        Internet নাই — Reconnecting...
-      </span>
-    </div>
+    <AnimatePresence>
+      {offline && (
+        <motion.div 
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 50, opacity: 0 }}
+          className="fixed bottom-0 left-0 right-0 z-[9999] bg-[#DC2626] text-white px-5 py-3 flex items-center justify-center gap-3 shadow-[0_-4px_20px_rgba(220,38,38,0.3)]"
+        >
+          <WifiOff size={18} strokeWidth={2.5} />
+          <span className="text-[13px] font-bold font-body uppercase tracking-tight">
+            ইণ্টাৰনেট নাই — Reconnecting...
+          </span>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }

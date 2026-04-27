@@ -3,43 +3,33 @@
 import { useRouter } from 'next/navigation'
 import { LogOut } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-
 import { useT } from '@/lib/i18n'
-
 
 interface LogoutButtonProps {
   color?: string
   className?: string
 }
 
-export default function LogoutButton({ color = '#E8E5DE', className = '' }: LogoutButtonProps) {
+export default function LogoutButton({ className = '' }: LogoutButtonProps) {
   const router = useRouter()
-  const supabase = createClient()
+  const sb = createClient()
   const tr = useT()
 
   async function handleLogout() {
-    await supabase.auth.signOut()
+    await sb.auth.signOut()
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('chaalak_role')
-      localStorage.removeItem('chaalak_lang')
-      localStorage.removeItem('chaalak_active_ride')
+      localStorage.clear()
     }
-    router.push('/auth')
+    router.replace('/auth')
   }
 
   return (
     <button
       onClick={handleLogout}
-      className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-black uppercase tracking-widest transition-all active:scale-95 ${className}`}
-      style={{
-        borderColor: `${color}30`,
-        color: color,
-        background: 'transparent',
-      }}
+      className={`h-9 w-9 flex items-center justify-center rounded-full bg-[#F4F4F5] text-[#64748B] border border-[#E4E4E7] active:scale-90 transition-all shadow-sm ${className}`}
+      title={tr.logout}
     >
-      <span>{tr.logout}</span>
-      <LogOut size={13} strokeWidth={2.5} />
+      <LogOut size={16} strokeWidth={2.5} />
     </button>
-
   )
 }
