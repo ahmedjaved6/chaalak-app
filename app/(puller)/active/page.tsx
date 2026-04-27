@@ -105,7 +105,7 @@ function ActiveRidePage() {
     setBusy(true)
     try {
       await endRide(sbRef.current, data.rideId, data.pullerId)
-      router.replace(`/complete?ride_id=${data.rideId}`)
+      router.replace(`/ride-done?ride_id=${data.rideId}`)
     } catch {
       setToast('Failed to end')
       setBusy(false)

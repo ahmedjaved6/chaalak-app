@@ -2,17 +2,18 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Check, Clock, MapPin, Star } from 'lucide-react'
+import { Check, Clock, MapPin } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 import { createClient } from '@/lib/supabase/client'
+import BackButton from '@/components/BackButton'
 
 function CompletePageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const rideId = searchParams.get('ride_id')
 
-  const [ride, setRide] = useState<any>(null)
+  const [ride, setRide] = useState<any>(null) // eslint-disable-line @typescript-eslint/no-explicit-any
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -38,6 +39,9 @@ function CompletePageContent() {
 
   return (
     <main className="flex min-h-[100dvh] flex-col items-center justify-center p-8 bg-white relative">
+      <div className="absolute top-6 left-6">
+        <BackButton fallback="/dashboard" />
+      </div>
       <motion.div 
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}

@@ -26,13 +26,13 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  if (pathname.startsWith('/dashboard') || pathname.startsWith('/incoming') || pathname.startsWith('/history') || pathname.startsWith('/active')) {
+  if (pathname.startsWith('/dashboard') || pathname.startsWith('/incoming') || pathname.startsWith('/history') || pathname.startsWith('/active') || pathname.startsWith('/ride-done')) {
     if (role !== 'puller' && role !== 'admin') {
       return NextResponse.redirect(new URL('/', request.url))
     }
   }
 
-  if (pathname === '/') {
+  if (pathname === '/' || pathname === '/ride-complete') {
     if (role === 'puller') {
       return NextResponse.redirect(new URL('/dashboard', request.url))
     }

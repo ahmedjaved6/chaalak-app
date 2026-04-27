@@ -129,7 +129,7 @@ export default function PassengerRidePage() {
   // Status Redirects
   useEffect(() => {
     if ((rideStatus === 'completed' || rideStatus === 'no_show') && rideId) {
-      router.replace(`/complete?ride_id=${rideId}`)
+      router.replace(`/ride-complete?ride_id=${rideId}`)
     }
     if (rideStatus === 'cancelled' || rideStatus === 'expired') {
       localStorage.removeItem('chaalak_active_ride')
@@ -154,7 +154,7 @@ export default function PassengerRidePage() {
             await loadPullerInfo(payload.new.accepted_by)
           }
           if (s === 'completed') {
-            router.push(`/complete?ride_id=${rideId}`)
+            router.push(`/ride-complete?ride_id=${rideId}`)
           }
           if (s === 'cancelled' || s === 'expired') {
             localStorage.removeItem('chaalak_active_ride')

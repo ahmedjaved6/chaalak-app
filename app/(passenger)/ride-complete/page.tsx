@@ -19,7 +19,7 @@ function CompletePageContent() {
   const rideId = urlRideId || savedRideId
 
   const [rated, setRated] = useState(false)
-  const [ride, setRide] = useState<any>(null)
+  const [ride, setRide] = useState<any>(null) // eslint-disable-line @typescript-eslint/no-explicit-any
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
